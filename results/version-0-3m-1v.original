@@ -1,0 +1,21 @@
+Starting... (2021-03-01 14:00:23)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2021-03-01 14:00:26.
+Progress(26) at 2021-03-01 14:00:29: 106 817 states generated (106 817 s/min), 39 783 distinct states found (39 783 ds/min), 6 745 states left on queue.
+Progress(44) at 2021-03-01 14:01:30: 5 442 768 states generated (5 335 951 s/min), 1 527 954 distinct states found (1 488 171 ds/min), 235 355 states left on queue.
+Progress(48) at 2021-03-01 14:02:30: 11 770 477 states generated (6 327 709 s/min), 3 012 529 distinct states found (1 484 575 ds/min), 520 586 states left on queue.
+Progress(50) at 2021-03-01 14:03:30: 18 901 539 states generated (7 131 062 s/min), 4 519 835 distinct states found (1 507 306 ds/min), 552 731 states left on queue.
+Progress(53) at 2021-03-01 14:04:30: 25 897 056 states generated (6 995 517 s/min), 6 043 585 distinct states found (1 523 750 ds/min), 791 230 states left on queue.
+Progress(54) at 2021-03-01 14:05:30: 32 503 757 states generated (6 606 701 s/min), 7 338 834 distinct states found (1 295 249 ds/min), 930 360 states left on queue.
+Progress(55) at 2021-03-01 14:06:30: 38 499 790 states generated (5 996 033 s/min), 8 355 901 distinct states found (1 017 067 ds/min), 862 298 states left on queue.
+Progress(57) at 2021-03-01 14:07:30: 44 821 920 states generated (6 322 130 s/min), 9 339 660 distinct states found (983 759 ds/min), 567 211 states left on queue.
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 2.1E-5
+  based on the actual fingerprints:  val = 1.8E-5
+Progress(62) at 2021-03-01 14:08:21: 49 589 014 states generated (6 217 122 s/min), 9 988 855 distinct states found (1 252 332 ds/min), 0 states left on queue.
+49589014 states generated, 9988855 distinct states found, 0 states left on queue.
+The depth of the complete state graph search is 62.
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 11 and the 95th percentile is 5).
+Finished in 478587ms at (2021-03-01 14:08:21)

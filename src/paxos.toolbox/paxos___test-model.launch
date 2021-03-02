@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.lamport.tla.toolbox.tool.tlc.modelCheck">
+    <stringAttribute key="TLCCmdLineParameters" value=""/>
+    <stringAttribute key="alias" value=""/>
+    <intAttribute key="collectCoverage" value="0"/>
+    <stringAttribute key="configurationName" value="test-model"/>
+    <booleanAttribute key="deferLiveness" value="false"/>
+    <intAttribute key="dfidDepth" value="100"/>
+    <booleanAttribute key="dfidMode" value="false"/>
+    <intAttribute key="distributedFPSetCount" value="0"/>
+    <stringAttribute key="distributedNetworkInterface" value="172.17.0.1"/>
+    <intAttribute key="distributedNodesCount" value="1"/>
+    <stringAttribute key="distributedTLC" value="off"/>
+    <stringAttribute key="distributedTLCVMArgs" value=""/>
+    <intAttribute key="fpBits" value="1"/>
+    <intAttribute key="fpIndex" value="89"/>
+    <booleanAttribute key="fpIndexRandom" value="true"/>
+    <intAttribute key="maxHeapSize" value="45"/>
+    <intAttribute key="maxSetSize" value="999997"/>
+    <booleanAttribute key="mcMode" value="true"/>
+    <stringAttribute key="modelBehaviorInit" value="Init"/>
+    <stringAttribute key="modelBehaviorNext" value="Next"/>
+    <stringAttribute key="modelBehaviorSpec" value=""/>
+    <intAttribute key="modelBehaviorSpecType" value="2"/>
+    <stringAttribute key="modelBehaviorVars" value="uncommitted_v, phase, epoch, send_queue, monitor_store, messages, step_x, accepted_pn, isLeader, accepted, state, first_committed, peer_first_committed, pending_proposal, values, step, last_committed, acked_lease, peer_last_committed, uncommitted_value, num_last, new_value, number_refreshes"/>
+    <stringAttribute key="modelComments" value=""/>
+    <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
+    <listAttribute key="modelCorrectnessInvariants">
+        <listEntry value="0Inv"/>
+        <listEntry value="0Inv_find_state(&#10;    /\ step_x=&quot;restart mon&quot;&#10;    /\ \E msg \in ValidMessage(messages):&#10;        msg.type = OP_ACCEPT&#10;    /\ \A mon \in Monitors:&#10;        isLeader[mon] = FALSE&#10;    /\ number_refreshes = 2&#10;    /\ epoch = 2&#10;)"/>
+    </listAttribute>
+    <listAttribute key="modelCorrectnessProperties"/>
+    <intAttribute key="modelEditorOpenTabs" value="12"/>
+    <stringAttribute key="modelExpressionEval" value=""/>
+    <listAttribute key="modelParameterConstants">
+        <listEntry value="Monitors;;{m1, m2, m3, m4, m5};1;1"/>
+        <listEntry value="Nil;;Nil;1;0"/>
+        <listEntry value="STATE_SHUTDOWN;;STATE_SHUTDOWN;1;0"/>
+        <listEntry value="STATE_WRITING;;STATE_WRITING;1;0"/>
+        <listEntry value="OP_LAST;;OP_LAST;1;0"/>
+        <listEntry value="STATE_RECOVERING;;STATE_RECOVERING;1;0"/>
+        <listEntry value="Value_set;;{v1};1;0"/>
+        <listEntry value="STATE_UPDATING;;STATE_UPDATING;1;0"/>
+        <listEntry value="OP_COMMIT;;OP_COMMIT;1;0"/>
+        <listEntry value="OP_BEGIN;;OP_BEGIN;1;0"/>
+        <listEntry value="STATE_REFRESH;;STATE_REFRESH;1;0"/>
+        <listEntry value="STATE_UPDATING_PREVIOUS;;STATE_UPDATING_PREVIOUS;1;0"/>
+        <listEntry value="OP_COLLECT;;OP_COLLECT;1;0"/>
+        <listEntry value="OP_ACCEPT;;OP_ACCEPT;1;0"/>
+        <listEntry value="STATE_WRITING_PREVIOUS;;STATE_WRITING_PREVIOUS;1;0"/>
+        <listEntry value="STATE_ACTIVE;;STATE_ACTIVE;1;0"/>
+        <listEntry value="OP_LEASE_ACK;;OP_LEASE_ACK;1;0"/>
+        <listEntry value="OP_LEASE;;OP_LEASE;1;0"/>
+        <listEntry value="PHASE_ELECTION;;PHASE_ELECTION;1;0"/>
+        <listEntry value="PHASE_LEASE_DONE;;PHASE_LEASE_DONE;1;0"/>
+        <listEntry value="PHASE_BEGIN;;PHASE_BEGIN;1;0"/>
+        <listEntry value="PHASE_BEGIN_DONE;;PHASE_BEGIN_DONE;1;0"/>
+        <listEntry value="PHASE_PRE_COLLECT;;PHASE_PRE_COLLECT;1;0"/>
+        <listEntry value="PHASE_COLLECT;;PHASE_COLLECT;1;0"/>
+        <listEntry value="PHASE_LEASE;;PHASE_LEASE;1;0"/>
+        <listEntry value="PHASE_COMMIT;;PHASE_COMMIT;1;0"/>
+        <listEntry value="PHASE_COMMIT_DONE;;PHASE_COMMIT_DONE;1;0"/>
+    </listAttribute>
+    <intAttribute key="modelVersion" value="20191005"/>
+    <intAttribute key="numberOfWorkers" value="4"/>
+    <stringAttribute key="postCondition" value=""/>
+    <booleanAttribute key="recover" value="false"/>
+    <stringAttribute key="result.mail.address" value=""/>
+    <intAttribute key="simuAril" value="-1"/>
+    <intAttribute key="simuDepth" value="100"/>
+    <stringAttribute key="simuNumTraces" value="9223372036854775807"/>
+    <intAttribute key="simuSeed" value="-1"/>
+    <stringAttribute key="specName" value="paxos"/>
+    <stringAttribute key="tlcResourcesProfile" value="local custom"/>
+    <listAttribute key="traceExploreExpressions"/>
+    <setAttribute key="traceExploreExtends"/>
+    <stringAttribute key="view" value=""/>
+    <booleanAttribute key="visualizeStateGraph" value="false"/>
+</launchConfiguration>

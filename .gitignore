@@ -1,0 +1,7 @@
+src/paxos.toolbox/test-model_*
+src/paxos.toolbox/paxos___test-model_SnapShot*
+src/paxos.toolbox/*.pdf
+src/paxos.toolbox/*.tex
+src/paxos.toolbox/*.aux
+src/paxos.toolbox/*.log
+src/paxos.toolbox/test-model/*-*-*
