@@ -16,21 +16,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>FiniteSetsExt.tla</name>
-			<type>1</type>
-			<location>/home/afonsonf/sandbox/reps/tese-notas/ceph/draft-tla-repo/src/FiniteSetsExt.tla</location>
-		</link>
-		<link>
-			<name>Functions.tla</name>
-			<type>1</type>
-			<location>/home/afonsonf/sandbox/reps/tese-notas/ceph/draft-tla-repo/src/Functions.tla</location>
-		</link>
-		<link>
-			<name>SequencesExt.tla</name>
-			<type>1</type>
-			<location>/home/afonsonf/sandbox/reps/tese-notas/ceph/draft-tla-repo/src/SequencesExt.tla</location>
-		</link>
-		<link>
 			<name>paxos.tla</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/paxos.tla</locationURI>

@@ -3,7 +3,7 @@ EXTENDS paxos, TLC
 
 \* MV CONSTANT declarations@modelParameterConstants
 CONSTANTS
-m1, m2, m3, m4, m5
+m1, m2, m3
 ----
 
 \* MV CONSTANT declarations@modelParameterConstants
@@ -12,20 +12,15 @@ v1
 ----
 
 \* MV CONSTANT definitions Monitors
-const_16146788319165000 == 
-{m1, m2, m3, m4, m5}
+const_1614962295605180000 == 
+{m1, m2, m3}
 ----
 
 \* MV CONSTANT definitions Value_set
-const_16146788319166000 == 
+const_1614962295605181000 == 
 {v1}
-----
-
-\* SYMMETRY definition
-symm_16146788319167000 == 
-Permutations(const_16146788319165000)
 ----
 
 =============================================================================
 \* Modification History
-\* Created Tue Mar 02 09:53:51 WET 2021 by afonsonf
+\* Created Fri Mar 05 16:38:15 WET 2021 by afonsonf

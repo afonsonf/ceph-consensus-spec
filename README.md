@@ -17,29 +17,29 @@ Some of the useful things that can be done with this model are:
 
 ## How to run
 
-The specification is in the src folder and the main file is the [src/paxos.tla](src/paxos.tla). The files FiniteSetsExt.tla, Functions.tla and SequencesExt.tla are TLA+ Community Modules. The file [src/paxos.cfg](src/paxos.cfg) has a description of a model with 3 monitors.
+The specification is in the src folder and the main file is the [src/paxos.tla](src/paxos.tla). The file [src/paxos.cfg](src/paxos.cfg) has a description of a model with 3 monitors.
 
 The folder src/paxos.toolbox has some default settings used by the toolbox.
 
 #### Using the Command-Line tools
 
-1. Get tla2tools.jar from https://github.com/tlaplus/tlaplus/releases.
+1. Get tla2tools.jar from https://github.com/tlaplus/tlaplus/releases and CommunityModules.jar from https://github.com/tlaplus/CommunityModules/releases. Alternatively there is a copy of the files in the [tools](tools) folder.
 
 2. Some available tools:
   * Syntax checker: <br>
-  `java -cp tla2tools.jar tla2sany.SANY paxos.tla`
+  `java -DTLA-Library=CommunityModules.jar -cp tla2tools.jar tla2sany.SANY paxos.tla`
 
   * TLATeX Pretty-Printer: <br>
-  `java -cp tla2tools.jar tla2tex.TLA paxos.tla`
+  `java -DTLA-Library=CommunityModules.jar -cp tla2tools.jar tla2tex.TLA paxos.tla`
 
   * Model checker: <br>
-  `java -cp tla2tools.jar tlc2.TLC -workers 4 paxos.tla`
+  `java -DTLA-Library=CommunityModules.jar -cp tla2tools.jar tlc2.TLC -workers 4 paxos.tla`
 
   * Trace explorer: <br>
-  `java -cp tla2tools.jar tlc2.TraceExplorer`
+  `java -DTLA-Library=CommunityModules.jar -cp tla2tools.jar tlc2.TraceExplorer`
 
   * Interactive TLA+ REPL (version 1.8 or above): <br>
-  `java -cp tla2tools.jar tlc2.REPL`
+  `java -DTLA-Library=CommunityModules.jar -cp tla2tools.jar tlc2.REPL`
 
 Alternatively, you can use the Dockerfile to create a container with the TLA+ tools. <br>
 The container comes with alias to run the tools, respectively: tla-sany, tla-tlc, tla-trace and tla-repl.

@@ -17,10 +17,9 @@
 (*   the quorum to be the set of all monitors and that the quorum does     *)
 (*   not change over time.                                                 *)
 (*                                                                         *)
-(*   \item \ The communication layer. The variable messages holds both     *)
-(*   the messages waiting to be handled and the ones already received.     *)
-(*   For now, messages cannot be randomly duplicated nor lost, and some    *)
-(*   messages can be received out of order.                                *)
+(*   \item \ The communication layer. The variable messages holds the      *)
+(*   messages waiting to be handled. For now, messages cannot be randomly  *)
+(*   duplicated nor lost, and some messages can be received out of order.  *)
 (*                                                                         *)
 (*   \item \ The transactions. In this specification, transactions         *)
 (*   represent only a change of value in the variable monitor\_store.      *)
@@ -31,7 +30,7 @@
 (* \end{itemize}                                                           *)
 (*                                                                         *)
 (* For a more detailed overview of the specification:                      *)
-(* https://github.com/afonsonf/ceph-paxos-tla                              *)
+(* https://github.com/afonsonf/ceph-consensus-spec                         *)
 (*                                                                         *)
 (* ^'                                                                      *)
 (***************************************************************************)
@@ -102,8 +101,12 @@ messages_types == {OP_COLLECT, OP_LAST,
 VARIABLE epoch
 
 \* A function that stores messages.
-\* Type: [message 'm' |-> 1 if 'm' is in the network else 0]
+\* Type: << message >>
 VARIABLE messages
+
+\* Stores history of message events. Can be useful to find specific states.
+\* Type: { messages }
+VARIABLE message_history
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -243,7 +246,7 @@ VARIABLE number_refreshes
 (* ^'                                                                      *)
 (***************************************************************************)
 
-global_vars    == <<epoch, messages>>
+global_vars    == <<epoch, messages, message_history>>
 state_vars     == <<isLeader, state, phase>>
 restart_vars   == <<uncommitted_v, uncommitted_value>>
 data_vars      == <<monitor_store, values, accepted_pn, first_committed, last_committed>>
@@ -257,7 +260,8 @@ vars == <<global_vars, state_vars, restart_vars, data_vars, collect_vars,
 
 Init_global_vars ==
     /\ epoch = 1
-    /\ messages = [m \in {} |-> 0]
+    /\ messages = <<>>
+    /\ message_history = {}
 
 Init_state_vars ==
     /\ isLeader = [mon \in Monitors |-> FALSE]
@@ -311,30 +315,32 @@ Init ==
 
 \* Add message m to the network msgs.
 WithMessage(m, msgs) ==
-    (m :> 1) @@ msgs
-
+    Append(msgs, m)
+    
 \* Remove message m from the network msgs.
 WithoutMessage(m, msgs) ==
-    (m :> 0) @@ msgs
-
-\* Set of messages in network.
-ValidMessage(msgs) ==
-    { m \in DOMAIN messages : msgs[m] = 1 }
+    Remove(msgs, m)
 
 \* Adds the message m to the network.
+\* Variable message_history has impact in performace, update only when debugging.
 \* Variables changed: messages.
 Send(m) ==
-    messages' = WithMessage(m, messages)
-
+    /\ messages' = WithMessage(m, messages)
+    \*/\ message_history' = message_history \union {m}
+    /\ UNCHANGED message_history
+    
 \* Removes message m from the network.
 \* Variables changed: messages.
 Discard(m) ==
-    messages' = WithoutMessage(m, messages)
-
+    /\ messages' = WithoutMessage(m, messages)
+    /\ UNCHANGED message_history
+    
 \* Removes the request from network and adds the response.
 \* Variables changed: messages.
 Reply(response, request) ==
-    messages' = WithoutMessage(request, WithMessage(response, messages))
+    /\ messages' = WithoutMessage(request, WithMessage(response, messages))
+    \*/\ message_history' = message_history \union {response}
+    /\ UNCHANGED message_history
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -858,7 +864,7 @@ leader_election ==
     /\ new_value' = [m \in Monitors |-> Nil]
     /\ pending_proposal' = [m \in Monitors |-> Nil]
     /\ epoch' = epoch + 1
-    /\ UNCHANGED <<accepted, messages, send_queue>>
+    /\ UNCHANGED <<accepted, messages, message_history, send_queue>>
     /\ UNCHANGED <<data_vars, restart_vars, collect_vars, lease_vars>>
 
 \* Start recovery phase if number of monitors is greater than 1.
@@ -879,7 +885,7 @@ election_recover(mon) ==
 \* Restart a monitor and wipe variables that are not persistent.
 \* Variables changed: messages, isLeader, phase, state, pending_proposal, new_value, number_refreshes.
 restart_mon(mon) ==
-    /\ messages' = [m \in DOMAIN messages |-> IF m.from = mon THEN 0 ELSE messages[m]]
+    /\ messages' = SelectSeq(messages, LAMBDA t: t.from # mon)
     /\ isLeader' = [isLeader EXCEPT ![mon] = FALSE]
     /\ phase' = [phase EXCEPT ![mon] = PHASE_ELECTION]
     /\ state' = [state EXCEPT ![mon] = IF Len(ranks) = 1
@@ -888,7 +894,7 @@ restart_mon(mon) ==
     /\ pending_proposal' = [pending_proposal EXCEPT ![mon] = Nil]
     /\ new_value' = [new_value EXCEPT ![mon] = Nil]
     /\ number_refreshes' = number_refreshes+1
-    /\ UNCHANGED <<epoch, accepted>>
+    /\ UNCHANGED <<epoch, message_history, accepted>>
     /\ UNCHANGED <<restart_vars, data_vars, collect_vars, lease_vars, auxiliary_vars>>
 
 \* Monitor timeout (simulate message not received). Triggers new elections.
@@ -898,8 +904,8 @@ Timeout(mon) ==
     /\ phase[mon] = PHASE_COLLECT \/ phase[mon] = PHASE_BEGIN
     /\ bootstrap
     /\ send_queue' = [m \in Monitors |-> <<>>]
-    /\ messages' = [m \in DOMAIN messages |-> 0]
-    /\ UNCHANGED <<state_vars, restart_vars, data_vars, collect_vars, lease_vars, commit_vars>>
+    /\ messages' = <<>>
+    /\ UNCHANGED <<message_history, state_vars, restart_vars, data_vars, collect_vars, lease_vars, commit_vars>>
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -1016,7 +1022,7 @@ Next ==
            /\ step_x' = "propose_pending" /\ step' = step+1
            /\ UNCHANGED number_refreshes
 
-        \/ /\ \E m \in ValidMessage(messages): Receive(m)
+        \/ /\ \E i \in 1..Len(messages): Receive(messages[i])
            /\ step' = step+1
            /\ UNCHANGED number_refreshes
 
@@ -1052,7 +1058,7 @@ Inv_diam(60)
 
 Find a behavior where two different monitors assume the role of a leader.
 Inv_find_state(
-    \E msg1, msg2 \in DOMAIN messages:
+    \E msg1, msg2 \in message_history:
         /\ msg1.type = OP_COLLECT /\ msg2.type = OP_COLLECT
         /\ msg1.from # msg2.from
 )
@@ -1069,21 +1075,19 @@ Inv_find_state(
         /\ num_last[mon] = 1
 
     \* All the collect requests have been handled by the peers.
-    /\ \A m \in ValidMessage(messages):
-        m.type # OP_COLLECT
+    /\ \A i \in 1..Len(messages):
+        messages[i].type # OP_COLLECT
 
-    /\ number_refreshes = 2
     /\ epoch = 2
 )
 
 Find a state where the leader crashes during the commit phase, failing to complete the commit.
 Inv_find_state(
     /\ step_x="restart mon"
-    /\ \E msg \in ValidMessage(messages):
-        msg.type = OP_ACCEPT
+    /\ \E i \in 1..Len(messages):
+        messages[i].type = OP_ACCEPT
     /\ \A mon \in Monitors:
         isLeader[mon] = FALSE
-    /\ number_refreshes = 2
     /\ epoch = 2
 )
 Note: After finding a state, that complete state can be used as an initial state to analyze behaviors from there.
@@ -1092,5 +1096,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Mon Mar 01 17:08:50 WET 2021 by afonsonf
+\* Last modified Fri Mar 05 16:07:45 WET 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf

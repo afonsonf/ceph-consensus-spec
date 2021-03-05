@@ -22,9 +22,9 @@ The specification is written to mirror what is implemented in Ceph (source file:
 However, the specification makes some deviations/abstractions from the implemented version:
 * Election logic. The specification abstracts how the election is done, the leader is chosen randomly and, for now, only one per epoch.
 * Monitor quorum. The quorum is constant throughout the model and is used as the set of all monitors. This can be changed by having it be defined at the leader_election function.
-* The communication layer. The variable messages holds both the messages waiting to be handled and the ones already received. Messages cannot be randomly duplicated, and some messages can be received out of order. A message may be lost if the monitor that sends it restarts before the receiver handles it.
+* The communication layer. The variable messages holds the messages waiting to be handled. For now, messages cannot be randomly duplicated nor lost, and some messages can be received out of order.
 * The transactions. In the specification, transactions are simplified to represent only a change of value in the variable monitor_store.
-* Failure model. For now, if a monitor crashes it will instantly restart, resetting some variables and  continuing to participate in the quorum. This can be changed by having a dynamic quorum and if the monitor crashes having it leave the quorum until new elections are triggered.
+* Failure model. For now, if a monitor crashes it will instantly restart, resetting some variables and continuing to participate in the quorum. This can be changed by having a dynamic quorum and if the monitor crashes having it leave the quorum until new elections are triggered.
 
 ### Specification structure
 
