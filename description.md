@@ -14,7 +14,7 @@ When a proposal number is agreed on, if the leader has an uncommitted value it w
 
 If the leader changes to an active state it will tell its peers, allowing them to change also to an active state (extend lease).
 
-The commit phase starts by first sharing the value to be committed and asking his peers if it is OK to commit (ask if leader has correct proposal number and log). If the leader receives enough positive responses from its peers it will send a message to allow the peers to commit.
+The commit phase starts by first sharing the value to be committed and asking his peers if it is OK to commit (ask if leader has correct proposal number and log). If the leader receives enough positive responses from his peers it will send a message to allow the peers to commit.
 
 ### Deviations and abstractions from the original source
 
@@ -22,7 +22,7 @@ The specification is written to mirror what is implemented in Ceph (source file:
 However, the specification makes some deviations/abstractions from the implemented version:
 * Election logic. The specification abstracts how the election is done, the leader is chosen randomly and, for now, only one per epoch.
 * Monitor quorum. The quorum is constant throughout the model and is used as the set of all monitors. This can be changed by having it be defined at the leader_election function.
-* The communication layer. The variable messages holds the messages waiting to be handled. For now, messages cannot be randomly duplicated nor lost, and some messages can be received out of order.
+* The communication layer. The variable messages holds the messages waiting to be handled. For now, messages are not randomly duplicated nor lost, and some messages can be received out of order.
 * The transactions. In the specification, transactions are simplified to represent only a change of value in the variable monitor_store.
 * Failure model. For now, if a monitor crashes it will instantly restart, resetting some variables and continuing to participate in the quorum. This can be changed by having a dynamic quorum and if the monitor crashes having it leave the quorum until new elections are triggered.
 
@@ -58,10 +58,6 @@ In this section is described how some of the state variables change between stat
   state, STATE_RECOVERING <br>
   phase, PHASE_PRE_COLLECT -> PHASE_COLLECT <br>
 
-* send_collect: (leader) <br>
-  state, STATE_RECOVERING <br>
-  phase, PHASE_COLLECT <br>
-
 * handle_collect: (peon) <br>
   state, _ -> STATE_RECOVERING <br>
   phase, _ <br>
@@ -82,10 +78,6 @@ In this section is described how some of the state variables change between stat
   state, STATE_ACTIVE -> STATE_UPDATING <br>
   phase, PHASE_LEASE | PHASE_ELECTION -> PHASE_BEGIN <br>
 
-* send_begin: (leader) <br>
-  state, _ <br>
-  phase, PHASE_BEGIN <br>
-
 * handle_begin: (peon) <br>
   state, _ -> STATE_UPDATING <br>
   phase, _ <br>
@@ -102,17 +94,9 @@ In this section is described how some of the state variables change between stat
   state, STATE_REFRESH -> STATE_ACTIVE <br>
   phase, PHASE_COMMIT -> PHASE_LEASE <br>
 
-* send_commit: (leader) <br>
-  state, _ <br>
-  phase, _ <br>
-
 * handle_commit: (peon) <br>
   state, _ <br>
   phase, _ <br>
-
-* send_extend_lease: (leader) <br>
-  state, _ <br>
-  phase, PHASE_LEASE <br>
 
 * handle_lease: (peon) <br>
   state, _ -> STATE_ACTIVE <br>

@@ -12,19 +12,19 @@ v1
 ----
 
 \* MV CONSTANT definitions Monitors
-const_1614960247456165000 == 
+const_161530561528321000 == 
 {m1, m2, m3}
 ----
 
 \* MV CONSTANT definitions Value_set
-const_1614960247456166000 == 
+const_161530561528322000 == 
 {v1}
 ----
 
 \* INVARIANT definition @modelCorrectnessInvariants:0
-inv_1614960247456167000 ==
-Inv_diam(59) \/ number_refreshes # 1
+inv_161530561528423000 ==
+Inv_diam(44) \/ number_refreshes<2
 ----
 =============================================================================
 \* Modification History
-\* Created Fri Mar 05 16:04:07 WET 2021 by afonsonf
+\* Created Tue Mar 09 16:00:15 WET 2021 by afonsonf

@@ -6,7 +6,7 @@ The specification is written in the TLA+ language https://lamport.azurewebsites.
 
 A detailed description of the model can be found at: [description.md](description.md)
 <br>
-Results of the model can be found at: [results/results.md](results/results.md)
+Results of the model can be found at: [results](results)
 
 Some of the useful things that can be done with this model are:
 * Prove safety and liveness properties of the implemented algorithm. Test new versions of the algorithm to see if properties still hold.

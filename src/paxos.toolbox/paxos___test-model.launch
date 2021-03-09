@@ -13,7 +13,7 @@
     <stringAttribute key="distributedTLC" value="off"/>
     <stringAttribute key="distributedTLCVMArgs" value=""/>
     <intAttribute key="fpBits" value="1"/>
-    <intAttribute key="fpIndex" value="25"/>
+    <intAttribute key="fpIndex" value="96"/>
     <booleanAttribute key="fpIndexRandom" value="true"/>
     <intAttribute key="maxHeapSize" value="50"/>
     <intAttribute key="maxSetSize" value="999997"/>
@@ -22,16 +22,17 @@
     <stringAttribute key="modelBehaviorNext" value="Next"/>
     <stringAttribute key="modelBehaviorSpec" value=""/>
     <intAttribute key="modelBehaviorSpecType" value="2"/>
-    <stringAttribute key="modelBehaviorVars" value="uncommitted_v, phase, epoch, send_queue, monitor_store, messages, step_x, accepted_pn, isLeader, accepted, state, first_committed, peer_first_committed, pending_proposal, values, step, message_history, last_committed, acked_lease, peer_last_committed, uncommitted_value, num_last, new_value, number_refreshes"/>
+    <stringAttribute key="modelBehaviorVars" value="uncommitted_v, phase, epoch, monitor_store, messages, step_x, accepted_pn, isLeader, accepted, state, first_committed, peer_first_committed, pending_proposal, values, step, message_history, last_committed, acked_lease, peer_last_committed, uncommitted_value, num_last, new_value, number_refreshes"/>
     <stringAttribute key="modelComments" value=""/>
     <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
     <listAttribute key="modelCorrectnessInvariants">
-        <listEntry value="0Inv"/>
-        <listEntry value="0Inv_find_state(&#10;    /\ step_x=&quot;restart mon&quot;&#10;    /\ \E i \in 1..Len(messages):&#10;        messages[i].type = OP_ACCEPT&#10;    /\ \A mon \in Monitors:&#10;        isLeader[mon] = FALSE&#10;    /\ epoch = 2&#10;)"/>
+        <listEntry value="0Inv_diam(44) \/ number_refreshes&lt;2"/>
+        <listEntry value="0Inv_find_state(&#10;    /\ \E mon \in Monitors:&#10;    &#9;/\ last_committed[mon] = 3&#10;    &#9;/\ accepted_pn[mon] &gt; 300&#10;)"/>
     </listAttribute>
     <listAttribute key="modelCorrectnessProperties"/>
-    <intAttribute key="modelEditorOpenTabs" value="12"/>
+    <intAttribute key="modelEditorOpenTabs" value="14"/>
     <stringAttribute key="modelExpressionEval" value=""/>
+    <stringAttribute key="modelParameterActionConstraint" value=""/>
     <listAttribute key="modelParameterConstants">
         <listEntry value="Monitors;;{m1, m2, m3};1;0"/>
         <listEntry value="Nil;;Nil;1;0"/>
@@ -61,6 +62,10 @@
         <listEntry value="PHASE_COMMIT;;PHASE_COMMIT;1;0"/>
         <listEntry value="PHASE_COMMIT_DONE;;PHASE_COMMIT_DONE;1;0"/>
     </listAttribute>
+    <stringAttribute key="modelParameterContraint" value=""/>
+    <listAttribute key="modelParameterDefinitions"/>
+    <stringAttribute key="modelParameterModelValues" value="{}"/>
+    <stringAttribute key="modelParameterNewDefinitions" value=""/>
     <intAttribute key="modelVersion" value="20191005"/>
     <intAttribute key="numberOfWorkers" value="4"/>
     <stringAttribute key="postCondition" value=""/>
