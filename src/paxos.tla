@@ -11,22 +11,24 @@
 (*                                                                         *)
 (* \begin{itemize}                                                         *)
 (*   \item \ The election logic. The leader is chosen randomly, and,       *)
-(*   for now, only one leader is chosen per epoch.                         *)
+(*   for now, only one leader is chosen per epoch. When a new epoch        *)
+(*   begins the messages from the previous epoch are discarded.            *)
 (*                                                                         *)
-(*   \item \ The quorum of monitors. For now, the specification considers  *)
-(*   the quorum to be the set of all monitors and that the quorum does     *)
+(*   \item \ The quorum of monitors. The specification considers the       *)
+(*   quorum to be the set of all monitors and that the quorum does         *)
 (*   not change over time.                                                 *)
 (*                                                                         *)
-(*   \item \ The communication layer. The variable messages holds the      *)
-(*   messages waiting to be handled. For now, messages cannot be randomly  *)
-(*   duplicated nor lost, and some messages can be received out of order.  *)
+(*   \item \ The communication layer. The variable messages represents     *)
+(*   the connections between monitors (e.g. messages[mon1][mon2] holds     *)
+(*   the messages sent from mon1 to mon2). Within a connection the         *)
+(*   messages are sent and received in order.                              *)
 (*                                                                         *)
-(*   \item \ The transactions. In this specification, transactions         *)
-(*   represent only a change of value in the variable monitor\_store.      *)
+(*   \item \ The transactions. Transactions are simplified to represent    *)
+(*   only a change of value in the variable monitor\_store.                *)
 (*                                                                         *)
-(*   \item \ Failure model. For now, if a monitor crashes it will          *)
-(*   instantly restart, resetting some variables and continuing to         *)
-(*   participate in the quorum.                                            *)
+(*   \item \ Failure model. When a monitor crashes it will instantly       *)
+(*   restart, resetting some variables and continuing to participate       *)
+(*   in the quorum.                                                        *)
 (* \end{itemize}                                                           *)
 (*                                                                         *)
 (* For a more detailed overview of the specification:                      *)
@@ -43,12 +45,14 @@ EXTENDS Integers, FiniteSets, Sequences, TLC, SequencesExt, FiniteSetsExt
 (*  ^'                                                                     *)
 (***************************************************************************)
 
-\* Set of monitors.
+\* Monitors.
 CONSTANTS Monitors
 
+MonitorsSeq == TLCEval(SetToSeq(Monitors))
+MonitorsLen == TLCEval(Len(MonitorsSeq))
+
 \* Sequence of monitors and the rank predicate, used to compute proposal numbers.
-ranks == SetToSeq(Monitors)
-rank(mon) == CHOOSE i \in 1..Len(ranks): ranks[i]=mon
+rank(mon) == CHOOSE i \in 1..MonitorsLen: MonitorsSeq[i]=mon
 
 \* Set of possible values.
 CONSTANTS Value_set
@@ -70,16 +74,16 @@ state_names == {STATE_RECOVERING, STATE_ACTIVE,
 \* Paxos auxiliary phase states:
 \* They are used to force some sequence of steps.
 CONSTANTS PHASE_ELECTION,
-          PHASE_PRE_COLLECT, PHASE_COLLECT,
+          PHASE_SEND_COLLECT, PHASE_COLLECT,
           PHASE_LEASE, PHASE_LEASE_DONE,
-          PHASE_BEGIN, PHASE_BEGIN_DONE,
-          PHASE_COMMIT, PHASE_COMMIT_DONE
+          PHASE_BEGIN,
+          PHASE_COMMIT
 
 phase_names == {PHASE_ELECTION,
-          PHASE_PRE_COLLECT, PHASE_COLLECT,
+          PHASE_SEND_COLLECT, PHASE_COLLECT,
           PHASE_LEASE, PHASE_LEASE_DONE,
-          PHASE_BEGIN, PHASE_BEGIN_DONE,
-          PHASE_COMMIT, PHASE_COMMIT_DONE}
+          PHASE_BEGIN,
+          PHASE_COMMIT}
 
 \* Paxos message types:
 CONSTANTS OP_COLLECT, OP_LAST,
@@ -249,7 +253,7 @@ vars == <<global_vars, state_vars, restart_vars, data_vars, collect_vars,
 
 Init_global_vars ==
     /\ epoch = 1
-    /\ messages = <<>>
+    /\ messages = [mon1 \in Monitors |-> [mon2 \in Monitors |-> <<>>] ]
     /\ message_history = {}
 
 Init_state_vars ==
@@ -301,11 +305,13 @@ Init ==
 
 \* Add message m to the network msgs.
 WithMessage(m, msgs) ==
-    Append(msgs, m)
+    [msgs EXCEPT ![m.from] =
+        [msgs[m.from] EXCEPT ![m.dest] = Append(msgs[m.from][m.dest], m)]]
     
 \* Remove message m from the network msgs.
 WithoutMessage(m, msgs) ==
-    Remove(msgs, m)
+    [msgs EXCEPT ![m.from] =
+        [msgs[m.from] EXCEPT ![m.dest] = Remove(msgs[m.from][m.dest], m)]]
 
 \* Adds the message m to the network.
 \* Variables changed: messages, message_history.
@@ -316,15 +322,20 @@ Send(m) ==
 
 \* Adds a set of messages to the network.
 \* Variables changed: messages, message_history.
-Send_set(m_set) ==
-    /\ messages' = messages \o SetToSeq(m_set)
+Send_set(from, m_set) ==
+    /\ messages' = [messages EXCEPT ![from] =
+        [mon \in Monitors |->
+            messages[from][mon] \o SetToSeq({m \in m_set: m.dest = mon})]]
     \*/\ message_history' = message_history \union m_set
     /\ UNCHANGED message_history    
     
 \* Removes the request from network and adds a set of messages.
 \* Variables changed: messages, message_history.    
-Reply_set(response_set, request) ==
-    /\ messages' = WithoutMessage(request, messages) \o SetToSeq(response_set)
+Reply_set(from, response_set, request) ==
+    /\ LET msgs == WithoutMessage(request, messages)
+       IN  messages' = [msgs EXCEPT ![from] =
+            [mon \in Monitors |->
+                msgs[from][mon] \o SetToSeq({m \in response_set: m.dest = mon})]]
     \*/\ message_history' = message_history \union response_set
     /\ UNCHANGED message_history    
     
@@ -418,7 +429,7 @@ extend_lease(mon) ==
     /\ acked_lease' = [acked_lease EXCEPT ![mon] =
         [m \in Monitors |-> IF m = mon THEN TRUE ELSE FALSE]]
         
-    /\ Send_set(
+    /\ Send_set(mon,
         {[type           |-> OP_LEASE,
           from           |-> mon,
           dest           |-> dest,
@@ -486,7 +497,7 @@ begin(mon, v) ==
     /\ isLeader[mon] = TRUE
     /\ \/ state'[mon] = STATE_UPDATING
        \/ state'[mon] = STATE_UPDATING_PREVIOUS
-    /\ Len(ranks) = 1 \/ num_last[mon] > Len(ranks) \div 2
+    /\ MonitorsLen = 1 \/ num_last[mon] > MonitorsLen \div 2
     /\ new_value[mon] = Nil
     /\ accepted' = [accepted EXCEPT ![mon] =
         [m \in Monitors |-> IF m = mon THEN TRUE ELSE FALSE]]
@@ -495,7 +506,7 @@ begin(mon, v) ==
     /\ values' = [values EXCEPT ![mon] =
         (values[mon] @@ ((last_committed[mon] + 1) :> new_value'[mon])) ]
         
-    /\ Send_set(
+    /\ Send_set(mon,
         {[type           |-> OP_BEGIN,
           from           |-> mon,
           dest           |-> dest,
@@ -582,7 +593,7 @@ post_accept(mon) ==
     /\ monitor_store' = [monitor_store EXCEPT ![mon] = values[mon][last_committed[mon]+1]]
     /\ new_value' = [new_value EXCEPT ![mon] = Nil]
     
-    /\ Send_set(
+    /\ Send_set(mon,
         {[type           |-> OP_COMMIT,
           from           |-> mon,
           dest           |-> dest,
@@ -665,7 +676,7 @@ collect(mon, oldpn) ==
     /\ isLeader[mon] = TRUE
     /\ LET new_pn == get_new_proposal_number(mon, Max({oldpn,accepted_pn[mon]}))
        IN  /\ accepted_pn' = [accepted_pn EXCEPT ![mon] = new_pn]
-    /\ phase' = [phase EXCEPT ![mon] = PHASE_PRE_COLLECT]
+    /\ phase' = [phase EXCEPT ![mon] = PHASE_SEND_COLLECT]
 
 \* Continue the start of the collect phase. Initialize the number of peers that accepted the proposal (num_last) and
 \* the variables with peers version numbers. Check if there is an uncommitted value.
@@ -675,7 +686,7 @@ collect(mon, oldpn) ==
 pre_send_collect(mon) ==
     /\ state[mon] = STATE_RECOVERING
     /\ isLeader[mon] = TRUE
-    /\ phase[mon] = PHASE_PRE_COLLECT
+    /\ phase[mon] = PHASE_SEND_COLLECT
     /\ clear_peer_first_committed(mon)
     /\ clear_peer_last_committed(mon)
 
@@ -688,7 +699,7 @@ pre_send_collect(mon) ==
 
     /\ num_last' = [num_last EXCEPT ![mon] = 1]
     
-    /\ Send_set(
+    /\ Send_set(mon,
         {[type            |-> OP_COLLECT,
           from            |-> mon,
           dest            |-> dest,
@@ -763,7 +774,7 @@ handle_last(mon,msg) ==
                     /\ peer # mon
                     /\ peer_last_committed'[mon][peer] # -1
                     /\ peer_last_committed'[mon][peer] < last_committed[mon]}
-               IN Reply_set(
+               IN Reply_set(mon,
                     {[type           |-> OP_COMMIT,
                       from           |-> mon,
                       dest           |-> dest,
@@ -806,7 +817,7 @@ handle_last(mon,msg) ==
 \* values, uncommitted_v, uncommitted_value, acked_lease.
 post_last(mon) ==
     /\ isLeader[mon] = TRUE
-    /\ num_last[mon] = Len(ranks)
+    /\ num_last[mon] = MonitorsLen
     /\ phase[mon] = PHASE_COLLECT
 
     /\ clear_peer_first_committed(mon)
@@ -836,7 +847,7 @@ leader_election ==
     /\ \E mon \in Monitors:
         /\ isLeader' = [m \in Monitors |-> IF m = mon THEN TRUE ELSE FALSE]
         /\ state' = [m \in Monitors |->
-            IF Len(ranks) = 1 THEN STATE_ACTIVE ELSE STATE_RECOVERING]
+            IF MonitorsLen = 1 THEN STATE_ACTIVE ELSE STATE_RECOVERING]
     /\ phase' = [m \in Monitors |-> PHASE_ELECTION]
     /\ new_value' = [m \in Monitors |-> Nil]
     /\ pending_proposal' = [m \in Monitors |-> Nil]
@@ -847,7 +858,7 @@ leader_election ==
 \* Start recovery phase if number of monitors is greater than 1.
 \* Variables changed: accepted_pn, phase.
 election_recover(mon) ==
-    /\ Len(ranks) > 1
+    /\ MonitorsLen > 1
     /\ phase[mon] = PHASE_ELECTION
     /\ collect(mon,0)
     /\ UNCHANGED <<isLeader, state, values, first_committed, last_committed, monitor_store>>
@@ -862,10 +873,10 @@ election_recover(mon) ==
 \* Restart a monitor and wipe variables that are not persistent.
 \* Variables changed: messages, isLeader, phase, state, pending_proposal, new_value, number_refreshes.
 restart_mon(mon) ==
-    /\ messages' = SelectSeq(messages, LAMBDA t: t.from # mon)
+    /\ messages' = [messages EXCEPT ![mon] = [mon1 \in Monitors |-> <<>>]]
     /\ isLeader' = [isLeader EXCEPT ![mon] = FALSE]
     /\ phase' = [phase EXCEPT ![mon] = PHASE_ELECTION]
-    /\ state' = [state EXCEPT ![mon] = IF Len(ranks) = 1
+    /\ state' = [state EXCEPT ![mon] = IF MonitorsLen = 1
                                        THEN STATE_ACTIVE
                                        ELSE STATE_RECOVERING]
     /\ pending_proposal' = [pending_proposal EXCEPT ![mon] = Nil]
@@ -880,7 +891,7 @@ restart_mon(mon) ==
 Timeout(mon) ==
     /\ phase[mon] = PHASE_COLLECT \/ phase[mon] = PHASE_BEGIN
     /\ bootstrap
-    /\ messages' = <<>>
+    /\ messages' = [mon1 \in Monitors |-> [mon2 \in Monitors |-> <<>>] ]
     /\ UNCHANGED <<message_history, state_vars, restart_vars, data_vars, collect_vars,
                    lease_vars, commit_vars>>
 
@@ -972,7 +983,10 @@ Next ==
            /\ step_x' = "propose_pending" /\ step' = step+1
            /\ UNCHANGED number_refreshes
 
-        \/ /\ \E i \in 1..Len(messages): Receive(messages[i])
+        \/ /\ \E mon1, mon2 \in Monitors:
+                /\ mon1 # mon2
+                /\ Len(messages[mon1][mon2])>0
+                /\ Receive(messages[mon1][mon2][1])
            /\ step' = step+1
            /\ UNCHANGED number_refreshes
 
@@ -1025,8 +1039,8 @@ Inv_find_state(
         /\ num_last[mon] = 1
 
     \* All the collect requests have been handled by the peers.
-    /\ \A i \in 1..Len(messages):
-        messages[i].type # OP_COLLECT
+    /\ \A mon1, mon2 \in Monitors:
+        \A i \in 1..Len(messages[mon1][mon2]): messages[mon1][mon2][i].type # OP_COLLECT
 
     /\ epoch = 2
 )
@@ -1034,8 +1048,8 @@ Inv_find_state(
 Find a state where the leader crashes during the commit phase, failing to complete the commit.
 Inv_find_state(
     /\ step_x="restart mon"
-    /\ \E i \in 1..Len(messages):
-        messages[i].type = OP_ACCEPT
+    /\ \E mon1, mon2 \in Monitors:
+        \E i \in 1..Len(messages[mon1][mon2]): messages[mon1][mon2][i].type = OP_ACCEPT
     /\ \A mon \in Monitors:
         isLeader[mon] = FALSE
     /\ epoch = 2
@@ -1046,5 +1060,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Mar 09 16:10:28 WET 2021 by afonsonf
+\* Last modified Sun Mar 14 16:10:33 WET 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf

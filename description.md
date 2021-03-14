@@ -16,15 +16,17 @@ If the leader changes to an active state it will tell its peers, allowing them t
 
 The commit phase starts by first sharing the value to be committed and asking his peers if it is OK to commit (ask if leader has correct proposal number and log). If the leader receives enough positive responses from his peers it will send a message to allow the peers to commit.
 
-### Deviations and abstractions from the original source
+### Overview of some mechanisms in the specification
 
-The specification is written to mirror what is implemented in Ceph (source file: https://github.com/ceph/ceph/blob/master/src/mon/Paxos.cc).
-However, the specification makes some deviations/abstractions from the implemented version:
-* Election logic. The specification abstracts how the election is done, the leader is chosen randomly and, for now, only one per epoch.
-* Monitor quorum. The quorum is constant throughout the model and is used as the set of all monitors. This can be changed by having it be defined at the leader_election function.
-* The communication layer. The variable messages holds the messages waiting to be handled. For now, messages are not randomly duplicated nor lost, and some messages can be received out of order.
-* The transactions. In the specification, transactions are simplified to represent only a change of value in the variable monitor_store.
-* Failure model. For now, if a monitor crashes it will instantly restart, resetting some variables and continuing to participate in the quorum. This can be changed by having a dynamic quorum and if the monitor crashes having it leave the quorum until new elections are triggered.
+The specification is written to mirror what is implemented in Ceph (source file: https://github.com/ceph/ceph/blob/master/src/mon/Paxos.cc). However, the algorithm implemented depends on other modules, such as election logic and the network layer.
+
+These modules are abstracted in the specification to have the same behaviour. The main mechanism abstracted are:
+
+* Election logic. The leader is chosen randomly and, for now, only one per epoch. When a new epoch begins the messages from the previous epoch are discarded.
+* Monitor quorum. The specification considers the quorum to be the set of all monitors and that the quorum does not change over time.
+* The communication layer. The variable messages represents the connections between monitors (e.g. messages\[mon1\]\[mon2\] holds the messages sent from mon1 to mon2). Within a connection the messages are sent and received in order.
+* The transactions. Transactions are simplified to represent only a change of value in the variable monitor_store.
+* Failure model. When a monitor crashes it will instantly restart, resetting some variables and continuing to participate in the quorum.
 
 ### Specification structure
 
@@ -52,11 +54,11 @@ In this section is described how some of the state variables change between stat
 
 * election_recover: (leader) <br>
   state, STATE_RECOVERING <br>
-  phase, PHASE_ELECTION -> PHASE_PRE_COLLECT <br>
+  phase, PHASE_ELECTION -> PHASE_SEND_COLLECT <br>
 
 * pre_send_collect: (leader) <br>
   state, STATE_RECOVERING <br>
-  phase, PHASE_PRE_COLLECT -> PHASE_COLLECT <br>
+  phase, PHASE_SEND_COLLECT -> PHASE_COLLECT <br>
 
 * handle_collect: (peon) <br>
   state, _ -> STATE_RECOVERING <br>
@@ -64,7 +66,7 @@ In this section is described how some of the state variables change between stat
 
 * handle_last: (leader) <br>
   state, STATE_RECOVERING <br>
-  phase, PHASE_COLLECT -> PHASE_PRE_COLLECT | PHASE_COLLECT <br>
+  phase, PHASE_COLLECT -> PHASE_SEND_COLLECT | PHASE_COLLECT <br>
 
 * post_last: (leader) <br>
   state, STATE_RECOVERING -> STATE_UPDATING_PREVIOUS | STATE_ACTIVE <br>

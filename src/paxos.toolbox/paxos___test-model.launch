@@ -13,7 +13,7 @@
     <stringAttribute key="distributedTLC" value="off"/>
     <stringAttribute key="distributedTLCVMArgs" value=""/>
     <intAttribute key="fpBits" value="1"/>
-    <intAttribute key="fpIndex" value="96"/>
+    <intAttribute key="fpIndex" value="92"/>
     <booleanAttribute key="fpIndexRandom" value="true"/>
     <intAttribute key="maxHeapSize" value="50"/>
     <intAttribute key="maxSetSize" value="999997"/>
@@ -26,15 +26,14 @@
     <stringAttribute key="modelComments" value=""/>
     <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
     <listAttribute key="modelCorrectnessInvariants">
-        <listEntry value="0Inv_diam(44) \/ number_refreshes&lt;2"/>
-        <listEntry value="0Inv_find_state(&#10;    /\ \E mon \in Monitors:&#10;    &#9;/\ last_committed[mon] = 3&#10;    &#9;/\ accepted_pn[mon] &gt; 300&#10;)"/>
+        <listEntry value="0Inv_diam(46)"/>
+        <listEntry value="0Inv_find_state(&#10;    /\ step_x=&quot;restart mon&quot;&#10;    /\ \E mon1, mon2 \in Monitors:&#10;        \E i \in 1..Len(messages[mon1][mon2]): messages[mon1][mon2][i].type = OP_ACCEPT&#10;    /\ \A mon \in Monitors:&#10;        isLeader[mon] = FALSE&#10;    /\ epoch = 2&#10;)"/>
     </listAttribute>
     <listAttribute key="modelCorrectnessProperties"/>
     <intAttribute key="modelEditorOpenTabs" value="14"/>
     <stringAttribute key="modelExpressionEval" value=""/>
     <stringAttribute key="modelParameterActionConstraint" value=""/>
     <listAttribute key="modelParameterConstants">
-        <listEntry value="Monitors;;{m1, m2, m3};1;0"/>
         <listEntry value="Nil;;Nil;1;0"/>
         <listEntry value="STATE_SHUTDOWN;;STATE_SHUTDOWN;1;0"/>
         <listEntry value="STATE_WRITING;;STATE_WRITING;1;0"/>
@@ -55,12 +54,11 @@
         <listEntry value="PHASE_ELECTION;;PHASE_ELECTION;1;0"/>
         <listEntry value="PHASE_LEASE_DONE;;PHASE_LEASE_DONE;1;0"/>
         <listEntry value="PHASE_BEGIN;;PHASE_BEGIN;1;0"/>
-        <listEntry value="PHASE_BEGIN_DONE;;PHASE_BEGIN_DONE;1;0"/>
-        <listEntry value="PHASE_PRE_COLLECT;;PHASE_PRE_COLLECT;1;0"/>
         <listEntry value="PHASE_COLLECT;;PHASE_COLLECT;1;0"/>
         <listEntry value="PHASE_LEASE;;PHASE_LEASE;1;0"/>
         <listEntry value="PHASE_COMMIT;;PHASE_COMMIT;1;0"/>
-        <listEntry value="PHASE_COMMIT_DONE;;PHASE_COMMIT_DONE;1;0"/>
+        <listEntry value="PHASE_SEND_COLLECT;;PHASE_SEND_COLLECT;1;0"/>
+        <listEntry value="Monitors;;{m1, m2, m3, m4};1;1"/>
     </listAttribute>
     <stringAttribute key="modelParameterContraint" value=""/>
     <listAttribute key="modelParameterDefinitions"/>
