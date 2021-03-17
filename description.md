@@ -22,11 +22,12 @@ The specification is written to mirror what is implemented in Ceph (source file:
 
 These modules are abstracted in the specification to have the same behaviour. The main mechanism abstracted are:
 
-* Election logic. The leader is chosen randomly and, for now, only one per epoch. When a new epoch begins the messages from the previous epoch are discarded.
-* Monitor quorum. The specification considers the quorum to be the set of all monitors and that the quorum does not change over time.
-* The communication layer. The variable messages represents the connections between monitors (e.g. messages\[mon1\]\[mon2\] holds the messages sent from mon1 to mon2). Within a connection the messages are sent and received in order.
-* The transactions. Transactions are simplified to represent only a change of value in the variable monitor_store.
-* Failure model. When a monitor crashes it will instantly restart, resetting some variables and continuing to participate in the quorum.
+* Election logic. The leader is chosen randomly and, for now, only one per epoch. When a new epoch begins, the messages from the previous epoch are discarded.
+* Monitor quorum. The quorum is defined in the election phase, using all monitors that are up. Different epochs can have different quorums.
+* The communication layer. The variable messages represents connections between monitors (e.g. messages\[mon1\]\[mon2\] holds the messages sent from mon1 to mon2). Within a connection the messages are sent and received in order.
+* The transactions. Transactions are simplified to represent only a change of a value in the variable monitor_store.
+* Failure model. A monitor can crash if the remaining number of monitors is sufficient to form a quorum. When a monitor crashes, new elections are triggered and the monitor is marked to not be part of the quorum until he recovers.
+* Timeouts. A timeout can occur at any point in the algorithm and it will trigger new elections.
 
 ### Specification structure
 

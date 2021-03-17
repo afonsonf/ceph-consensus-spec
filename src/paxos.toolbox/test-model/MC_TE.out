@@ -2,7 +2,7 @@
 TLC2 Version 2.15 of Day Month 20?? (rev: e4cae85)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 111 and seed -1949786859923049555 with 4 workers on 4 cores with 2368MB heap and 5322MB offheap memory [pid: 36390] (Linux 5.8.0-44-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 64 and seed 9066705056730960800 with 4 workers on 4 cores with 2368MB heap and 5322MB offheap memory [pid: 46649] (Linux 5.8.0-45-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
@@ -31,39 +31,36 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2021-03-14 15:16:23)
+Starting... (2021-03-17 17:17:20)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
 @!@!@ENDMSG 2189 @!@!@
 @!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 1 distinct state generated at 2021-03-14 15:16:24.
+Finished computing initial states: 1 distinct state generated at 2021-03-17 17:17:21.
 @!@!@ENDMSG 2190 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(21) at 2021-03-14 15:16:27: 53 559 states generated (53 559 s/min), 17 716 distinct states found (17 716 ds/min), 2 012 states left on queue.
-@!@!@ENDMSG 2200 @!@!@
-@!@!@STARTMSG 2200:0 @!@!@
-Progress(51) at 2021-03-14 15:17:27: 3 195 588 states generated (3 142 029 s/min), 798 580 distinct states found (780 864 ds/min), 32 009 states left on queue.
+Progress(16) at 2021-03-17 17:17:24: 147 500 states generated (147 500 s/min), 70 615 distinct states found (70 615 ds/min), 24 190 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2193:0 @!@!@
 Model checking completed. No error has been found.
   Estimates of the probability that TLC did not check all reachable states
   because two distinct states had the same fingerprint:
-  calculated (optimistic):  val = 1.2E-7
-  based on the actual fingerprints:  val = 1.1E-6
+  calculated (optimistic):  val = 1.3E-6
+  based on the actual fingerprints:  val = 2.0E-6
 @!@!@ENDMSG 2193 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(59) at 2021-03-14 15:17:40: 3 461 193 states generated (2 652 424 s/min), 858 551 distinct states found (657 935 ds/min), 0 states left on queue.
+Progress(53) at 2021-03-17 17:18:26: 9 965 691 states generated (9 032 348 s/min), 4 724 533 distinct states found (4 282 054 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
-3461193 states generated, 858551 distinct states found, 0 states left on queue.
+9965691 states generated, 4724533 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2199 @!@!@
 @!@!@STARTMSG 2194:0 @!@!@
-The depth of the complete state graph search is 59.
+The depth of the complete state graph search is 53.
 @!@!@ENDMSG 2194 @!@!@
 @!@!@STARTMSG 2268:0 @!@!@
-The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 8 and the 95th percentile is 5).
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 7 and the 95th percentile is 5).
 @!@!@ENDMSG 2268 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 78328ms at (2021-03-14 15:17:40)
+Finished in 66225ms at (2021-03-17 17:18:26)
 @!@!@ENDMSG 2186 @!@!@

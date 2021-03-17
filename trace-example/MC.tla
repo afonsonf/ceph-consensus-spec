@@ -3,28 +3,28 @@ EXTENDS paxos, TLC
 
 \* MV CONSTANT declarations@modelParameterConstants
 CONSTANTS
-m1, m2, m3
+v1, v2
 ----
 
 \* MV CONSTANT declarations@modelParameterConstants
 CONSTANTS
-v1
-----
-
-\* MV CONSTANT definitions Monitors
-const_161530561528321000 == 
-{m1, m2, m3}
+m1, m2, m3
 ----
 
 \* MV CONSTANT definitions Value_set
-const_161530561528322000 == 
-{v1}
+const_1616001027183131000 == 
+{v1, v2}
 ----
 
-\* INVARIANT definition @modelCorrectnessInvariants:0
-inv_161530561528423000 ==
-Inv_diam(44) \/ number_refreshes<2
+\* MV CONSTANT definitions Monitors
+const_1616001027183132000 == 
+{m1, m2, m3}
+----
+
+\* INVARIANT definition @modelCorrectnessInvariants:1
+inv_1616001027183134000 ==
+Inv_diam(53)
 ----
 =============================================================================
 \* Modification History
-\* Created Tue Mar 09 16:00:15 WET 2021 by afonsonf
+\* Created Wed Mar 17 17:10:27 WET 2021 by afonsonf

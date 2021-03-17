@@ -8,24 +8,19 @@ v1
 
 \* MV CONSTANT declarations@modelParameterConstants
 CONSTANTS
-m1, m2, m3, m4
+m1, m2, m3
 ----
 
 \* MV CONSTANT definitions Value_set
-const_1615734982193363000 == 
+const_1616001439707138000 == 
 {v1}
 ----
 
 \* MV CONSTANT definitions Monitors
-const_1615734982193364000 == 
-{m1, m2, m3, m4}
-----
-
-\* SYMMETRY definition
-symm_1615734982193365000 == 
-Permutations(const_1615734982193364000)
+const_1616001439707139000 == 
+{m1, m2, m3}
 ----
 
 =============================================================================
 \* Modification History
-\* Created Sun Mar 14 15:16:22 WET 2021 by afonsonf
+\* Created Wed Mar 17 17:17:19 WET 2021 by afonsonf
