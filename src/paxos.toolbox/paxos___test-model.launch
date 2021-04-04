@@ -22,12 +22,12 @@
     <stringAttribute key="modelBehaviorNext" value="Next"/>
     <stringAttribute key="modelBehaviorSpec" value=""/>
     <intAttribute key="modelBehaviorSpecType" value="2"/>
-    <stringAttribute key="modelBehaviorVars" value="uncommitted_v, phase, epoch, monitor_store, messages, step_x, accepted_pn, isLeader, number_crashes, accepted, state, first_committed, peer_first_committed, quorum_sz, pending_proposal, values, step, quorum, message_history, last_committed, acked_lease, peer_last_committed, uncommitted_value, num_last, new_value"/>
+    <stringAttribute key="modelBehaviorVars" value="uncommitted_v, phase, epoch, monitor_store, messages, step_x, accepted_pn, isLeader, number_crashes, accepted, state, first_committed, peer_first_committed, quorum_sz, pending_proposal, values, step, quorum, message_history, last_committed, uncommitted_pn, acked_lease, peer_last_committed, uncommitted_value, num_last, new_value"/>
     <stringAttribute key="modelComments" value=""/>
     <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
     <listAttribute key="modelCorrectnessInvariants">
         <listEntry value="1Inv"/>
-        <listEntry value="0Inv_diam(58)"/>
+        <listEntry value="0Inv_diam(54)"/>
         <listEntry value="0Inv_find_state(&#10;    /\ \E mon1, mon2 \in Monitors:&#10;    &#9;\E va, vb \in Value_set:&#10;    &#9;&#9;/\ va # vb&#10;&#9;    &#9;/\ values[mon1] = &lt;&lt;va,va&gt;&gt;&#10;&#9;    &#9;/\ values[mon2] = &lt;&lt;va,vb&gt;&gt;&#10;)"/>
     </listAttribute>
     <listAttribute key="modelCorrectnessProperties"/>

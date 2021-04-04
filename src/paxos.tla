@@ -151,6 +151,11 @@ VARIABLE phase
 (* ^'                                                                      *)
 (***************************************************************************)
 
+\* A function that stores, for each monitor, a proposal number when the commit phase starts.
+\* This proposal number can be retrieved after a monitor crashes and restarts.
+\* Type: [Monitors |-> proposal number]
+VARIABLE uncommitted_pn
+
 \* A function that stores, for each monitor, a value version when the commit phase starts.
 \* This value version can be retrieved after a monitor crashes and restarts.
 \* Type: [Monitors |-> value version]
@@ -257,7 +262,7 @@ VARIABLE number_crashes
 
 global_vars    == <<epoch, messages, message_history, quorum, quorum_sz>>
 state_vars     == <<isLeader, state, phase>>
-restart_vars   == <<uncommitted_v, uncommitted_value>>
+restart_vars   == <<uncommitted_pn, uncommitted_v, uncommitted_value>>
 data_vars      == <<monitor_store, values, accepted_pn, first_committed, last_committed>>
 collect_vars   == <<num_last, peer_first_committed, peer_last_committed>>
 lease_vars     == <<acked_lease>>
@@ -279,6 +284,7 @@ Init_state_vars ==
     /\ phase = [mon \in Monitors |-> Nil]
 
 Init_restart_vars ==
+    /\ uncommitted_pn = [mon \in Monitors |-> 0]
     /\ uncommitted_v = [mon \in Monitors |-> 0]
     /\ uncommitted_value = [mon \in Monitors |-> Nil]
 
@@ -415,12 +421,13 @@ store_state(mon,msg) ==
        ELSE monitor_store' = [monitor_store EXCEPT ![mon] = values'[mon][last_committed'[mon]]]
 
 \* Check if uncommitted value version is still valid, else reset it.
-\* Variables changed: uncommitted_v, uncommitted_value.
+\* Variables changed: uncommitted_pn, uncommitted_v, uncommitted_value.
 check_and_correct_uncommitted(mon) ==
     IF uncommitted_v[mon] <= last_committed'[mon]
     THEN /\ uncommitted_v' = [uncommitted_v EXCEPT ![mon] = 0]
+         /\ uncommitted_pn' = [uncommitted_pn EXCEPT ![mon] = 0]
          /\ uncommitted_value' = [uncommitted_value EXCEPT ![mon] = Nil]
-    ELSE UNCHANGED <<uncommitted_v, uncommitted_value>>
+    ELSE UNCHANGED <<uncommitted_pn, uncommitted_v, uncommitted_value>>
 
 \* Trigger new election by incrementing epoch.
 \* Variables changed: epoch.
@@ -506,7 +513,7 @@ post_lease_ack(mon) ==
 \* Start a commit phase by the leader. The variable new_value is assigned. Send begin messages to the peers.
 \* The value of uncommitted_v and uncommitted_value are assigned in order for the leader to be
 \* able to recover from a crash.
-\* Variables changed: accepted, new_value, phase, messages, message_history, values, uncommitted_v, uncommitted_value.
+\* Variables changed: accepted, new_value, phase, messages, message_history, values, uncommitted_pn, uncommitted_v, uncommitted_value.
 begin(mon, v) ==
     /\ isLeader[mon] = TRUE
     /\ \/ state'[mon] = STATE_UPDATING
@@ -526,7 +533,8 @@ begin(mon, v) ==
           last_committed |-> last_committed[mon],
           values         |-> values'[mon],
           pn             |-> accepted_pn[mon]]: dest \in {m \in Monitors \ {mon}: quorum[m]}
-         })             
+         })
+    /\ uncommitted_pn' = [uncommitted_pn EXCEPT ![mon] = accepted_pn[mon]]
     /\ uncommitted_v' = [uncommitted_v EXCEPT ![mon] = last_committed[mon]+1]
     /\ uncommitted_value' = [uncommitted_value EXCEPT ![mon] = v]
 
@@ -534,7 +542,7 @@ begin(mon, v) ==
 \* or equal than the one he accepted.
 \* Similar to what happens in begin, uncommitted_v and uncommitted_value are assigned in order for
 \* the monitor to recover in case of a crash.
-\* Variables changed: messages, message_history, state, values, uncommitted_v, uncommitted_value.
+\* Variables changed: messages, message_history, state, values, uncommitted_pn, uncommitted_v, uncommitted_value.
 handle_begin(mon, msg) ==
     /\ isLeader[mon] = FALSE
     /\ IF msg.pn < accepted_pn[mon]
@@ -550,6 +558,7 @@ handle_begin(mon, msg) ==
             ((last_committed[mon] + 1) :> msg.values[last_committed[mon] + 1]) @@ values[mon] ]
 
         /\ state' = [state EXCEPT ![mon] = STATE_UPDATING]
+        /\ uncommitted_pn' = [uncommitted_pn EXCEPT ![mon] = accepted_pn[mon]]
         /\ uncommitted_v' = [uncommitted_v EXCEPT ![mon] = last_committed[mon]+1]
         /\ uncommitted_value' = [uncommitted_value EXCEPT ![mon] =
             values'[mon][last_committed[mon]+1]]
@@ -624,7 +633,7 @@ finish_commit(mon) ==
 
 \* Handle a commit message. The monitor stores the values sent by the leader commit message.
 \* Variables changed: messages, message_history, values, first_committed, last_committed, monitor_store, uncommitted_v,
-\* uncommitted_value.
+\* uncommitted_pn, uncommitted_value.
 handle_commit(mon, msg) ==
     /\ isLeader[mon] = FALSE
     /\ store_state(mon, msg)
@@ -652,7 +661,7 @@ client_request(mon, v) ==
 
 \* Start a commit phase with the value on pending proposal.
 \* Variables changed: state, pending_proposal, accepted, new_value, phase, messages, message_history, values,
-\* uncommitted_v, uncommitted_value.
+\* uncommitted_pn, uncommitted_v, uncommitted_value.
 propose_pending(mon) ==
     /\ phase[mon] = PHASE_LEASE \/ phase[mon] = PHASE_ELECTION
     /\ state[mon] = STATE_ACTIVE
@@ -682,7 +691,7 @@ collect(mon, oldpn) ==
 \* Continue the start of the collect phase. Initialize the number of peers that accepted the proposal (num_last) and
 \* the variables with peers version numbers. Check if there is an uncommitted value.
 \* Send collect messages to the peers.
-\* Variables changed: peer_first_committed, peer_last_committed, uncommitted_v, uncommitted_value, num_last,
+\* Variables changed: peer_first_committed, peer_last_committed, uncommitted_pn, uncommitted_v, uncommitted_value, num_last,
 \* messages, message_history, phase.
 send_collect(mon) ==
     /\ state[mon] = STATE_RECOVERING
@@ -696,6 +705,7 @@ send_collect(mon) ==
                 [uncommitted_v EXCEPT ![mon] = last_committed[mon]+1]
             /\ uncommitted_value' =
                 [uncommitted_value EXCEPT ![mon] = values[mon][last_committed[mon]+1]]
+            /\ uncommitted_pn' = uncommitted_pn
        ELSE UNCHANGED <<restart_vars>>
 
     /\ num_last' = [num_last EXCEPT ![mon] = 1]    
@@ -731,6 +741,7 @@ handle_collect(mon, msg) ==
                     first_committed |-> first_committed[mon],
                     last_committed  |-> last_committed[mon],
                     values          |-> values[mon],
+                    uncommitted_pn  |-> uncommitted_pn[mon],
                     pn              |-> accepted_pn'[mon]],msg)
           /\ UNCHANGED epoch
     /\ UNCHANGED <<isLeader, phase, values, first_committed, last_committed, monitor_store>>
@@ -740,7 +751,7 @@ handle_collect(mon, msg) ==
 \* The peers first and last committed version are stored. If the leader is behind, bootstraps. Stores any value that
 \* the peer may have committed (store_state). If peer is behind send commit message with leader values.
 \* If peer accepted proposal number increase num last, if he sent a bigger proposal number start a new collect phase.
-\* Variables changed: messages, message_history, epoch, phase, uncommitted_v, uncommitted_value, monitor_store, values,
+\* Variables changed: messages, message_history, epoch, phase, uncommitted_pn, uncommitted_v, uncommitted_value, monitor_store, values,
 \* accepted_pn, first_committed, last_committed, num_last, peer_first_committed, peer_last_committed.
 handle_last(mon,msg) ==
     /\ isLeader[mon] = TRUE
@@ -792,8 +803,11 @@ handle_last(mon,msg) ==
                   /\ IF /\ msg.last_committed+1 \in DOMAIN msg.values
                         /\ msg.last_committed >= last_committed'[mon]
                         /\ msg.last_committed+1 >= uncommitted_v[mon]
+                        /\ msg.uncommitted_pn >= uncommitted_pn[mon]
                      THEN /\ uncommitted_v' =
                                 [uncommitted_v EXCEPT ![mon] = msg.last_committed+1]
+                          /\ uncommitted_pn' =
+                                [uncommitted_pn EXCEPT ![mon] = msg.uncommitted_pn]      
                           /\ uncommitted_value' =
                                 [uncommitted_value EXCEPT ![mon] = msg.values[msg.last_committed+1]]
                      ELSE check_and_correct_uncommitted(mon)
@@ -812,7 +826,7 @@ handle_last(mon,msg) ==
 \* uncommitted value, a commit phase is started with that value, else the leader changes to ACTIVE_STATE and extends
 \* the lease to his peers.
 \* Variables changed: peer_first_committed, peer_last_committed, state, accepted, new_value, phase, messages,
-\* message_history, values, uncommitted_v, uncommitted_value, acked_lease.
+\* message_history, values, uncommitted_pn, uncommitted_v, uncommitted_value, acked_lease.
 post_last(mon) ==
     /\ isLeader[mon] = TRUE
     /\ num_last[mon] = quorum_sz
@@ -1073,5 +1087,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Sat Apr 03 15:41:22 WEST 2021 by afonsonf
+\* Last modified Sun Apr 04 20:44:50 WEST 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf
