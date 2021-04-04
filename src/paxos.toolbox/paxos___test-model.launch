@@ -13,8 +13,8 @@
     <stringAttribute key="distributedTLC" value="off"/>
     <stringAttribute key="distributedTLCVMArgs" value=""/>
     <intAttribute key="fpBits" value="1"/>
-    <intAttribute key="fpIndex" value="94"/>
-    <booleanAttribute key="fpIndexRandom" value="true"/>
+    <intAttribute key="fpIndex" value="115"/>
+    <booleanAttribute key="fpIndexRandom" value="false"/>
     <intAttribute key="maxHeapSize" value="50"/>
     <intAttribute key="maxSetSize" value="999997"/>
     <booleanAttribute key="mcMode" value="true"/>
@@ -27,8 +27,8 @@
     <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
     <listAttribute key="modelCorrectnessInvariants">
         <listEntry value="1Inv"/>
-        <listEntry value="0Inv_diam(53)"/>
-        <listEntry value="0Inv_find_state(&#10;    /\ step_x=&quot;restart mon&quot;&#10;    /\ \E mon1, mon2 \in Monitors:&#10;        \E i \in 1..Len(messages[mon1][mon2]): messages[mon1][mon2][i].type = OP_ACCEPT&#10;    /\ \A mon \in Monitors:&#10;        isLeader[mon] = FALSE&#10;    /\ epoch = 2&#10;)"/>
+        <listEntry value="0Inv_diam(58)"/>
+        <listEntry value="0Inv_find_state(&#10;    /\ \E mon1, mon2 \in Monitors:&#10;    &#9;\E va, vb \in Value_set:&#10;    &#9;&#9;/\ va # vb&#10;&#9;    &#9;/\ values[mon1] = &lt;&lt;va,va&gt;&gt;&#10;&#9;    &#9;/\ values[mon2] = &lt;&lt;va,vb&gt;&gt;&#10;)"/>
     </listAttribute>
     <listAttribute key="modelCorrectnessProperties"/>
     <intAttribute key="modelEditorOpenTabs" value="14"/>
@@ -40,7 +40,7 @@
         <listEntry value="STATE_WRITING;;STATE_WRITING;1;0"/>
         <listEntry value="OP_LAST;;OP_LAST;1;0"/>
         <listEntry value="STATE_RECOVERING;;STATE_RECOVERING;1;0"/>
-        <listEntry value="Value_set;;{v1};1;0"/>
+        <listEntry value="Value_set;;{v1, v2};1;0"/>
         <listEntry value="STATE_UPDATING;;STATE_UPDATING;1;0"/>
         <listEntry value="OP_COMMIT;;OP_COMMIT;1;0"/>
         <listEntry value="OP_BEGIN;;OP_BEGIN;1;0"/>
@@ -72,7 +72,7 @@
     <stringAttribute key="result.mail.address" value=""/>
     <intAttribute key="simuAril" value="-1"/>
     <intAttribute key="simuDepth" value="100"/>
-    <stringAttribute key="simuNumTraces" value="9223372036854775807"/>
+    <stringAttribute key="simuNumTraces" value="2"/>
     <intAttribute key="simuSeed" value="-1"/>
     <stringAttribute key="specName" value="paxos"/>
     <stringAttribute key="tlcResourcesProfile" value="local custom"/>

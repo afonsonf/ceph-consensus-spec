@@ -2,7 +2,7 @@
 TLC2 Version 2.15 of Day Month 20?? (rev: e4cae85)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 64 and seed 9066705056730960800 with 4 workers on 4 cores with 2368MB heap and 5322MB offheap memory [pid: 46649] (Linux 5.8.0-45-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 115 and seed -2127885583675159635 with 4 workers on 4 cores with 2368MB heap and 5322MB offheap memory [pid: 18106] (Linux 5.8.0-48-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
@@ -31,36 +31,42 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2021-03-17 17:17:20)
+Starting... (2021-04-03 15:37:58)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
 @!@!@ENDMSG 2189 @!@!@
 @!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 1 distinct state generated at 2021-03-17 17:17:21.
+Finished computing initial states: 1 distinct state generated at 2021-04-03 15:37:59.
 @!@!@ENDMSG 2190 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(16) at 2021-03-17 17:17:24: 147 500 states generated (147 500 s/min), 70 615 distinct states found (70 615 ds/min), 24 190 states left on queue.
+Progress(16) at 2021-04-03 15:38:02: 141 263 states generated (141 263 s/min), 67 702 distinct states found (67 702 ds/min), 23 820 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(34) at 2021-04-03 15:39:02: 11 603 695 states generated (11 462 432 s/min), 5 582 085 distinct states found (5 514 383 ds/min), 768 867 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(40) at 2021-04-03 15:40:02: 23 136 345 states generated (11 532 650 s/min), 10 704 597 distinct states found (5 122 512 ds/min), 782 345 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2193:0 @!@!@
 Model checking completed. No error has been found.
   Estimates of the probability that TLC did not check all reachable states
   because two distinct states had the same fingerprint:
-  calculated (optimistic):  val = 1.3E-6
-  based on the actual fingerprints:  val = 2.0E-6
+  calculated (optimistic):  val = 1.2E-5
+  based on the actual fingerprints:  val = 5.1E-6
 @!@!@ENDMSG 2193 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(53) at 2021-03-17 17:18:26: 9 965 691 states generated (9 032 348 s/min), 4 724 533 distinct states found (4 282 054 ds/min), 0 states left on queue.
+Progress(53) at 2021-04-03 15:40:47: 30 101 370 states generated (10 649 571 s/min), 13 980 901 distinct states found (4 946 306 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
-9965691 states generated, 4724533 distinct states found, 0 states left on queue.
+30101370 states generated, 13980901 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2199 @!@!@
 @!@!@STARTMSG 2194:0 @!@!@
 The depth of the complete state graph search is 53.
 @!@!@ENDMSG 2194 @!@!@
 @!@!@STARTMSG 2268:0 @!@!@
-The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 7 and the 95th percentile is 5).
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 8 and the 95th percentile is 5).
 @!@!@ENDMSG 2268 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 66225ms at (2021-03-17 17:18:26)
+Finished in 169603ms at (2021-04-03 15:40:47)
 @!@!@ENDMSG 2186 @!@!@

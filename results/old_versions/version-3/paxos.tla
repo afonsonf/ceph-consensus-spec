@@ -49,10 +49,7 @@ EXTENDS Integers, FiniteSets, Sequences, TLC, SequencesExt, FiniteSetsExt
 (*  ^'                                                                     *)
 (***************************************************************************)
 
-\* If true run in debug mode.
-DEBUG == FALSE
-
-\* Set of Monitors.
+\* Monitors.
 CONSTANTS Monitors
 
 MonitorsSeq == TLCEval(SetToSeq(Monitors))
@@ -518,7 +515,7 @@ begin(mon, v) ==
     /\ new_value' = [new_value EXCEPT ![mon] = v]
     /\ phase' = [phase EXCEPT ![mon] = PHASE_BEGIN]
     /\ values' = [values EXCEPT ![mon] =
-        ((last_committed[mon] + 1) :> new_value'[mon]) @@ values[mon] ]
+        (values[mon] @@ ((last_committed[mon] + 1) :> new_value'[mon])) ]        
     /\ Send_set(mon,
         {[type           |-> OP_BEGIN,
           from           |-> mon,
@@ -547,7 +544,7 @@ handle_begin(mon, msg) ==
 
         \* assign values[mon][last_committed[mon]+1]
         /\ values' = [values EXCEPT ![mon] =
-            ((last_committed[mon] + 1) :> msg.values[last_committed[mon] + 1]) @@ values[mon] ]
+            (values[mon] @@ ((last_committed[mon] + 1) :> msg.values[last_committed[mon] + 1])) ]
 
         /\ state' = [state EXCEPT ![mon] = STATE_UPDATING]
         /\ uncommitted_v' = [uncommitted_v EXCEPT ![mon] = last_committed[mon]+1]
@@ -934,69 +931,68 @@ Receive(msg) ==
 \* Limit some variables to reduce search space.    
 reduce_search_space ==
     /\ epoch # 8
-    /\ \/ \A mon \in Monitors: last_committed[mon] < 2
-       \*\/ \A mon2 \in Monitors: new_value[mon2] = Nil
-    /\ \A mon \in Monitors: accepted_pn[mon] < 300
-    \*/\ number_crashes # 4
+    \*/\ number_crashes # 20
+    /\ \A mon \in Monitors: last_committed[mon] < 2
+       \*=> \A mon2 \in Monitors: new_value[mon2] = Nil
+    /\ \A mon \in Monitors: accepted_pn[mon] < 300    
 
 \* State transitions.
 Next ==
     /\ reduce_search_space
-    /\ IF DEBUG THEN step' = step+1
-                ELSE step' = step
     /\ IF epoch % 2 = 1 THEN
         /\ leader_election
-        /\ step_x' = "election"
+        /\ step_x' = "election" /\ step' = step+1
         /\ UNCHANGED number_crashes
        ELSE
         \/ /\ \E mon \in Monitors: election_recover(mon)
-           /\ step_x' = "election_recover"
+           /\ step_x' = "election_recover" /\ step' = step+1
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: send_collect(mon)
-           /\ step_x' = "send_collect"
+           /\ step_x' = "pre_send_collect"  /\ step' = step+1
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: post_last(mon)
-           /\ step_x' = "post_last"
+           /\ step_x' = "post_last" /\ step' = step+1
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: post_lease_ack(mon)
-           /\ step_x' = "post_lease_ack"
+           /\ step_x' = "post_lease_ack" /\ step' = step+1
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: post_accept(mon)
-           /\ step_x' = "post_accept"
+           /\ step_x' = "post_accept" /\ step' = step+1
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: finish_commit(mon)
-           /\ step_x' = "finish_commit"
+           /\ step_x' = "finish_commit" /\ step' = step+1
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: \E v \in Value_set: client_request(mon, v)
-           /\ step_x' = "client_request"
+           /\ step_x' = "client_request" /\ step' = step+1
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: propose_pending(mon)
-           /\ step_x' = "propose_pending"
+           /\ step_x' = "propose_pending" /\ step' = step+1
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon1, mon2 \in Monitors:
                 /\ mon1 # mon2
                 /\ Len(messages[mon1][mon2])>0
                 /\ Receive(messages[mon1][mon2][1])
+           /\ step' = step+1
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: crash_mon(mon)
-           /\ step_x' = "crash_mon"
+           /\ step_x' = "crash mon" /\ step' = step+1
            /\ UNCHANGED number_crashes
            
         \/ /\ \E mon \in Monitors: restore_mon(mon)
-           /\ step_x' = "restore_mon"
+           /\ step_x' = "restore mon" /\ step' = step+1
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: Timeout(mon)
-           /\ step_x' = "timeout_and_restart"
+           /\ step_x' = "timeout and restart" /\ step' = step+1
            /\ UNCHANGED number_crashes
 
 (***************************************************************************)
@@ -1073,5 +1069,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Sat Apr 03 15:41:22 WEST 2021 by afonsonf
+\* Last modified Wed Mar 17 14:56:41 WET 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf
