@@ -1,21 +1,22 @@
 @!@!@STARTMSG 2262:0 @!@!@
-TLC2 Version 2.15 of Day Month 20?? (rev: e4cae85)
+TLC2 Version 2.16 of Day Month 20?? (rev: 131a34b)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 115 and seed -4594700707418671606 with 4 workers on 4 cores with 2368MB heap and 5322MB offheap memory [pid: 15198] (Linux 5.8.0-48-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 115 and seed -4567036331944146988 with 4 workers on 4 cores with 2368MB heap and 5322MB offheap memory [pid: 13100] (Linux 5.8.0-48-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
 @!@!@ENDMSG 2220 @!@!@
 Parsing file /home/afonsonf/sandbox/reps/tese-notas/ceph/draft-tla-repo/src/paxos.toolbox/test-model/MC.tla
 Parsing file /home/afonsonf/sandbox/reps/tese-notas/ceph/draft-tla-repo/src/paxos.toolbox/test-model/paxos.tla
-Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202102241744/tla2sany/StandardModules/TLC.tla
-Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202102241744/tla2sany/StandardModules/Integers.tla
-Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202102241744/tla2sany/StandardModules/FiniteSets.tla
-Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202102241744/tla2sany/StandardModules/Sequences.tla
+Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202104102238/tla2sany/StandardModules/TLC.tla
+Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202104102238/tla2sany/StandardModules/Integers.tla
+Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202104102238/tla2sany/StandardModules/FiniteSets.tla
+Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202104102238/tla2sany/StandardModules/Sequences.tla
 Parsing file /tmp/SequencesExt.tla (jar:file:/home/afonsonf/sandbox/tools/tla+/CommunityModules-deps.jar!/SequencesExt.tla)
 Parsing file /tmp/FiniteSetsExt.tla (jar:file:/home/afonsonf/sandbox/tools/tla+/CommunityModules-deps.jar!/FiniteSetsExt.tla)
-Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202102241744/tla2sany/StandardModules/Naturals.tla
+Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202104102238/tla2sany/StandardModules/TLCExt.tla
+Parsing file /home/afonsonf/sandbox/tools/tla+/plugins/org.lamport.tlatools_1.0.0.202104102238/tla2sany/StandardModules/Naturals.tla
 Parsing file /tmp/Functions.tla (jar:file:/home/afonsonf/sandbox/tools/tla+/CommunityModules-deps.jar!/Functions.tla)
 Semantic processing of module Naturals
 Semantic processing of module Integers
@@ -25,42 +26,55 @@ Semantic processing of module TLC
 Semantic processing of module Functions
 Semantic processing of module FiniteSetsExt
 Semantic processing of module SequencesExt
+Semantic processing of module TLCExt
 Semantic processing of module paxos
 Semantic processing of module MC
 @!@!@STARTMSG 2219:0 @!@!@
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2021-04-04 20:45:02)
+Starting... (2021-04-11 13:30:52)
 @!@!@ENDMSG 2185 @!@!@
+@!@!@STARTMSG 2168:0 @!@!@
+Loading TLCExt!Trace operator override from jar:file:/home/afonsonf/sandbox/tools/tla+/CommunityModules-deps.jar!/tlc2/overrides/TLCExt.class with signature: <Java Method: public static synchronized tlc2.value.impl.Value tlc2.overrides.TLCExt.getTrace(tlc2.tool.impl.Tool,tla2sany.semantic.ExprOrOpArgNode[],tlc2.util.Context,tlc2.tool.TLCState,tlc2.tool.TLCState,int,tlc2.tool.coverage.CostModel) throws java.io.IOException>.
+@!@!@ENDMSG 2168 @!@!@
+@!@!@STARTMSG 2168:0 @!@!@
+Loading TLCExt!AssertError operator override from jar:file:/home/afonsonf/sandbox/tools/tla+/CommunityModules-deps.jar!/tlc2/overrides/TLCExt.class with signature: <Java Method: public static synchronized tlc2.value.impl.Value tlc2.overrides.TLCExt.assertError(tlc2.tool.impl.Tool,tla2sany.semantic.ExprOrOpArgNode[],tlc2.util.Context,tlc2.tool.TLCState,tlc2.tool.TLCState,int,tlc2.tool.coverage.CostModel)>.
+@!@!@ENDMSG 2168 @!@!@
+@!@!@STARTMSG 2168:0 @!@!@
+Loading TLCExt!PickSuccessor operator override from jar:file:/home/afonsonf/sandbox/tools/tla+/CommunityModules-deps.jar!/tlc2/overrides/TLCExt.class with signature: <Java Method: public static synchronized tlc2.value.impl.Value tlc2.overrides.TLCExt.pickSuccessor(tlc2.tool.impl.Tool,tla2sany.semantic.ExprOrOpArgNode[],tlc2.util.Context,tlc2.tool.TLCState,tlc2.tool.TLCState,int,tlc2.tool.coverage.CostModel)>.
+@!@!@ENDMSG 2168 @!@!@
+@!@!@STARTMSG 2168:0 @!@!@
+Loading TLCExt!TLCDefer operator override from jar:file:/home/afonsonf/sandbox/tools/tla+/CommunityModules-deps.jar!/tlc2/overrides/TLCExt.class with signature: <Java Method: public static tlc2.value.impl.Value tlc2.overrides.TLCExt.tlcDefer(tlc2.tool.impl.Tool,tla2sany.semantic.ExprOrOpArgNode[],tlc2.util.Context,tlc2.tool.TLCState,tlc2.tool.TLCState,int,tlc2.tool.coverage.CostModel)>.
+@!@!@ENDMSG 2168 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
 @!@!@ENDMSG 2189 @!@!@
 @!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 1 distinct state generated at 2021-04-04 20:45:03.
+Finished computing initial states: 1 distinct state generated at 2021-04-11 13:30:53.
 @!@!@ENDMSG 2190 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(17) at 2021-04-04 20:45:06: 143 257 states generated (143 257 s/min), 64 619 distinct states found (64 619 ds/min), 18 375 states left on queue.
+Progress(20) at 2021-04-11 13:30:56: 57 333 states generated (57 333 s/min), 26 462 distinct states found (26 462 ds/min), 5 269 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2193:0 @!@!@
 Model checking completed. No error has been found.
   Estimates of the probability that TLC did not check all reachable states
   because two distinct states had the same fingerprint:
-  calculated (optimistic):  val = 1.2E-6
-  based on the actual fingerprints:  val = 4.0E-5
+  calculated (optimistic):  val = 2.2E-8
+  based on the actual fingerprints:  val = 6.2E-8
 @!@!@ENDMSG 2193 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(53) at 2021-04-04 20:46:00: 9 510 440 states generated (9 698 263 s/min), 4 333 078 distinct states found (4 418 652 ds/min), 0 states left on queue.
+Progress(50) at 2021-04-11 13:31:16: 1 286 231 states generated (3 162 603 s/min), 599 353 distinct states found (1 473 698 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
-9510440 states generated, 4333078 distinct states found, 0 states left on queue.
+1286231 states generated, 599353 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2199 @!@!@
 @!@!@STARTMSG 2194:0 @!@!@
-The depth of the complete state graph search is 53.
+The depth of the complete state graph search is 50.
 @!@!@ENDMSG 2194 @!@!@
 @!@!@STARTMSG 2268:0 @!@!@
 The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 8 and the 95th percentile is 5).
 @!@!@ENDMSG 2268 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 58847ms at (2021-04-04 20:46:00)
+Finished in 24424ms at (2021-04-11 13:31:16)
 @!@!@ENDMSG 2186 @!@!@

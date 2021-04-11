@@ -41,7 +41,7 @@
 (* ^'                                                                      *)
 (***************************************************************************)
 
-EXTENDS Integers, FiniteSets, Sequences, TLC, SequencesExt, FiniteSetsExt
+EXTENDS Integers, FiniteSets, Sequences, TLC, SequencesExt, FiniteSetsExt, TLCExt
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -247,8 +247,8 @@ VARIABLE accepted
 
 \* Variables to help debug a behavior.
 \* step is the diameter of a behavior/path.
-\* step_x the current predicate being called.
-VARIABLE step, step_x
+\* step_name the current predicate being called.
+VARIABLE step_name
 
 \* Variables to limit the number of monitors crashes that can occur over a behavior.
 \* This variable is used to limit the search space.
@@ -316,7 +316,7 @@ Init ==
     /\ Init_collect_vars
     /\ Init_lease_vars
     /\ Init_commit_vars
-    /\ step = 0 /\ step_x = "init" /\ number_crashes = 0
+    /\ step_name = "init" /\ number_crashes = 0
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -919,31 +919,31 @@ Timeout(mon) ==
 Receive(msg) ==
     /\ \/ /\ msg.type = OP_COLLECT
           /\ handle_collect(msg.dest, msg)
-          /\ step_x' = "receive collect"
+          /\ step_name' = "receive collect"
 
        \/ /\ msg.type = OP_LAST
           /\ handle_last(msg.dest, msg)
-          /\ step_x' = "receive last"
+          /\ step_name' = "receive last"
 
        \/ /\ msg.type = OP_LEASE
           /\ handle_lease(msg.dest, msg)
-          /\ step_x' = "receive lease"
+          /\ step_name' = "receive lease"
 
        \/ /\ msg.type = OP_LEASE_ACK
           /\ handle_lease_ack(msg.dest, msg)
-          /\ step_x' = "receive lease_ack"
+          /\ step_name' = "receive lease_ack"
 
        \/ /\ msg.type = OP_BEGIN
           /\ handle_begin(msg.dest, msg)
-          /\ step_x' = "receive begin"
+          /\ step_name' = "receive begin"
 
        \/ /\ msg.type = OP_ACCEPT
           /\ handle_accept(msg.dest, msg)
-          /\ step_x' = "receive accept"
+          /\ step_name' = "receive accept"
 
        \/ /\ msg.type = OP_COMMIT
           /\ handle_commit(msg.dest, msg)
-          /\ step_x' = "receive commit"
+          /\ step_name' = "receive commit"
 
 \* Limit some variables to reduce search space.    
 reduce_search_space ==
@@ -956,43 +956,41 @@ reduce_search_space ==
 \* State transitions.
 Next ==
     /\ reduce_search_space
-    /\ IF DEBUG THEN step' = step+1
-                ELSE step' = step
     /\ IF epoch % 2 = 1 THEN
         /\ leader_election
-        /\ step_x' = "election"
+        /\ step_name' = "election"
         /\ UNCHANGED number_crashes
        ELSE
         \/ /\ \E mon \in Monitors: election_recover(mon)
-           /\ step_x' = "election_recover"
+           /\ step_name' = "election_recover"
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: send_collect(mon)
-           /\ step_x' = "send_collect"
+           /\ step_name' = "send_collect"
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: post_last(mon)
-           /\ step_x' = "post_last"
+           /\ step_name' = "post_last"
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: post_lease_ack(mon)
-           /\ step_x' = "post_lease_ack"
+           /\ step_name' = "post_lease_ack"
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: post_accept(mon)
-           /\ step_x' = "post_accept"
+           /\ step_name' = "post_accept"
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: finish_commit(mon)
-           /\ step_x' = "finish_commit"
+           /\ step_name' = "finish_commit"
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: \E v \in Value_set: client_request(mon, v)
-           /\ step_x' = "client_request"
+           /\ step_name' = "client_request"
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: propose_pending(mon)
-           /\ step_x' = "propose_pending"
+           /\ step_name' = "propose_pending"
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon1, mon2 \in Monitors:
@@ -1002,16 +1000,17 @@ Next ==
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: crash_mon(mon)
-           /\ step_x' = "crash_mon"
+           /\ step_name' = "crash_mon"
            /\ UNCHANGED number_crashes
            
         \/ /\ \E mon \in Monitors: restore_mon(mon)
-           /\ step_x' = "restore_mon"
+           /\ step_name' = "restore_mon"
            /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: Timeout(mon)
-           /\ step_x' = "timeout_and_restart"
+           /\ step_name' = "timeout_and_restart"
            /\ UNCHANGED number_crashes
+    /\ TLCSet(42, isLeader)         
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -1036,11 +1035,11 @@ Inv == /\ same_monitor_store
 Inv_find_state(x) == ~x
 
 \* Invariant used to search for a behavior of diameter equal to 'size'.
-Inv_diam(size) == step # size-1
+Inv_diam(size) == TLCGet("level") # size-1
 
 \* Invariants to test in model check
 DEBUG_Inv == /\ TRUE
-       \*/\ Inv_diam(20)
+             \*/\ Inv_diam(20)
 
 (*
 Examples:
@@ -1057,7 +1056,7 @@ Inv_find_state(
 
 Find a state where a monitor crashed during the collect phase and fails to send a OP_LAST message.
 Inv_find_state(
-    /\ step_x="crash mon"
+    /\ step_name="crash mon"
 
     \* The system is in collect phase and no OP_LAST message has been received.
     \* isLeader[mon] = TRUE assures that the leader was not the one that crashed.
@@ -1075,7 +1074,7 @@ Inv_find_state(
 
 Find a state where the leader crashes during the commit phase, failing to complete the commit.
 Inv_find_state(
-    /\ step_x="crash mon"
+    /\ step_name="crash mon"
     /\ \E mon1, mon2 \in Monitors:
         \E i \in 1..Len(messages[mon1][mon2]): messages[mon1][mon2][i].type = OP_ACCEPT
     /\ \A mon \in Monitors:
@@ -1087,5 +1086,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 04 20:44:50 WEST 2021 by afonsonf
+\* Last modified Sun Apr 11 13:30:34 WEST 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf

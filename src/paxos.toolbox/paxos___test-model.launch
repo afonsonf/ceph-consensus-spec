@@ -22,13 +22,14 @@
     <stringAttribute key="modelBehaviorNext" value="Next"/>
     <stringAttribute key="modelBehaviorSpec" value=""/>
     <intAttribute key="modelBehaviorSpecType" value="2"/>
-    <stringAttribute key="modelBehaviorVars" value="uncommitted_v, phase, epoch, monitor_store, messages, step_x, accepted_pn, isLeader, number_crashes, accepted, state, first_committed, peer_first_committed, quorum_sz, pending_proposal, values, step, quorum, message_history, last_committed, uncommitted_pn, acked_lease, peer_last_committed, uncommitted_value, num_last, new_value"/>
+    <stringAttribute key="modelBehaviorVars" value="uncommitted_v, phase, epoch, monitor_store, messages, accepted_pn, isLeader, number_crashes, accepted, state, first_committed, step_name, peer_first_committed, quorum_sz, pending_proposal, values, quorum, message_history, last_committed, uncommitted_pn, acked_lease, peer_last_committed, uncommitted_value, num_last, new_value"/>
     <stringAttribute key="modelComments" value=""/>
     <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
     <listAttribute key="modelCorrectnessInvariants">
         <listEntry value="1Inv"/>
-        <listEntry value="0Inv_diam(54)"/>
+        <listEntry value="0Inv_diam(37)"/>
         <listEntry value="0Inv_find_state(&#10;    /\ \E mon1, mon2 \in Monitors:&#10;    &#9;\E va, vb \in Value_set:&#10;    &#9;&#9;/\ va # vb&#10;&#9;    &#9;/\ values[mon1] = &lt;&lt;va,va&gt;&gt;&#10;&#9;    &#9;/\ values[mon2] = &lt;&lt;va,vb&gt;&gt;&#10;)"/>
+        <listEntry value="0DEBUG_Inv"/>
     </listAttribute>
     <listAttribute key="modelCorrectnessProperties"/>
     <intAttribute key="modelEditorOpenTabs" value="14"/>
@@ -40,7 +41,7 @@
         <listEntry value="STATE_WRITING;;STATE_WRITING;1;0"/>
         <listEntry value="OP_LAST;;OP_LAST;1;0"/>
         <listEntry value="STATE_RECOVERING;;STATE_RECOVERING;1;0"/>
-        <listEntry value="Value_set;;{v1, v2};1;0"/>
+        <listEntry value="Value_set;;{v1, v2};1;1"/>
         <listEntry value="STATE_UPDATING;;STATE_UPDATING;1;0"/>
         <listEntry value="OP_COMMIT;;OP_COMMIT;1;0"/>
         <listEntry value="OP_BEGIN;;OP_BEGIN;1;0"/>
@@ -59,7 +60,7 @@
         <listEntry value="PHASE_LEASE;;PHASE_LEASE;1;0"/>
         <listEntry value="PHASE_COMMIT;;PHASE_COMMIT;1;0"/>
         <listEntry value="PHASE_SEND_COLLECT;;PHASE_SEND_COLLECT;1;0"/>
-        <listEntry value="Monitors;;{m1, m2, m3};1;0"/>
+        <listEntry value="Monitors;;{m1, m2, m3};1;1"/>
     </listAttribute>
     <stringAttribute key="modelParameterContraint" value=""/>
     <listAttribute key="modelParameterDefinitions"/>
