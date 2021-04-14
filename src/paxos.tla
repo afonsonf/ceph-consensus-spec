@@ -116,7 +116,7 @@ CONSTANTS (*@type: MESSAGE_OP;*) OP_COLLECT, (*@type: MESSAGE_OP;*) OP_LAST,
           (*@type: MESSAGE_OP;*) OP_BEGIN, (*@type: MESSAGE_OP;*) OP_ACCEPT,
           (*@type: MESSAGE_OP;*) OP_COMMIT,
           (*@type: MESSAGE_OP;*) OP_LEASE, (*@type: MESSAGE_OP;*) OP_LEASE_ACK
-          
+
 (***************************************************************************)
 (* `^ \centering                                                           *)
 (* \textbf{   Global variables   }                                         *)
@@ -132,7 +132,7 @@ VARIABLE (*@type: MONITOR -> (MONITOR -> Seq(MESSAGE));*) messages
 \* Stores history of messages. Can be useful to find specific states.
 VARIABLE (*@type: Set(MESSAGE);*) message_history
 
-\* Stores if a monitor is up or down. All available monitors, in a given epoch, are part of the quorum. 
+\* Stores if a monitor is up or down. All available monitors, in a given epoch, are part of the quorum.
 VARIABLE (*@type: MONITOR -> Bool;*) quorum
 
 \* Size of the current quorum.
@@ -341,7 +341,7 @@ SingleMessageSetToSeq(S) ==
 WithMessage(m, msgs) ==
     [msgs EXCEPT ![m.from] =
         [msgs[m.from] EXCEPT ![m.dest] = Append(msgs[m.from][m.dest], m)]]
-    
+
 \* Remove message m from the network msgs.
 \* @type: (MESSAGE, MESSAGE_QUEUE) => MESSAGE_QUEUE;
 WithoutMessage(m, msgs) ==
@@ -364,7 +364,7 @@ Send_set(from, m_set) ==
         [mon \in Monitors |->
             messages[from][mon] \o SingleMessageSetToSeq({m \in m_set: m.dest = mon})]]
     \*/\ message_history' = message_history \union m_set
-    /\ UNCHANGED message_history    
+    /\ UNCHANGED message_history
 
 \* Removes the request from network and adds the response.
 \* Variables changed: messages, message_history.
@@ -383,15 +383,15 @@ Reply_set(from, response_set, request) ==
             [mon \in Monitors |->
                 msgs[from][mon] \o SingleMessageSetToSeq({m \in response_set: m.dest = mon})]]
     \*/\ message_history' = message_history \union response_set
-    /\ UNCHANGED message_history    
-    
+    /\ UNCHANGED message_history
+
 \* Removes message m from the network.
 \* Variables changed: messages, message_history.
 \* @type: MESSAGE => Bool;
 Discard(m) ==
     /\ messages' = WithoutMessage(m, messages)
     /\ UNCHANGED message_history
-    
+
 (***************************************************************************)
 (* `^                                                                      *)
 (* \begin{center}\textbf{   Helper predicates   }\end{center}              *)
@@ -405,7 +405,7 @@ Discard(m) ==
 \* Example: oldpn = 305, rank(mon) = 5, newpn = 405.
 \* @type: (MONITOR, Int) => Int;
 \* get_new_proposal_number(mon, oldpn) == ((oldpn \div 100) + 1) * 100 + rank(mon)
-    
+
 \* Version B - Adapted to not break symmetry.
 \* Example: oldpn = 300, rank(mon) = 5, newpn = 400.
 \* @type: (MONITOR, Int) => Int;
@@ -483,13 +483,13 @@ finish_round(mon) ==
 extend_lease(mon) ==
     /\ isLeader[mon] = TRUE
     /\ acked_lease' = [acked_lease EXCEPT ![mon] =
-        [m \in Monitors |-> IF m = mon THEN TRUE ELSE FALSE]]        
+        [m \in Monitors |-> IF m = mon THEN TRUE ELSE FALSE]]
     /\ Send_set(mon,
         {[type           |-> OP_LEASE,
           from           |-> mon,
           dest           |-> dest,
           last_committed |-> last_committed[mon]]: dest \in {m \in Monitors \ {mon}: quorum[m]}
-         })        
+         })
     /\ phase' = [phase EXCEPT ![mon] = PHASE_LEASE]
 
 \* Handle a lease message. The peon changes his state and replies with a lease ack message.
@@ -639,13 +639,13 @@ post_accept(mon) ==
     /\ \/ state[mon] = STATE_UPDATING_PREVIOUS
        \/ state[mon] = STATE_UPDATING
     /\ last_committed' = [last_committed EXCEPT ![mon] = last_committed[mon] + 1]
-    
+
     /\ IF first_committed[mon] = 0
        THEN first_committed' = [first_committed EXCEPT ![mon] = first_committed[mon] + 1]
        ELSE UNCHANGED first_committed
 
     /\ monitor_store' = [monitor_store EXCEPT ![mon] = values[mon][last_committed[mon]+1]]
-    /\ new_value' = [new_value EXCEPT ![mon] = Nil]    
+    /\ new_value' = [new_value EXCEPT ![mon] = Nil]
     /\ Send_set(mon,
         {[type           |-> OP_COMMIT,
           from           |-> mon,
@@ -653,7 +653,7 @@ post_accept(mon) ==
           last_committed |-> last_committed'[mon],
           pn             |-> accepted_pn[mon],
           values         |-> values[mon]]: dest \in {m \in Monitors \ {mon}: quorum[m]}
-         })                 
+         })
     /\ state' = [state EXCEPT ![mon] = STATE_REFRESH]
     /\ phase' = [phase EXCEPT ![mon] = PHASE_COMMIT]
     /\ UNCHANGED <<isLeader, values, accepted_pn, pending_proposal, accepted>>
@@ -753,7 +753,7 @@ send_collect(mon) ==
             /\ uncommitted_pn' = uncommitted_pn
        ELSE UNCHANGED <<restart_vars>>
 
-    /\ num_last' = [num_last EXCEPT ![mon] = 1]    
+    /\ num_last' = [num_last EXCEPT ![mon] = 1]
     /\ Send_set(mon,
         {[type            |-> OP_COLLECT,
           from            |-> mon,
@@ -761,7 +761,7 @@ send_collect(mon) ==
           first_committed |-> first_committed[mon],
           last_committed  |-> last_committed[mon],
           pn              |-> accepted_pn[mon]]: dest \in {m \in Monitors \ {mon}: quorum[m]}
-         })        
+         })
     /\ phase' = [phase EXCEPT ![mon] = PHASE_COLLECT]
     /\ UNCHANGED <<isLeader, state>>
     /\ UNCHANGED <<epoch, quorum, quorum_sz, data_vars, lease_vars, commit_vars>>
@@ -844,28 +844,28 @@ handle_last(mon,msg) ==
                   /\ collect(mon, msg.pn)
                   /\ check_and_correct_uncommitted(mon)
                   /\ UNCHANGED num_last
-                  
+
                \/ /\ msg.pn = accepted_pn[mon]
                   /\ num_last' = [num_last EXCEPT ![mon] = num_last[mon] + 1]
                   /\ IF /\ msg.last_committed+1 \in DOMAIN msg.values
                         /\ msg.last_committed >= last_committed'[mon]
                         /\ msg.last_committed+1 >= uncommitted_v[mon]
-                        \*/\ msg.uncommitted_pn >= uncommitted_pn[mon]
+                        /\ msg.uncommitted_pn >= uncommitted_pn[mon]
                      THEN /\ uncommitted_v' =
                                 [uncommitted_v EXCEPT ![mon] = msg.last_committed+1]
                           /\ uncommitted_pn' =
-                                [uncommitted_pn EXCEPT ![mon] = msg.uncommitted_pn]      
+                                [uncommitted_pn EXCEPT ![mon] = msg.uncommitted_pn]
                           /\ uncommitted_value' =
                                 [uncommitted_value EXCEPT ![mon] = msg.values[msg.last_committed+1]]
                      ELSE check_and_correct_uncommitted(mon)
                   /\ UNCHANGED <<phase, accepted_pn>>
-                  
+
                \/ /\ msg.pn < accepted_pn[mon]
                   /\ check_and_correct_uncommitted(mon)
                   /\ UNCHANGED <<phase, accepted_pn, num_last>>
             /\ UNCHANGED epoch
        /\ UNCHANGED <<epoch>>
-       
+
     /\ UNCHANGED <<quorum, quorum_sz, isLeader, state>>
     /\ UNCHANGED <<lease_vars, commit_vars>>
 
@@ -1001,7 +1001,7 @@ Receive(msg) ==
           /\ step_name' = "receive commit"
 
 \* Limit some variables to reduce search space.
-\* @type: Bool;  
+\* @type: Bool;
 reduce_search_space ==
     /\ epoch # 8
     /\ \/ \A mon \in Monitors: last_committed[mon] < 2
@@ -1059,7 +1059,7 @@ Next ==
         \/ /\ \E mon \in Monitors: crash_mon(mon)
            /\ step_name' = "crash_mon"
            /\ UNCHANGED number_crashes
-           
+
         \/ /\ \E mon \in Monitors: restore_mon(mon)
            /\ step_name' = "restore_mon"
            /\ UNCHANGED number_crashes
