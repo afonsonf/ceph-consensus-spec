@@ -36,12 +36,10 @@
     <stringAttribute key="modelExpressionEval" value=""/>
     <stringAttribute key="modelParameterActionConstraint" value=""/>
     <listAttribute key="modelParameterConstants">
-        <listEntry value="Nil;;Nil;1;0"/>
         <listEntry value="STATE_SHUTDOWN;;STATE_SHUTDOWN;1;0"/>
         <listEntry value="STATE_WRITING;;STATE_WRITING;1;0"/>
         <listEntry value="OP_LAST;;OP_LAST;1;0"/>
         <listEntry value="STATE_RECOVERING;;STATE_RECOVERING;1;0"/>
-        <listEntry value="Value_set;;{v1, v2};1;1"/>
         <listEntry value="STATE_UPDATING;;STATE_UPDATING;1;0"/>
         <listEntry value="OP_COMMIT;;OP_COMMIT;1;0"/>
         <listEntry value="OP_BEGIN;;OP_BEGIN;1;0"/>
@@ -61,6 +59,8 @@
         <listEntry value="PHASE_COMMIT;;PHASE_COMMIT;1;0"/>
         <listEntry value="PHASE_SEND_COLLECT;;PHASE_SEND_COLLECT;1;0"/>
         <listEntry value="Monitors;;{m1, m2, m3};1;1"/>
+        <listEntry value="Value_set;;{v1, v2};1;1"/>
+        <listEntry value="Nil;;Nil;1;0"/>
     </listAttribute>
     <stringAttribute key="modelParameterContraint" value=""/>
     <listAttribute key="modelParameterDefinitions"/>

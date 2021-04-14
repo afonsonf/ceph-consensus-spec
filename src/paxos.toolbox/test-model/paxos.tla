@@ -41,16 +41,18 @@
 (* ^'                                                                      *)
 (***************************************************************************)
 
-EXTENDS Integers, FiniteSets, Sequences, TLC, SequencesExt, FiniteSetsExt, TLCExt
+EXTENDS Integers, FiniteSets, Sequences, TLC, SequencesExt, FiniteSetsExt
+
+\* External libraries used on:
+\* SequencesExt: SetToSeq
+\* FiniteSetsExt: Min, Max
+
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
 (* \textbf{   Constants   }                                                *)
 (*  ^'                                                                     *)
 (***************************************************************************)
-
-\* If true run in debug mode.
-DEBUG == FALSE
 
 \* Set of Monitors.
 CONSTANTS Monitors
@@ -63,6 +65,9 @@ rank(mon) == CHOOSE i \in 1..MonitorsLen: MonitorsSeq[i]=mon
 
 \* Set of possible values.
 CONSTANTS Value_set
+
+\* Predicate used in the cfg file to define the symmetry set.
+SYMM == Permutations(Monitors) \union Permutations(Value_set)
 
 \* Reserved value.
 CONSTANTS Nil
@@ -326,6 +331,12 @@ Init ==
 
 \* Note: Variable message_history has impact in performace, update only when debugging.
 
+\* Converts a set with at most one element to a sequence.
+SingleMessageSetToSeq(S) ==
+    IF \E elem \in S: TRUE THEN LET elem == CHOOSE x \in S: TRUE
+                                IN <<elem>>
+                           ELSE <<>>
+
 \* Add message m to the network msgs.
 WithMessage(m, msgs) ==
     [msgs EXCEPT ![m.from] =
@@ -334,7 +345,7 @@ WithMessage(m, msgs) ==
 \* Remove message m from the network msgs.
 WithoutMessage(m, msgs) ==
     [msgs EXCEPT ![m.from] =
-        [msgs[m.from] EXCEPT ![m.dest] = Remove(msgs[m.from][m.dest], m)]]
+        [msgs[m.from] EXCEPT ![m.dest] = Tail(msgs[m.from][m.dest])]]
 
 \* Adds the message m to the network.
 \* Variables changed: messages, message_history.
@@ -348,7 +359,7 @@ Send(m) ==
 Send_set(from, m_set) ==
     /\ messages' = [messages EXCEPT ![from] =
         [mon \in Monitors |->
-            messages[from][mon] \o SetToSeq({m \in m_set: m.dest = mon})]]
+            messages[from][mon] \o SingleMessageSetToSeq({m \in m_set: m.dest = mon})]]
     \*/\ message_history' = message_history \union m_set
     /\ UNCHANGED message_history    
 
@@ -365,7 +376,7 @@ Reply_set(from, response_set, request) ==
     /\ LET msgs == WithoutMessage(request, messages)
        IN  messages' = [msgs EXCEPT ![from] =
             [mon \in Monitors |->
-                msgs[from][mon] \o SetToSeq({m \in response_set: m.dest = mon})]]
+                msgs[from][mon] \o SingleMessageSetToSeq({m \in response_set: m.dest = mon})]]
     \*/\ message_history' = message_history \union response_set
     /\ UNCHANGED message_history    
     
@@ -382,9 +393,15 @@ Discard(m) ==
 (***************************************************************************)
 
 \* Computes a new unique proposal number for a given monitor.
+
+\* Version A - Equal to the one in the source.
+\* This version breaks the symmetry of the monitor set.
 \* Example: oldpn = 305, rank(mon) = 5, newpn = 405.
-get_new_proposal_number(mon, oldpn) ==
-    ((oldpn \div 100) + 1) * 100 + rank(mon)
+\* get_new_proposal_number(mon, oldpn) == ((oldpn \div 100) + 1) * 100 + rank(mon)
+    
+\* Version B - Adapted to not break symmetry.
+\* Example: oldpn = 300, rank(mon) = 5, newpn = 400.
+get_new_proposal_number(mon, oldpn) == ((oldpn \div 100) + 1) * 100
 
 \* Clear the variable peer_first_committed.
 \* Variables changed: peer_first_committed.
@@ -1010,7 +1027,6 @@ Next ==
         \/ /\ \E mon \in Monitors: Timeout(mon)
            /\ step_name' = "timeout_and_restart"
            /\ UNCHANGED number_crashes
-    /\ TLCSet(42, isLeader)         
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -1086,5 +1102,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 11 13:30:34 WEST 2021 by afonsonf
+\* Last modified Wed Apr 14 14:21:13 WEST 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf
