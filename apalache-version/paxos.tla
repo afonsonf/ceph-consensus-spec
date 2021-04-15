@@ -63,6 +63,10 @@ Min(S) == CHOOSE x \in S : \A y \in S : x =< y
 (*  ^'                                                                     *)
 (***************************************************************************)
 
+\* To run with tlc
+\* CONSTANTS m1, m2, m3
+\* MonitorsSeq == <<m1,m2,m3>>
+
 \* Set of Monitors.
 CONSTANTS (*@type: Set(MONITOR);*) Monitors
 
@@ -145,14 +149,19 @@ VARIABLE (*@type: MONITOR -> PHASE_NAME;*) phase
 
 \* A function that stores, for each monitor, a proposal number when the commit phase starts.
 \* This proposal number can be retrieved after a monitor crashes and restarts.
-VARIABLE (*@type: MONITOR -> PN;*) uncommitted_pn
+VARIABLE (*@type: MONITOR -> PN;*) pending_pn
 
 \* A function that stores, for each monitor, a value version when the commit phase starts.
 \* This value version can be retrieved after a monitor crashes and restarts.
+VARIABLE (*@type: MONITOR -> VALUE_VERSION;*) pending_v
+
+\* A function that stores, for each monitor, the best uncommitted pn received in the collect phase.
+VARIABLE (*@type: MONITOR -> PN;*) uncommitted_pn
+
+\* A function that stores, for each monitor, the best uncommitted value version received in the collect phase.
 VARIABLE (*@type: MONITOR -> VALUE_VERSION;*) uncommitted_v
 
-\* A function that stores, for each monitor, a value when the commit phase starts.
-\* This value can be retrieved after a monitor crashes and restarts.
+\* A function that stores, for each monitor, the best uncommitted value received in the collect phase.
 VARIABLE (*@type: MONITOR -> VALUE;*) uncommitted_value
 
 (***************************************************************************)
@@ -243,8 +252,8 @@ VARIABLE (*@type: Int;*) number_crashes
 global_vars    == <<epoch, messages, message_history, quorum, quorum_sz>>
 state_vars     == <<isLeader, state, phase>>
 
-\* @type: <<MONITOR -> Int, MONITOR -> Int, MONITOR -> VALUE>>;
-restart_vars   == <<uncommitted_pn, uncommitted_v, uncommitted_value>>
+\* @type: <<MONITOR -> Int, MONITOR -> Int, MONITOR -> Int, MONITOR -> Int, MONITOR -> VALUE>>;
+restart_vars   == <<pending_pn, pending_v, uncommitted_pn, uncommitted_v, uncommitted_value>>
 data_vars      == <<monitor_store, values, accepted_pn, first_committed, last_committed>>
 collect_vars   == <<num_last, peer_first_committed, peer_last_committed>>
 lease_vars     == acked_lease
@@ -266,6 +275,8 @@ Init_state_vars ==
     /\ phase = [mon \in Monitors |-> PHASE_ELECTION]
 
 Init_restart_vars ==
+    /\ pending_pn = [mon \in Monitors |-> 0]
+    /\ pending_v = [mon \in Monitors |-> 0]
     /\ uncommitted_pn = [mon \in Monitors |-> 0]
     /\ uncommitted_v = [mon \in Monitors |-> 0]
     /\ uncommitted_value = [mon \in Monitors |-> Nil]
@@ -337,7 +348,6 @@ InitConst ==
     /\ InitConstMESSAGE
     /\ InitValues
     /\ InitMonitors
-
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -571,9 +581,9 @@ post_lease_ack(mon) ==
 (***************************************************************************)
 
 \* Start a commit phase by the leader. The variable new_value is assigned. Send begin messages to the peers.
-\* The value of uncommitted_v and uncommitted_value are assigned in order for the leader to be
+\* The new value is stored in values and pending_pn is assigned in order for the leader to be
 \* able to recover from a crash.
-\* Variables changed: accepted, new_value, phase, messages, message_history, values, uncommitted_pn, uncommitted_v, uncommitted_value.
+\* Variables changed: accepted, new_value, phase, messages, message_history, values, pending_pn, pending_v.
 \* @type: (MONITOR, VALUE) => Bool;
 begin(mon, v) ==
     /\ isLeader[mon] = TRUE
@@ -595,22 +605,21 @@ begin(mon, v) ==
           values         |-> values'[mon],
           pn             |-> accepted_pn[mon]]: dest \in {m \in Monitors \ {mon}: quorum[m]}
          })
-    /\ uncommitted_pn' = [uncommitted_pn EXCEPT ![mon] = accepted_pn[mon]]
-    /\ uncommitted_v' = [uncommitted_v EXCEPT ![mon] = last_committed[mon]+1]
-    /\ uncommitted_value' = [uncommitted_value EXCEPT ![mon] = v]
+    /\ pending_pn' = [pending_pn EXCEPT ![mon] = accepted_pn[mon]]
+    /\ pending_v' = [pending_v EXCEPT ![mon] = last_committed[mon]+1]
 
 \* Handle a begin message. The monitor will accept if the proposal number in the message is greater
 \* or equal than the one he accepted.
-\* Similar to what happens in begin, uncommitted_v and uncommitted_value are assigned in order for
+\* Similar to what happens in begin, values and pending_pn are assigned in order for
 \* the monitor to recover in case of a crash.
-\* Variables changed: messages, message_history, state, values, uncommitted_pn, uncommitted_v, uncommitted_value.
+\* Variables changed: messages, message_history, state, values, pending_pn, pending_v.
 \* @type: (MONITOR, MESSAGE) => Bool;
 handle_begin(mon, msg) ==
     /\ isLeader[mon] = FALSE
     /\ IF msg.pn < accepted_pn[mon]
        THEN
         /\ Discard(msg)
-        /\ UNCHANGED <<state, values, restart_vars>>
+        /\ UNCHANGED <<state, values, pending_pn, pending_v>>
        ELSE
         /\ msg.pn = accepted_pn[mon]
         /\ msg.last_committed = last_committed[mon]
@@ -620,17 +629,16 @@ handle_begin(mon, msg) ==
             ((last_committed[mon] + 1) :> msg.values[last_committed[mon] + 1]) @@ values[mon] ]
 
         /\ state' = [state EXCEPT ![mon] = STATE_UPDATING]
-        /\ uncommitted_pn' = [uncommitted_pn EXCEPT ![mon] = accepted_pn[mon]]
-        /\ uncommitted_v' = [uncommitted_v EXCEPT ![mon] = last_committed[mon]+1]
-        /\ uncommitted_value' = [uncommitted_value EXCEPT ![mon] =
-            values'[mon][last_committed[mon]+1]]
+        /\ pending_pn' = [pending_pn EXCEPT ![mon] = accepted_pn[mon]]
+        /\ pending_v' = [pending_v EXCEPT ![mon] = last_committed[mon]+1]
         /\ Reply([type            |-> OP_ACCEPT,
                   from            |-> mon,
                   dest            |-> msg.from,
                   last_committed  |-> last_committed[mon],
                   pn              |-> accepted_pn[mon]],msg)
     /\ UNCHANGED <<epoch, quorum, quorum_sz, isLeader, phase, monitor_store,
-                   accepted_pn, first_committed, last_committed>>
+                   accepted_pn, first_committed, last_committed, uncommitted_pn,
+                   uncommitted_v, uncommitted_value>>
     /\ UNCHANGED <<collect_vars, lease_vars, commit_vars>>
 
 \* Handle an accept message. If the leader receives a positive response from the peer, it will
@@ -705,7 +713,7 @@ handle_commit(mon, msg) ==
     /\ store_state(mon, msg)
     /\ check_and_correct_uncommitted(mon)
     /\ Discard(msg)
-    /\ UNCHANGED <<epoch, quorum, quorum_sz, accepted_pn>>
+    /\ UNCHANGED <<epoch, quorum, quorum_sz, accepted_pn, pending_pn, pending_v>>
     /\ UNCHANGED <<state_vars, collect_vars, lease_vars, commit_vars>>
 
 (***************************************************************************)
@@ -728,7 +736,7 @@ client_request(mon, v) ==
 
 \* Start a commit phase with the value on pending proposal.
 \* Variables changed: state, pending_proposal, accepted, new_value, phase, messages, message_history, values,
-\* uncommitted_pn, uncommitted_v, uncommitted_value.
+\* pending_pn, pending_v.
 \* @type: MONITOR => Bool;
 propose_pending(mon) ==
     /\ phase[mon] = PHASE_LEASE \/ phase[mon] = PHASE_ELECTION
@@ -737,8 +745,9 @@ propose_pending(mon) ==
     /\ pending_proposal' = [pending_proposal EXCEPT ![mon] = Nil]
     /\ state' = [state EXCEPT ![mon] = STATE_UPDATING]
     /\ begin(mon, pending_proposal[mon])
-    /\ UNCHANGED <<isLeader, monitor_store, accepted_pn, first_committed, last_committed>>
-    /\ UNCHANGED <<epoch, quorum, quorum_sz, collect_vars, lease_vars>>
+    /\ UNCHANGED <<isLeader, monitor_store, accepted_pn, first_committed, last_committed,
+                   epoch, quorum, quorum_sz, uncommitted_v, uncommitted_pn, uncommitted_value>>
+    /\ UNCHANGED <<collect_vars, lease_vars>>
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -775,7 +784,8 @@ send_collect(mon) ==
                 [uncommitted_v EXCEPT ![mon] = last_committed[mon]+1]
             /\ uncommitted_value' =
                 [uncommitted_value EXCEPT ![mon] = values[mon][last_committed[mon]+1]]
-            /\ uncommitted_pn' = uncommitted_pn
+            /\ uncommitted_pn' = [uncommitted_pn EXCEPT ![mon] = pending_pn[mon]]
+            /\ UNCHANGED <<pending_pn, pending_v>>
        ELSE UNCHANGED <<restart_vars>>
 
     /\ num_last' = [num_last EXCEPT ![mon] = 1]
@@ -812,7 +822,7 @@ handle_collect(mon, msg) ==
                     first_committed |-> first_committed[mon],
                     last_committed  |-> last_committed[mon],
                     values          |-> values[mon],
-                    uncommitted_pn  |-> uncommitted_pn[mon],
+                    uncommitted_pn  |-> pending_pn[mon],
                     pn              |-> accepted_pn'[mon]],msg)
           /\ UNCHANGED epoch
     /\ UNCHANGED <<isLeader, phase, values, first_committed, last_committed, monitor_store>>
@@ -838,7 +848,7 @@ handle_last(mon,msg) ==
         /\ bootstrap
         /\ Discard(msg)
         /\ UNCHANGED <<num_last, accepted_pn, values, phase, monitor_store>>
-        /\ UNCHANGED <<first_committed, last_committed, restart_vars>>
+        /\ UNCHANGED <<first_committed, last_committed, uncommitted_pn, uncommitted_v, uncommitted_value>>
        ELSE
         /\ store_state(mon, msg)
         /\ IF \E peer \in Monitors:
@@ -875,7 +885,7 @@ handle_last(mon,msg) ==
                   /\ IF /\ msg.last_committed+1 \in DOMAIN msg.values
                         /\ msg.last_committed >= last_committed'[mon]
                         /\ msg.last_committed+1 >= uncommitted_v[mon]
-                        \*/\ msg.uncommitted_pn >= uncommitted_pn[mon]
+                        /\ msg.uncommitted_pn >= uncommitted_pn[mon]
                      THEN /\ uncommitted_v' =
                                 [uncommitted_v EXCEPT ![mon] = msg.last_committed+1]
                           /\ uncommitted_pn' =
@@ -891,14 +901,14 @@ handle_last(mon,msg) ==
             /\ UNCHANGED epoch
        /\ UNCHANGED <<epoch>>
 
-    /\ UNCHANGED <<quorum, quorum_sz, isLeader, state>>
+    /\ UNCHANGED <<quorum, quorum_sz, isLeader, state, pending_pn, pending_v>>
     /\ UNCHANGED <<lease_vars, commit_vars>>
 
 \* Predicate that is enabled and called when all peers in quorum accept collect request from leader. If there is an
 \* uncommitted value, a commit phase is started with that value, else the leader changes to ACTIVE_STATE and extends
 \* the lease to his peers.
 \* Variables changed: peer_first_committed, peer_last_committed, state, accepted, new_value, phase, messages,
-\* message_history, values, uncommitted_pn, uncommitted_v, uncommitted_value, acked_lease.
+\* message_history, values, pending_pn, pending_v, acked_lease.
 \* @type: MONITOR => Bool;
 post_last(mon) ==
     /\ isLeader[mon] = TRUE
@@ -912,7 +922,7 @@ post_last(mon) ==
           /\ uncommitted_value[mon] # Nil
        THEN /\ state' = [state EXCEPT ![mon] = STATE_UPDATING_PREVIOUS]
             /\ begin(mon, uncommitted_value[mon])
-            /\ UNCHANGED <<acked_lease>>
+            /\ UNCHANGED <<acked_lease, uncommitted_v, uncommitted_pn, uncommitted_value>>
        ELSE /\ finish_round(mon)
             /\ extend_lease(mon)
             /\ UNCHANGED <<accepted, new_value, values, restart_vars>>

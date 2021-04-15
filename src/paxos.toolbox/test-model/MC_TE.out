@@ -2,7 +2,7 @@
 TLC2 Version 2.16 of Day Month 20?? (rev: 131a34b)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 115 and seed 6402402979113247775 with 4 workers on 4 cores with 2368MB heap and 5322MB offheap memory [pid: 70487] (Linux 5.8.0-48-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 0 and seed -8316606858345922031 with 4 workers on 4 cores with 2368MB heap and 5322MB offheap memory [pid: 21377] (Linux 5.8.0-49-generic amd64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
@@ -25,29 +25,29 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2021-04-14 16:28:29)
+Starting... (2021-04-15 13:50:28)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
 @!@!@ENDMSG 2189 @!@!@
 @!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 1 distinct state generated at 2021-04-14 16:28:30.
+Finished computing initial states: 1 distinct state generated at 2021-04-15 13:50:30.
 @!@!@ENDMSG 2190 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(25) at 2021-04-14 16:28:33: 120 206 states generated (120 206 s/min), 52 527 distinct states found (52 527 ds/min), 9 444 states left on queue.
+Progress(24) at 2021-04-15 13:50:33: 61 107 states generated (61 107 s/min), 26 293 distinct states found (26 293 ds/min), 5 146 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2193:0 @!@!@
 Model checking completed. No error has been found.
   Estimates of the probability that TLC did not check all reachable states
   because two distinct states had the same fingerprint:
-  calculated (optimistic):  val = 1.3E-8
-  based on the actual fingerprints:  val = 8.6E-9
+  calculated (optimistic):  val = 1.7E-8
+  based on the actual fingerprints:  val = 4.3E-8
 @!@!@ENDMSG 2193 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(53) at 2021-04-14 16:28:50: 996 608 states generated (2 799 067 s/min), 423 706 distinct states found (1 190 018 ds/min), 0 states left on queue.
+Progress(53) at 2021-04-15 13:50:54: 1 116 156 states generated (2 551 991 s/min), 489 580 distinct states found (1 119 381 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
-996608 states generated, 423706 distinct states found, 0 states left on queue.
+1116156 states generated, 489580 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2199 @!@!@
 @!@!@STARTMSG 2194:0 @!@!@
 The depth of the complete state graph search is 53.
@@ -56,5 +56,5 @@ The depth of the complete state graph search is 53.
 The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 8 and the 95th percentile is 5).
 @!@!@ENDMSG 2268 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 21379ms at (2021-04-14 16:28:50)
+Finished in 26262ms at (2021-04-15 13:50:54)
 @!@!@ENDMSG 2186 @!@!@
