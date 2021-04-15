@@ -1,27 +1,28 @@
  <Initial predicate>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
-	/\ phase = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
+	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 1
+	/\ pending_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "init"
 	/\ accepted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
+	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "init"
+	/\ pending_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> << >> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 0
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
@@ -36,15 +37,15 @@
 	/\ num_last = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "election"
 	/\ accepted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
@@ -53,13 +54,14 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "election"
+	/\ pending_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> << >> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 1
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
@@ -74,16 +76,16 @@
 	/\ num_last = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_SEND_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "election_recover"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 0 @@ m3 :> 0)
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 0 @@ m3 :> 0)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -91,13 +93,14 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "election_recover"
+	/\ pending_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> << >> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 2
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
@@ -112,14 +115,14 @@
 	/\ num_last = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[first_committed |-> 0, last_committed |-> 0, from |-> m1, dest |-> m2, type |-> OP_COLLECT, pn |-> 101]>> @@ m3 :> <<[first_committed |-> 0, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_COLLECT, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "send_collect"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 0 @@ m3 :> 0)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[first_committed |-> 0, last_committed |-> 0, from |-> m1, dest |-> m2, type |-> OP_COLLECT, pn |-> 102]>> @@ m3 :> <<[first_committed |-> 0, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_COLLECT, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 0 @@ m3 :> 0)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -127,13 +130,14 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "send_collect"
+	/\ pending_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> << >> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 3
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
@@ -148,14 +152,14 @@
 	/\ num_last = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[first_committed |-> 0, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_COLLECT, pn |-> 101]>>) @@ m2 :> (m1 :> <<[uncommitted_pn |-> 0, values |-> << >>, first_committed |-> 0, last_committed |-> 0, from |-> m2, dest |-> m1, type |-> OP_LAST, pn |-> 101]>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive collect"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 0)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[first_committed |-> 0, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_COLLECT, pn |-> 102]>>) @@ m2 :> (m1 :> <<[uncommitted_pn |-> 0, values |-> << >>, first_committed |-> 0, last_committed |-> 0, from |-> m2, dest |-> m1, type |-> OP_LAST, pn |-> 102]>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 0)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -163,13 +167,14 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "receive collect"
+	/\ pending_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> << >> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 4
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
@@ -184,14 +189,14 @@
 	/\ num_last = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[first_committed |-> 0, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_COLLECT, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive last"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 0)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[first_committed |-> 0, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_COLLECT, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 0)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -199,13 +204,14 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "receive last"
+	/\ pending_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> 0 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> << >> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 5
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
@@ -220,14 +226,14 @@
 	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<[uncommitted_pn |-> 0, values |-> << >>, first_committed |-> 0, last_committed |-> 0, from |-> m3, dest |-> m1, type |-> OP_LAST, pn |-> 101]>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive collect"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<[uncommitted_pn |-> 0, values |-> << >>, first_committed |-> 0, last_committed |-> 0, from |-> m3, dest |-> m1, type |-> OP_LAST, pn |-> 102]>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -235,13 +241,14 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "receive collect"
+	/\ pending_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> 0 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> << >> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 6
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
@@ -256,16 +263,16 @@
 	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "receive last"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -273,13 +280,14 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "receive last"
+	/\ pending_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> 0 @@ m3 :> 0) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> << >> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 7
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
@@ -294,14 +302,14 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 0, from |-> m1, dest |-> m2, type |-> OP_LEASE]>> @@ m3 :> <<[last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_LEASE]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "post_last"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -309,13 +317,14 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_ACTIVE @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "post_last"
+	/\ pending_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> << >> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 8
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
@@ -330,14 +339,14 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 0, from |-> m1, dest |-> m2, type |-> OP_LEASE]>> @@ m3 :> <<[last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_LEASE]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "client_request"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -345,13 +354,14 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_ACTIVE @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "client_request"
+	/\ pending_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> << >> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 9
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
@@ -366,14 +376,14 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 0, from |-> m1, dest |-> m2, type |-> OP_LEASE], [values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 101]>> @@ m3 :> <<[last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "propose_pending"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 0, from |-> m1, dest |-> m2, type |-> OP_LEASE], [values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 102]>> @@ m3 :> <<[last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -381,35 +391,36 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "propose_pending"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> <<v1>> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 10
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 0 @@ m3 :> 0)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 101]>> @@ m3 :> <<[last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive lease"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 102]>> @@ m3 :> <<[last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -417,35 +428,36 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_ACTIVE @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "receive lease"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 0 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> <<v1>> @@ m2 :> << >> @@ m3 :> << >>)
-	/\ step = 11
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 0 @@ m3 :> 0)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<[last_committed |-> 0, from |-> m2, dest |-> m1, type |-> OP_ACCEPT, pn |-> 101]>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive begin"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<[last_committed |-> 0, from |-> m2, dest |-> m1, type |-> OP_ACCEPT, pn |-> 102]>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -453,35 +465,36 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "receive begin"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> <<v1>> @@ m2 :> <<v1>> @@ m3 :> << >>)
-	/\ step = 12
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 0)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive accept"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
@@ -489,35 +502,36 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "receive accept"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> <<v1>> @@ m2 :> <<v1>> @@ m3 :> << >>)
-	/\ step = 13
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 0)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive lease"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 0, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
@@ -525,35 +539,36 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_ACTIVE)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "receive lease"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 0)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> <<v1>> @@ m2 :> <<v1>> @@ m3 :> << >>)
-	/\ step = 14
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 0)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<[last_committed |-> 0, from |-> m3, dest |-> m1, type |-> OP_ACCEPT, pn |-> 101]>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive begin"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<[last_committed |-> 0, from |-> m3, dest |-> m1, type |-> OP_ACCEPT, pn |-> 102]>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
@@ -561,37 +576,38 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "receive begin"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> <<v1>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
-	/\ step = 15
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
 	/\ monitor_store = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "receive accept"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
@@ -599,35 +615,36 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "receive accept"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> <<v1>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
-	/\ step = 16
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COMMIT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_COMMIT, pn |-> 101]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "post_accept"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_COMMIT, pn |-> 102]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
@@ -635,35 +652,36 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_REFRESH @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "post_accept"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> <<v1>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
-	/\ step = 17
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_COMMIT, pn |-> 101], [last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LEASE]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 101], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "finish_commit"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_COMMIT, pn |-> 102], [last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LEASE]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 102], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
@@ -671,35 +689,36 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_ACTIVE @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "finish_commit"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> <<v1>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
-	/\ step = 18
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_COMMIT, pn |-> 101], [last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LEASE]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 101], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "client_request"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_COMMIT, pn |-> 102], [last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LEASE]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 102], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
@@ -707,35 +726,36 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_ACTIVE @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "client_request"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
-	/\ pending_proposal = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ pending_proposal = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 	/\ values = (m1 :> <<v1>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
-	/\ step = 19
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 1 @@ m3 :> 1)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 2 @@ m2 :> 1 @@ m3 :> 1)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_COMMIT, pn |-> 101], [last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LEASE], [values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 101]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 101], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "propose_pending"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_COMMIT, pn |-> 102], [last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LEASE], [values |-> <<v1, v2>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 102]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 102], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1, v2>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -743,35 +763,36 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
+	/\ step_name = "propose_pending"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
-	/\ step = 20
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 1)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 2 @@ m2 :> 1 @@ m3 :> 1)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> Nil)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LEASE], [values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 101]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 101], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive commit"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LEASE], [values |-> <<v1, v2>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 102]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 102], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1, v2>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
@@ -779,215 +800,147 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
+	/\ step_name = "receive commit"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
-	/\ step = 21
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 0 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
-	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LEASE], [values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 101]>> @@ m3 :> <<[last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive commit"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
-	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
-	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ quorum_sz = 3
-	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
-	/\ step = 22
-	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
-	/\ message_history = {}
-	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 0 @@ m3 :> 0)
-	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
-	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
-
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
-	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
-	/\ epoch = 2
-	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 101]>> @@ m3 :> <<[last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive lease"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ pending_v = (m1 :> 2 @@ m2 :> 1 @@ m3 :> 1)
+	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> Nil)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1, v2>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 102]>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 102], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1, v2>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_ACTIVE @@ m3 :> STATE_UPDATING)
-	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
+	/\ step_name = "receive lease"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
-	/\ step = 23
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
-	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 0 @@ m3 :> 0)
+	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
-	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_BEGIN, pn |-> 101]>> @@ m3 :> <<[values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive lease"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 1)
+	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> Nil)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 102], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1, v2>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<[last_committed |-> 1, from |-> m2, dest |-> m1, type |-> OP_ACCEPT, pn |-> 102]>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_ACTIVE @@ m3 :> STATE_ACTIVE)
-	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
+	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
+	/\ step_name = "receive begin"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1>> @@ m3 :> <<v1>>)
-	/\ step = 24
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
-	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 0 @@ m3 :> 0)
+	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 0)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
-	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<[last_committed |-> 1, from |-> m2, dest |-> m1, type |-> OP_ACCEPT, pn |-> 101]>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive begin"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
-	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_ACTIVE)
-	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ quorum_sz = 3
-	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1>>)
-	/\ step = 25
-	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
-	/\ message_history = {}
-	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 0)
-	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> Nil)
-	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
-
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 0)
-	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
-	/\ epoch = 2
-	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 101]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive accept"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 1)
+	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> Nil)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COMMIT, pn |-> 102], [last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1, v2>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_ACTIVE)
-	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
+	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
+	/\ step_name = "receive accept"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1>>)
-	/\ step = 26
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
-	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 0)
+	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 0)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 1)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<[last_committed |-> 1, from |-> m3, dest |-> m1, type |-> OP_ACCEPT, pn |-> 101]>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive begin"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LEASE], [values |-> <<v1, v2>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
@@ -995,37 +948,112 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive commit"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 27
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 1)
+	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1, v2>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 102]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
+	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ number_crashes = 0
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
+  m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
+  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_ACTIVE)
+	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive lease"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
+	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
+  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
+  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
+	/\ quorum_sz = 3
+	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1>>)
+	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
+	/\ message_history = {}
+	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
+  m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
+  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
+  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
+  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
+	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
+
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
+	/\ epoch = 2
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<[last_committed |-> 1, from |-> m3, dest |-> m1, type |-> OP_ACCEPT, pn |-> 102]>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
+	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ number_crashes = 0
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
+  m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
+  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
+	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive begin"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
+	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
+  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
+  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
+	/\ quorum_sz = 3
+	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
+	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
+	/\ message_history = {}
+	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
+  m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
+  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
+  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
+  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
+	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
+
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
+	/\ epoch = 2
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "receive accept"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
@@ -1033,37 +1061,38 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive accept"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 28
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 3
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "crash_mon"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
@@ -1071,874 +1100,857 @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "crash_mon"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 29
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 4
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "election"
-	/\ accepted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
+	/\ isLeader = (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "election"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 30
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
-	/\ phase = (m1 :> PHASE_SEND_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
+	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_SEND_COLLECT)
 	/\ epoch = 4
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "election_recover"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 101)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 204)
+	/\ isLeader = (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "election_recover"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 31
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
-	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
+	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COLLECT)
 	/\ epoch = 4
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[first_committed |-> 1, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_COLLECT, pn |-> 201]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "send_collect"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 101)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<[first_committed |-> 1, last_committed |-> 1, from |-> m3, dest |-> m1, type |-> OP_COLLECT, pn |-> 204]>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 204)
+	/\ isLeader = (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "send_collect"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 32
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 1)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
-	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
+	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COLLECT)
 	/\ epoch = 4
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<[uncommitted_pn |-> 101, values |-> <<v1, v1>>, first_committed |-> 1, last_committed |-> 1, from |-> m3, dest |-> m1, type |-> OP_LAST, pn |-> 201]>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive collect"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[uncommitted_pn |-> 102, values |-> <<v1, v2>>, first_committed |-> 1, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_LAST, pn |-> 204]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
+	/\ isLeader = (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive collect"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 33
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 1)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
-	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
+	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COLLECT)
 	/\ epoch = 4
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "receive last"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ accepted_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
+	/\ isLeader = (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ number_crashes = 0
 	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> 1) @@
+	/\ step_name = "receive last"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 102)
+	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
+  m3 :> (m1 :> 1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 34
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 101 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> 1) @@
+	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
+  m3 :> (m1 :> 1 @@ m2 :> -1 @@ m3 :> -1) )
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
-	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
+	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 	/\ epoch = 4
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1, v1>>, last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_BEGIN, pn |-> 201]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "post_last"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<[values |-> <<v1, v2>>, last_committed |-> 1, from |-> m3, dest |-> m1, type |-> OP_BEGIN, pn |-> 204]>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
+	/\ isLeader = (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_UPDATING_PREVIOUS @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
+  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE) )
+	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_UPDATING_PREVIOUS)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "post_last"
+	/\ pending_pn = (m1 :> 102 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 35
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 101)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
+	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
-	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
+	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 	/\ epoch = 4
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<[last_committed |-> 1, from |-> m3, dest |-> m1, type |-> OP_ACCEPT, pn |-> 201]>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive begin"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[last_committed |-> 1, from |-> m1, dest |-> m3, type |-> OP_ACCEPT, pn |-> 204]>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
+	/\ isLeader = (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_UPDATING_PREVIOUS @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_UPDATING)
+  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE) )
+	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_UPDATING_PREVIOUS)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive begin"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 36
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
+	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
-	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
+	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 	/\ epoch = 4
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "receive accept"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ accepted_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
+	/\ isLeader = (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_UPDATING_PREVIOUS @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_UPDATING)
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
+	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_UPDATING_PREVIOUS)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive accept"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 37
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
+	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
-	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
+	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 	/\ epoch = 5
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "restore_mon"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
-	/\ isLeader = (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE)
+	/\ accepted_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
+	/\ isLeader = (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> TRUE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_UPDATING_PREVIOUS @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_UPDATING)
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
+	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_UPDATING_PREVIOUS)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "restore_mon"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 38
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
-	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
+	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "election"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
+	/\ accepted_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "election"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 39
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_SEND_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "election_recover"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 202 @@ m3 :> 201)
+	/\ accepted_pn = (m1 :> 204 @@ m2 :> 206 @@ m3 :> 204)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "election_recover"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 40
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<[first_committed |-> 1, last_committed |-> 1, from |-> m2, dest |-> m1, type |-> OP_COLLECT, pn |-> 202]>> @@ m2 :> <<>> @@ m3 :> <<[first_committed |-> 1, last_committed |-> 1, from |-> m2, dest |-> m3, type |-> OP_COLLECT, pn |-> 202]>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "send_collect"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 202 @@ m3 :> 201)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<[first_committed |-> 1, last_committed |-> 1, from |-> m2, dest |-> m1, type |-> OP_COLLECT, pn |-> 206]>> @@ m2 :> <<>> @@ m3 :> <<[first_committed |-> 1, last_committed |-> 1, from |-> m2, dest |-> m3, type |-> OP_COLLECT, pn |-> 206]>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 204 @@ m2 :> 206 @@ m3 :> 204)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "send_collect"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 41
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 102 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 1 @@ m3 :> 0)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 1 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<[first_committed |-> 1, last_committed |-> 1, from |-> m2, dest |-> m1, type |-> OP_COLLECT, pn |-> 202]>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<[uncommitted_pn |-> 201, values |-> <<v1, v1>>, first_committed |-> 1, last_committed |-> 1, from |-> m3, dest |-> m2, type |-> OP_LAST, pn |-> 202]>> @@ m3 :> <<>>))
-	/\ step_x = "receive collect"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 202 @@ m3 :> 202)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[uncommitted_pn |-> 204, values |-> <<v1, v2>>, first_committed |-> 1, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LAST, pn |-> 206]>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[first_committed |-> 1, last_committed |-> 1, from |-> m2, dest |-> m3, type |-> OP_COLLECT, pn |-> 206]>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 204)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive collect"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 42
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 101 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 102 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 1 @@ m3 :> 0)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 1 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<[first_committed |-> 1, last_committed |-> 1, from |-> m2, dest |-> m1, type |-> OP_COLLECT, pn |-> 202]>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive last"
-	/\ accepted_pn = (m1 :> 201 @@ m2 :> 202 @@ m3 :> 202)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[first_committed |-> 1, last_committed |-> 1, from |-> m2, dest |-> m3, type |-> OP_COLLECT, pn |-> 206]>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 204)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive last"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> 1) @@
+  m2 :> (m1 :> 1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 43
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 201 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 204 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> 1) @@
+  m2 :> (m1 :> 1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 0)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 2 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[uncommitted_pn |-> 201, values |-> <<v1, v1>>, first_committed |-> 1, last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_LAST, pn |-> 202]>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive collect"
-	/\ accepted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<[uncommitted_pn |-> 204, values |-> <<v1, v2>>, first_committed |-> 1, last_committed |-> 1, from |-> m3, dest |-> m2, type |-> OP_LAST, pn |-> 206]>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive collect"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> 1) @@
+  m2 :> (m1 :> 1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 44
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 201 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 204 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> 1) @@
+  m2 :> (m1 :> 1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 0)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 2 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "receive last"
-	/\ accepted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ accepted_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive last"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 102 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> 1 @@ m2 :> -1 @@ m3 :> 1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 45
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 201 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 204 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> 1 @@ m2 :> -1 @@ m3 :> 1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 3 @@ m3 :> 0)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<[values |-> <<v1, v1>>, last_committed |-> 1, from |-> m2, dest |-> m1, type |-> OP_BEGIN, pn |-> 202]>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1, v1>>, last_committed |-> 1, from |-> m2, dest |-> m3, type |-> OP_BEGIN, pn |-> 202]>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "post_last"
-	/\ accepted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<[values |-> <<v1, v2>>, last_committed |-> 1, from |-> m2, dest |-> m1, type |-> OP_BEGIN, pn |-> 206]>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1, v2>>, last_committed |-> 1, from |-> m2, dest |-> m3, type |-> OP_BEGIN, pn |-> 206]>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_UPDATING_PREVIOUS @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "post_last"
+	/\ pending_pn = (m1 :> 204 @@ m2 :> 206 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 46
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 202 @@ m3 :> 201)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 204 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 3 @@ m3 :> 0)
-	/\ new_value = (m1 :> Nil @@ m2 :> v1 @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
+	/\ new_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<[values |-> <<v1, v1>>, last_committed |-> 1, from |-> m2, dest |-> m1, type |-> OP_BEGIN, pn |-> 202]>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 1, from |-> m3, dest |-> m2, type |-> OP_ACCEPT, pn |-> 202]>> @@ m3 :> <<>>))
-	/\ step_x = "receive begin"
-	/\ accepted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_ACCEPT, pn |-> 206]>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1, v2>>, last_committed |-> 1, from |-> m2, dest |-> m3, type |-> OP_BEGIN, pn |-> 206]>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
   m2 :> (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_UPDATING_PREVIOUS @@ m3 :> STATE_UPDATING)
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
+	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING_PREVIOUS @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive begin"
+	/\ pending_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 47
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 201 @@ m2 :> 202 @@ m3 :> 202)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 204 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 3 @@ m3 :> 0)
-	/\ new_value = (m1 :> Nil @@ m2 :> v1 @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
+	/\ new_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_ACCEPT, pn |-> 202]>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 1, from |-> m3, dest |-> m2, type |-> OP_ACCEPT, pn |-> 202]>> @@ m3 :> <<>>))
-	/\ step_x = "receive begin"
-	/\ accepted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<[values |-> <<v1, v2>>, last_committed |-> 1, from |-> m2, dest |-> m3, type |-> OP_BEGIN, pn |-> 206]>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
-  m2 :> (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING_PREVIOUS @@ m3 :> STATE_UPDATING)
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
+  m2 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
+	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING_PREVIOUS @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive accept"
+	/\ pending_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 204)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 48
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 204 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 3 @@ m3 :> 0)
-	/\ new_value = (m1 :> Nil @@ m2 :> v1 @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
+	/\ new_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 1, from |-> m1, dest |-> m2, type |-> OP_ACCEPT, pn |-> 202]>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>))
-	/\ step_x = "receive accept"
-	/\ accepted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 1, from |-> m3, dest |-> m2, type |-> OP_ACCEPT, pn |-> 206]>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
-  m2 :> (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> TRUE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
+  m2 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING_PREVIOUS @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "receive begin"
+	/\ pending_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 3
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 49
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 204 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 3 @@ m3 :> 0)
-	/\ new_value = (m1 :> Nil @@ m2 :> v1 @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
+	/\ new_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
-	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
-	/\ epoch = 6
-	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
-  m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
-  m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "receive accept"
-	/\ accepted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
-	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
-	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
-  m2 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING_PREVIOUS @@ m3 :> STATE_UPDATING)
-	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ quorum_sz = 3
-	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 50
-	/\ quorum = (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE)
-	/\ message_history = {}
-	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
-	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
-	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
-  m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 3 @@ m3 :> 0)
-	/\ new_value = (m1 :> Nil @@ m2 :> v1 @@ m3 :> Nil)
-
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 7
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
-  m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
-  m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "crash_mon"
-	/\ accepted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ messages = (m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@ m3 :> (m1 :> <<>> @@ m2 :> <<[last_committed |-> 1, from |-> m3, dest |-> m2, type |-> OP_ACCEPT, pn |-> 206]>> @@ m3 :> <<>>))
+	/\ accepted_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
-  m2 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
+  m2 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_UPDATING @@ m2 :> STATE_UPDATING_PREVIOUS @@ m3 :> STATE_UPDATING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "crash_mon"
+	/\ pending_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 51
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 204 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 3 @@ m3 :> 0)
-	/\ new_value = (m1 :> Nil @@ m2 :> v1 @@ m3 :> Nil)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
+	/\ new_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> Nil)
 
- <Next line 958, col 5 to line 1014, col 38 of module paxos>
-	/\ uncommitted_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
+ <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 8
+	/\ pending_v = (m1 :> 2 @@ m2 :> 2 @@ m3 :> 2)
 	/\ monitor_store = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
 	/\ messages = ( m1 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m2 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) @@
   m3 :> (m1 :> <<>> @@ m2 :> <<>> @@ m3 :> <<>>) )
-	/\ step_x = "election"
-	/\ accepted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ accepted_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ isLeader = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> FALSE)
 	/\ number_crashes = 0
-	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) @@
-  m2 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
-  m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
+	/\ accepted = ( m1 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> TRUE) @@
+  m2 :> (m1 :> TRUE @@ m2 :> TRUE @@ m3 :> FALSE) @@
+  m3 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> TRUE) )
 	/\ state = (m1 :> STATE_RECOVERING @@ m2 :> STATE_RECOVERING @@ m3 :> STATE_RECOVERING)
 	/\ first_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
+	/\ step_name = "election"
+	/\ pending_pn = (m1 :> 206 @@ m2 :> 206 @@ m3 :> 206)
 	/\ peer_first_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
 	/\ quorum_sz = 2
 	/\ pending_proposal = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-	/\ values = (m1 :> <<v1, v1>> @@ m2 :> <<v1, v1>> @@ m3 :> <<v1, v1>>)
-	/\ step = 52
+	/\ values = (m1 :> <<v1, v2>> @@ m2 :> <<v1, v2>> @@ m3 :> <<v1, v2>>)
 	/\ quorum = (m1 :> FALSE @@ m2 :> TRUE @@ m3 :> TRUE)
 	/\ message_history = {}
 	/\ last_committed = (m1 :> 1 @@ m2 :> 1 @@ m3 :> 1)
-	/\ uncommitted_pn = (m1 :> 202 @@ m2 :> 202 @@ m3 :> 202)
+	/\ uncommitted_pn = (m1 :> 0 @@ m2 :> 204 @@ m3 :> 102)
 	/\ acked_lease = ( m1 :> (m1 :> TRUE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m2 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) @@
   m3 :> (m1 :> FALSE @@ m2 :> FALSE @@ m3 :> FALSE) )
 	/\ peer_last_committed = ( m1 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m2 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) @@
   m3 :> (m1 :> -1 @@ m2 :> -1 @@ m3 :> -1) )
-	/\ uncommitted_value = (m1 :> v1 @@ m2 :> v1 @@ m3 :> v1)
-	/\ num_last = (m1 :> 2 @@ m2 :> 3 @@ m3 :> 0)
+	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
+	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 

@@ -1,0 +1,14 @@
+Starting... (2021-04-15 17:56:05)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2021-04-15 17:56:07.
+Progress(26) at 2021-04-15 17:56:10: 140 777 states generated (140 777 s/min), 73 370 distinct states found (73 370 ds/min), 11 840 states left on queue.
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 7.7E-9
+  based on the actual fingerprints:  val = 3.8E-9
+Progress(53) at 2021-04-15 17:56:22: 756 324 states generated (2 687 241 s/min), 390 719 distinct states found (1 388 235 ds/min), 0 states left on queue.
+756324 states generated, 390719 distinct states found, 0 states left on queue.
+The depth of the complete state graph search is 53.
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 7 and the 95th percentile is 5).
+Finished in 16900ms at (2021-04-15 17:56:22)
