@@ -444,7 +444,7 @@ Discard(m) ==
 \* Version B - Adapted to not break symmetry.
 \* Example: oldpn = 300, rank(mon) = 5, newpn = 400.
 \* @type: (MONITOR, Int) => Int;
-get_new_proposal_number(mon, oldpn) == ((oldpn \div 100) + 1) * 100
+get_new_proposal_number(mon, oldpn) == ((oldpn \div 100) + 1) * 100 + epoch
 
 \* Clear the variable peer_first_committed.
 \* Variables changed: peer_first_committed.

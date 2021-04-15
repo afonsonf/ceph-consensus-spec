@@ -416,7 +416,7 @@ Discard(m) ==
 \* Version B - Adapted to not break symmetry.
 \* Example: oldpn = 300, rank(mon) = 5, newpn = 400.
 \* @type: (MONITOR, Int) => Int;
-get_new_proposal_number(mon, oldpn) == ((oldpn \div 100) + 1) * 100
+get_new_proposal_number(mon, oldpn) == ((oldpn \div 100) + 1) * 100 + epoch
 
 \* Clear the variable peer_first_committed.
 \* Variables changed: peer_first_committed.
@@ -1153,5 +1153,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Thu Apr 15 13:49:52 WEST 2021 by afonsonf
+\* Last modified Thu Apr 15 16:36:46 WEST 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf
