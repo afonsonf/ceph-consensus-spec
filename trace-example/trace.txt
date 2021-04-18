@@ -37,7 +37,7 @@
 	/\ num_last = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -76,7 +76,7 @@
 	/\ num_last = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_SEND_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -115,7 +115,7 @@
 	/\ num_last = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -152,7 +152,7 @@
 	/\ num_last = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -189,7 +189,7 @@
 	/\ num_last = (m1 :> 1 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -226,7 +226,7 @@
 	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -263,7 +263,7 @@
 	/\ num_last = (m1 :> 2 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -302,7 +302,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -339,7 +339,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -376,7 +376,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -413,7 +413,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -450,7 +450,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -487,7 +487,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -524,7 +524,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -561,7 +561,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -598,7 +598,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -637,7 +637,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v1 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_COMMIT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -674,7 +674,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -711,7 +711,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -748,7 +748,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -785,7 +785,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -822,7 +822,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -859,7 +859,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -896,7 +896,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -933,7 +933,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -970,7 +970,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -1007,7 +1007,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -1044,7 +1044,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 2
@@ -1083,7 +1083,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 3
@@ -1122,7 +1122,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> v2 @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 4
@@ -1161,7 +1161,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_SEND_COLLECT)
 	/\ epoch = 4
@@ -1200,7 +1200,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 0)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COLLECT)
 	/\ epoch = 4
@@ -1237,7 +1237,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 1)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COLLECT)
 	/\ epoch = 4
@@ -1274,7 +1274,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 1)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COLLECT)
 	/\ epoch = 4
@@ -1313,7 +1313,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 	/\ epoch = 4
@@ -1350,7 +1350,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 	/\ epoch = 4
@@ -1387,7 +1387,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 	/\ epoch = 4
@@ -1426,7 +1426,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 	/\ epoch = 5
@@ -1465,7 +1465,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> v2)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1504,7 +1504,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_SEND_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1543,7 +1543,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 0 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1580,7 +1580,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 1 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1617,7 +1617,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 1 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1654,7 +1654,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 2 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1691,7 +1691,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 2 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1730,7 +1730,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1767,7 +1767,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1804,7 +1804,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1841,7 +1841,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 6
@@ -1878,7 +1878,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 7
@@ -1915,7 +1915,7 @@
 	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> Nil)
 
- <Next line 1022, col 5 to line 1076, col 38 of module paxos>
+ <Next line 1022, col 5 to line 1076, col 38 of module ceph>
 	/\ uncommitted_v = (m1 :> 0 @@ m2 :> 2 @@ m3 :> 2)
 	/\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 	/\ epoch = 8
@@ -1953,4 +1953,3 @@
 	/\ uncommitted_value = (m1 :> Nil @@ m2 :> v2 @@ m3 :> v2)
 	/\ num_last = (m1 :> 3 @@ m2 :> 3 @@ m3 :> 2)
 	/\ new_value = (m1 :> Nil @@ m2 :> Nil @@ m3 :> Nil)
-

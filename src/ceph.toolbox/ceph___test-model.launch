@@ -74,7 +74,7 @@
     <intAttribute key="simuDepth" value="100"/>
     <stringAttribute key="simuNumTraces" value="2"/>
     <intAttribute key="simuSeed" value="-1"/>
-    <stringAttribute key="specName" value="paxos"/>
+    <stringAttribute key="specName" value="ceph"/>
     <stringAttribute key="tlcResourcesProfile" value="local custom"/>
     <listAttribute key="traceExploreExpressions"/>
     <setAttribute key="traceExploreExtends"/>

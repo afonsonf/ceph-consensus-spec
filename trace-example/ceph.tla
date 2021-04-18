@@ -1,4 +1,4 @@
-------------------------------- MODULE paxos -------------------------------
+------------------------------- MODULE ceph -------------------------------
 (***************************************************************************)
 (* `^                                                                      *)
 (*                                                                         *)
@@ -1102,7 +1102,7 @@ Inv_find_state(x) == ~x
 
 \* Invariant used to search for a behavior of diameter equal to 'size'.
 \* TLCGet("level") not supported by snowcat typechecker.
-\* Inv_diam(size) == TLCGet("level") # size-1
+Inv_diam(size) == TLCGet("level") # size-1
 
 \* Invariants to test in model check
 DEBUG_Inv == /\ TRUE
@@ -1153,5 +1153,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Thu Apr 15 16:36:46 WEST 2021 by afonsonf
+\* Last modified Thu Apr 15 17:58:09 WEST 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf

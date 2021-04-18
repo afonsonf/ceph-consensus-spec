@@ -17,9 +17,9 @@ Some of the useful things that can be done with this model are:
 
 ## How to run using TLC
 
-The specification is in the src folder and the main file is the [src/paxos.tla](src/paxos.tla). The file [src/paxos.cfg](src/paxos.cfg) has a description of a model with 3 monitors.
+The specification is in the src folder and the main file is the [src/ceph.tla](src/ceph.tla). The file [src/ceph.cfg](src/ceph.cfg) has a description of a model with 3 monitors.
 
-The folder src/paxos.toolbox has some default settings used by the toolbox.
+The folder src/ceph.toolbox has some default settings used by the toolbox.
 
 #### Using the Command-Line tools
 
@@ -27,10 +27,10 @@ The folder src/paxos.toolbox has some default settings used by the toolbox.
 
 2. Some available tools (https://lamport.azurewebsites.net/tla/standalone-tools.html):
   * Syntax checker: <br>
-  `java -cp tla2tools.jar tla2sany.SANY paxos.tla`
+  `java -cp tla2tools.jar tla2sany.SANY ceph.tla`
 
   * Model checker: <br>
-  `java -DTLA-Library=CommunityModules.jar -cp tla2tools.jar tlc2.TLC -workers 4 paxos.tla`
+  `java -DTLA-Library=CommunityModules.jar -cp tla2tools.jar tlc2.TLC -workers 4 ceph.tla`
 
   * Interactive TLA+ REPL (version 1.8 or above): <br>
   `java -cp tla2tools.jar tlc2.REPL`
@@ -46,17 +46,17 @@ The container comes with alias to run the tools, respectively: tla-sany, tla-tlc
 
 #### Using the TLA+ Toolbox
 
-The toolbox can be downloaded from https://github.com/tlaplus/tlaplus/releases. The main file to load in the toolbox is paxos.tla in the src folder.
+The toolbox can be downloaded from https://github.com/tlaplus/tlaplus/releases. The main file to load in the toolbox is ceph.tla in the src folder.
 
 ## Apalache
 [Apalache](https://apalache.informal.systems) is a symbolic model checker for TLA+, as an alternative to TLC. Apalache translates the specification to a set of logical constraints that are solved using Microsoft's Z3. Apalache also comes with a type checker named snowcat (https://apalache.informal.systems/docs/apalache/typechecker-snowcat.html).
 
 #### Type check using apalache's snowcat
 The snowcat type checker can infer and check the types of the expressions in a specification. Both the specification in [apalache-version](apalache-version) and [src](src) have type annotations that can be checked with the following command: <br>
-`apalache typecheck paxos.tla`
+`apalache typecheck ceph.tla`
 
 #### Model check using apalache
 In the folder [apalache-version](apalache-version) there is a specification that was adapted to be able to run using apalache. However, in the current version, the specification takes to long to run in apalache.
 
 To run the model checker you can use the following command: <br>
-`apalache --cinit=InitConst check paxos.tla`
+`apalache --cinit=InitConst check ceph.tla`

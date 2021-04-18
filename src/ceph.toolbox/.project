@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>paxos</name>
+	<name>ceph</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,14 +16,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>Utils.tla</name>
+			<name>ceph.tla</name>
 			<type>1</type>
-			<location>/home/afonsonf/sandbox/reps/tese-notas/ceph/draft-tla-repo/src/Utils.tla</location>
-		</link>
-		<link>
-			<name>paxos.tla</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/paxos.tla</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/ceph.tla</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

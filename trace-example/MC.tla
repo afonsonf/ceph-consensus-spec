@@ -1,5 +1,5 @@
 ---- MODULE MC ----
-EXTENDS paxos, TLC
+EXTENDS ceph, TLC
 
 \* MV CONSTANT declarations@modelParameterConstants
 CONSTANTS
@@ -12,17 +12,17 @@ v1, v2
 ----
 
 \* MV CONSTANT definitions Monitors
-const_161850589177195000 == 
+const_161850589177195000 ==
 {m1, m2, m3}
 ----
 
 \* MV CONSTANT definitions Value_set
-const_161850589177196000 == 
+const_161850589177196000 ==
 {v1, v2}
 ----
 
 \* SYMMETRY definition
-symm_161850589177197000 == 
+symm_161850589177197000 ==
 Permutations(const_161850589177195000) \union Permutations(const_161850589177196000)
 ----
 

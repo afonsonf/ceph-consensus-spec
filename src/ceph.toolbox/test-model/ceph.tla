@@ -1,39 +1,10 @@
-------------------------------- MODULE paxos -------------------------------
+------------------------------- MODULE ceph -------------------------------
 (***************************************************************************)
 (* `^                                                                      *)
 (*                                                                         *)
 (* This is a specification of the paxos algorithm implemented in Ceph.     *)
 (* The specification is based on the following source file:                *)
 (* https://github.com/ceph/ceph/blob/master/src/mon/Paxos.cc \newline      *)
-(*                                                                         *)
-(* The main mechanism abstracted that may differ from the version          *)
-(* implemented in Ceph are:                                                *)
-(*                                                                         *)
-(* \begin{itemize}                                                         *)
-(*   \item \ The election logic. The leader is chosen randomly, and,       *)
-(*   for now, only one leader is chosen per epoch. When a new epoch        *)
-(*   begins, the messages from the previous epoch are discarded.           *)
-(*                                                                         *)
-(*   \item \ Monitor quorum. The quorum is defined in the election         *)
-(*   phase, using all monitors that are up. Different epochs can have      *)
-(*   different quorums.                                                    *)
-(*                                                                         *)
-(*   \item \ The communication layer. The variable messages represents     *)
-(*   connections between monitors (e.g. messages[mon1][mon2] holds the     *)
-(*   messages sent from mon1 to mon2). Within a connection the messages    *)
-(*   are sent and received in order.                                       *)
-(*                                                                         *)
-(*   \item \ The transactions. Transactions are simplified to represent    *)
-(*   only a change of a value in the variable monitor\_store.              *)
-(*                                                                         *)
-(*   \item \ Failure model. A monitor can crash if the remaining number of *)
-(*   monitors is sufficient to form a quorum. When a monitor crashes, new  *)
-(*   elections are triggered and the monitor is marked to not be part of   *)
-(*   a quorum until he recovers.                                           *)
-(*                                                                         *)
-(*   \item \ Timeouts. A timeout can occur at any point in the algorithm   *)
-(*   and it will trigger new elections.                                    *)
-(* \end{itemize}                                                           *)
 (*                                                                         *)
 (* For a more detailed overview of the specification:                      *)
 (* https://github.com/afonsonf/ceph-consensus-spec                         *)
@@ -1102,7 +1073,7 @@ Inv_find_state(x) == ~x
 
 \* Invariant used to search for a behavior of diameter equal to 'size'.
 \* TLCGet("level") not supported by snowcat typechecker.
-Inv_diam(size) == TLCGet("level") # size-1
+\* Inv_diam(size) == TLCGet("level") # size-1
 
 \* Invariants to test in model check
 DEBUG_Inv == /\ TRUE
@@ -1153,5 +1124,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Thu Apr 15 17:58:09 WEST 2021 by afonsonf
+\* Last modified Sun Apr 18 22:54:31 WEST 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf

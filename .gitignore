@@ -1,7 +1,7 @@
-src/paxos.toolbox/test-model_*
-src/paxos.toolbox/paxos___test-model_SnapShot*
-src/paxos.toolbox/*.pdf
-src/paxos.toolbox/*.tex
-src/paxos.toolbox/*.aux
-src/paxos.toolbox/*.log
-src/paxos.toolbox/test-model/*-*-*
+src/ceph.toolbox/test-model_*
+src/ceph.toolbox/ceph___test-model_SnapShot*
+src/ceph.toolbox/*.pdf
+src/ceph.toolbox/*.tex
+src/ceph.toolbox/*.aux
+src/ceph.toolbox/*.log
+src/ceph.toolbox/test-model/*-*-*

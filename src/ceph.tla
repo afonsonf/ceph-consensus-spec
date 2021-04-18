@@ -1,39 +1,10 @@
-------------------------------- MODULE paxos -------------------------------
+------------------------------- MODULE ceph -------------------------------
 (***************************************************************************)
 (* `^                                                                      *)
 (*                                                                         *)
 (* This is a specification of the paxos algorithm implemented in Ceph.     *)
 (* The specification is based on the following source file:                *)
 (* https://github.com/ceph/ceph/blob/master/src/mon/Paxos.cc \newline      *)
-(*                                                                         *)
-(* The main mechanism abstracted that may differ from the version          *)
-(* implemented in Ceph are:                                                *)
-(*                                                                         *)
-(* \begin{itemize}                                                         *)
-(*   \item \ The election logic. The leader is chosen randomly, and,       *)
-(*   for now, only one leader is chosen per epoch. When a new epoch        *)
-(*   begins, the messages from the previous epoch are discarded.           *)
-(*                                                                         *)
-(*   \item \ Monitor quorum. The quorum is defined in the election         *)
-(*   phase, using all monitors that are up. Different epochs can have      *)
-(*   different quorums.                                                    *)
-(*                                                                         *)
-(*   \item \ The communication layer. The variable messages represents     *)
-(*   connections between monitors (e.g. messages[mon1][mon2] holds the     *)
-(*   messages sent from mon1 to mon2). Within a connection the messages    *)
-(*   are sent and received in order.                                       *)
-(*                                                                         *)
-(*   \item \ The transactions. Transactions are simplified to represent    *)
-(*   only a change of a value in the variable monitor\_store.              *)
-(*                                                                         *)
-(*   \item \ Failure model. A monitor can crash if the remaining number of *)
-(*   monitors is sufficient to form a quorum. When a monitor crashes, new  *)
-(*   elections are triggered and the monitor is marked to not be part of   *)
-(*   a quorum until he recovers.                                           *)
-(*                                                                         *)
-(*   \item \ Timeouts. A timeout can occur at any point in the algorithm   *)
-(*   and it will trigger new elections.                                    *)
-(* \end{itemize}                                                           *)
 (*                                                                         *)
 (* For a more detailed overview of the specification:                      *)
 (* https://github.com/afonsonf/ceph-consensus-spec                         *)
@@ -57,24 +28,30 @@ Max(S) == CHOOSE x \in S : \A y \in S : x >= y
 \* @type: Set(Int) => Int;
 Min(S) == CHOOSE x \in S : \A y \in S : x =< y
 
+\* Set of monitors to a sequence.
+RECURSIVE SetToSeq(_)
+\* @type: Set(MONITOR) => Seq(MONITOR);
+SetToSeq(S) ==
+    IF S = {} THEN <<>>
+              ELSE LET x == CHOOSE x \in S: TRUE
+                   IN <<x>> \o SetToSeq(S \ {x})
+
 (***************************************************************************)
 (* `^ \centering                                                           *)
 (* \textbf{   Constants   }                                                *)
 (*  ^'                                                                     *)
 (***************************************************************************)
 
-\* To run with tlc
-\* CONSTANTS m1, m2, m3
-\* MonitorsSeq == <<m1,m2,m3>>
-
 \* Set of Monitors.
 CONSTANTS (*@type: Set(MONITOR);*) Monitors
 
 \* Sequence of monitors.
-CONSTANTS (*@type: Seq(MONITOR);*) MonitorsSeq
+\* @type: Seq(MONITOR);
+MonitorsSeq == TLCEval(SetToSeq(Monitors))
 
 \* Number of monitors.
-CONSTANTS (*@type: Int;*) MonitorsLen
+\* @type: Int;
+MonitorsLen == TLCEval(Len(MonitorsSeq))
 
 \* Rank predicate, used to compute proposal numbers.
 \* @type: MONITOR => Int;
@@ -82,6 +59,12 @@ rank(mon) == CHOOSE i \in 1..MonitorsLen: MonitorsSeq[i]=mon
 
 \* Set of possible values.
 CONSTANTS (*@type: Set(VALUE);*) Value_set
+
+\* Predicate used in the cfg file to define the symmetry set.
+\* Workaround for typechecker.
+\* @typeAlias: MONITOR = T;
+\* @typeAlias: VALUE = T;
+SYMM == Permutations(Monitors) \union Permutations(Value_set)
 
 \* Reserved value.
 CONSTANTS (*@type: VALUE;*) Nil
@@ -251,8 +234,6 @@ VARIABLE (*@type: Int;*) number_crashes
 
 global_vars    == <<epoch, messages, message_history, quorum, quorum_sz>>
 state_vars     == <<isLeader, state, phase>>
-
-\* @type: <<MONITOR -> Int, MONITOR -> Int, MONITOR -> Int, MONITOR -> Int, MONITOR -> VALUE>>;
 restart_vars   == <<pending_pn, pending_v, uncommitted_pn, uncommitted_v, uncommitted_value>>
 data_vars      == <<monitor_store, values, accepted_pn, first_committed, last_committed>>
 collect_vars   == <<num_last, peer_first_committed, peer_last_committed>>
@@ -310,44 +291,6 @@ Init ==
     /\ Init_lease_vars
     /\ Init_commit_vars
     /\ step_name = "init" /\ number_crashes = 0
-
-\* @typeAlias: STATE_NAME = Int;
-InitConstState ==
-    /\ STATE_RECOVERING = 1 /\ STATE_ACTIVE = 2
-    /\ STATE_UPDATING = 3 /\ STATE_UPDATING_PREVIOUS = 4
-    /\ STATE_WRITING = 5 /\ STATE_WRITING_PREVIOUS = 6
-    /\ STATE_REFRESH = 7 /\ STATE_SHUTDOWN = 8
-
-\* @typeAlias: PHASE_NAME = Int;
-InitConstPhase ==
-    /\ PHASE_ELECTION = 1
-    /\ PHASE_SEND_COLLECT = 2 /\ PHASE_COLLECT = 3
-    /\ PHASE_LEASE = 4 /\ PHASE_LEASE_DONE = 5
-    /\ PHASE_BEGIN = 6 /\ PHASE_COMMIT = 7
-
-\* @typeAlias: MESSAGE_OP = Int;
-InitConstMESSAGE ==
-    /\ OP_COLLECT = 1 /\ OP_LAST = 2
-    /\ OP_BEGIN = 3 /\ OP_ACCEPT = 4 /\ OP_COMMIT = 5
-    /\ OP_LEASE = 6 /\ OP_LEASE_ACK = 7
-
-\* @typeAlias: VALUE = Int;
-InitValues ==
-    /\ Value_set = {1,2}
-    /\ Nil = -1
-
-\* @typeAlias: MONITOR = Int;
-InitMonitors ==
-    /\ Monitors = {1,2,3}
-    /\ MonitorsSeq = <<1,2,3>>
-    /\ MonitorsLen = 3
-
-InitConst ==
-    /\ InitConstState
-    /\ InitConstPhase
-    /\ InitConstMESSAGE
-    /\ InitValues
-    /\ InitMonitors
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -899,7 +842,7 @@ handle_last(mon,msg) ==
                   /\ check_and_correct_uncommitted(mon)
                   /\ UNCHANGED <<phase, accepted_pn, num_last>>
             /\ UNCHANGED epoch
-       /\ UNCHANGED <<epoch>>
+       /\ UNCHANGED epoch
 
     /\ UNCHANGED <<quorum, quorum_sz, isLeader, state, pending_pn, pending_v>>
     /\ UNCHANGED <<lease_vars, commit_vars>>
@@ -1181,5 +1124,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Wed Apr 14 16:32:51 WEST 2021 by afonsonf
+\* Last modified Sun Apr 18 22:54:31 WEST 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf

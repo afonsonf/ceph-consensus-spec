@@ -7,7 +7,7 @@ Running breadth-first search Model-Checking with fp 30 and seed 9183417938554176
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
 @!@!@ENDMSG 2220 @!@!@
-Parsing file /home/afernandes/sandbox/reps/ceph-consensus-spec/src/paxos.tla
+Parsing file /home/afernandes/sandbox/reps/ceph-consensus-spec/src/ceph.tla
 Parsing file /tmp/Integers.tla (jar:file:/home/afernandes/sandbox/reps/ceph-consensus-spec/tools/tla2tools.jar!/tla2sany/StandardModules/Integers.tla)
 Parsing file /tmp/FiniteSets.tla (jar:file:/home/afernandes/sandbox/reps/ceph-consensus-spec/tools/tla2tools.jar!/tla2sany/StandardModules/FiniteSets.tla)
 Parsing file /tmp/Sequences.tla (jar:file:/home/afernandes/sandbox/reps/ceph-consensus-spec/tools/tla2tools.jar!/tla2sany/StandardModules/Sequences.tla)
@@ -18,7 +18,7 @@ Semantic processing of module Integers
 Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
-Semantic processing of module paxos
+Semantic processing of module ceph
 @!@!@STARTMSG 2219:0 @!@!@
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
@@ -154,7 +154,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-2: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+2: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 2
@@ -195,7 +195,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-3: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+3: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 3
@@ -236,7 +236,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-4: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+4: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 4
@@ -277,7 +277,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-5: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+5: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_SEND_COLLECT @@ m3 :> PHASE_ELECTION)
 /\ epoch = 4
@@ -318,7 +318,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-6: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+6: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 /\ epoch = 4
@@ -357,7 +357,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-7: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+7: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 /\ epoch = 4
@@ -396,7 +396,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-8: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+8: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_COLLECT @@ m3 :> PHASE_ELECTION)
 /\ epoch = 4
@@ -437,7 +437,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-9: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+9: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_LEASE @@ m3 :> PHASE_ELECTION)
 /\ epoch = 4
@@ -476,7 +476,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-10: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+10: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_LEASE @@ m3 :> PHASE_ELECTION)
 /\ epoch = 4
@@ -515,7 +515,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-11: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+11: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 /\ epoch = 4
@@ -554,7 +554,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-12: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+12: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_BEGIN @@ m3 :> PHASE_ELECTION)
 /\ epoch = 5
@@ -593,7 +593,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-13: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+13: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 6
@@ -634,7 +634,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-14: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+14: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 7
@@ -675,7 +675,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-15: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+15: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -716,7 +716,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-16: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+16: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_SEND_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -757,7 +757,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-17: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+17: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -796,7 +796,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-18: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+18: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -835,7 +835,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-19: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+19: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -876,7 +876,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-20: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+20: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -915,7 +915,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-21: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+21: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -954,7 +954,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-22: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+22: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -993,7 +993,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-23: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+23: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -1032,7 +1032,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-24: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+24: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -1071,7 +1071,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-25: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+25: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_BEGIN @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -1112,7 +1112,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-26: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+26: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_COMMIT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 8
@@ -1151,7 +1151,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-27: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+27: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_COMMIT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 9
@@ -1190,7 +1190,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-28: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+28: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 10
@@ -1231,7 +1231,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-29: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+29: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 11
@@ -1272,7 +1272,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-30: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+30: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 12
@@ -1313,7 +1313,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-31: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+31: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 0)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_SEND_COLLECT)
 /\ epoch = 12
@@ -1354,7 +1354,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-32: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+32: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COLLECT)
 /\ epoch = 12
@@ -1393,7 +1393,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-33: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+33: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COLLECT)
 /\ epoch = 12
@@ -1432,7 +1432,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-34: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+34: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COLLECT)
 /\ epoch = 12
@@ -1473,7 +1473,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-35: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+35: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 /\ epoch = 12
@@ -1512,7 +1512,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-36: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+36: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 /\ epoch = 12
@@ -1551,7 +1551,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-37: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+37: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_BEGIN)
 /\ epoch = 12
@@ -1592,7 +1592,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-38: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+38: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COMMIT)
 /\ epoch = 12
@@ -1631,7 +1631,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-39: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+39: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_COMMIT)
 /\ epoch = 13
@@ -1670,7 +1670,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-40: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+40: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_ELECTION @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 14
@@ -1711,7 +1711,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-41: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+41: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_SEND_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 14
@@ -1752,7 +1752,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-42: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+42: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 14
@@ -1791,7 +1791,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-43: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+43: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 14
@@ -1830,7 +1830,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-44: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+44: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 14
@@ -1869,7 +1869,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-45: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+45: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 14
@@ -1908,7 +1908,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-46: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+46: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_COLLECT @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 14
@@ -1947,7 +1947,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-47: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+47: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 14
@@ -1986,7 +1986,7 @@ The behavior up to this point is:
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-48: <Next line 1021, col 5 to line 1075, col 38 of module paxos>
+48: <Next line 1021, col 5 to line 1075, col 38 of module ceph>
 /\ uncommitted_v = (m1 :> 0 @@ m2 :> 0 @@ m3 :> 1)
 /\ phase = (m1 :> PHASE_LEASE @@ m2 :> PHASE_ELECTION @@ m3 :> PHASE_ELECTION)
 /\ epoch = 14
