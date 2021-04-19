@@ -1,19 +1,20 @@
 # TLA+ specification of the Ceph consensus algorithm
 
-This is a formal specification of the Ceph consensus algorithm (based on Paxos). <br>
+This is a formal specification of the Ceph consensus algorithm (that is based on Paxos). <br>
 The specification is based on the following source file: https://github.com/ceph/ceph/blob/master/src/mon/Paxos.cc.<br>
 The specification is written in the TLA+ language https://lamport.azurewebsites.net/tla/tla.html.
 
-A detailed description of the model can be found at: [description.md](description.md)
-<br>
-Results of the model can be found at: [results](results)
+A detailed description of the model can be found at: [description.md](description.md). <br>
+Results of the model can be found at: [results](results). <br>
+An interactive explorer can be found at: [animation](animation). <br>
 
 Some of the useful things that can be done with this model are:
 * Prove safety and liveness properties of the implemented algorithm. Test new versions of the algorithm to see if properties still hold.
-* Possibility of creating traces of segments of the algorithm and see how the variables change (example: [trace-example](trace-example)).
-* Make interactive visualizations of the algorithm (such as this one: https://github.com/afonsonf/tlaplus-graph-explorer).
+* Make interactive visualizations of the algorithm and see how the variables change.
 * Analyse statistics of the state machine generated from the algorithm.
 * Debug the algorithm. Search behaviours that lead to certain configurations and study what can happen from there.
+
+![](animation/example.gif)
 
 ## How to run using TLC
 
@@ -48,7 +49,7 @@ The container comes with alias to run the tools, respectively: tla-sany, tla-tlc
 
 The toolbox can be downloaded from https://github.com/tlaplus/tlaplus/releases. The main file to load in the toolbox is ceph.tla in the src folder.
 
-## Apalache
+## How to run using Apalache
 [Apalache](https://apalache.informal.systems) is a symbolic model checker for TLA+, as an alternative to TLC. Apalache translates the specification to a set of logical constraints that are solved using Microsoft's Z3. Apalache also comes with a type checker named snowcat (https://apalache.informal.systems/docs/apalache/typechecker-snowcat.html).
 
 #### Type check using apalache's snowcat
