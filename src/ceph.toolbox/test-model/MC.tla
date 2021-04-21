@@ -12,20 +12,20 @@ v1, v2
 ----
 
 \* MV CONSTANT definitions Monitors
-const_16187828978286000 == 
+const_161894924371742000 == 
 {m1, m2, m3}
 ----
 
 \* MV CONSTANT definitions Value_set
-const_16187828978287000 == 
+const_161894924371743000 == 
 {v1, v2}
 ----
 
 \* SYMMETRY definition
-symm_16187828978288000 == 
-Permutations(const_16187828978286000) \union Permutations(const_16187828978287000)
+symm_161894924371744000 == 
+Permutations(const_161894924371742000) \union Permutations(const_161894924371743000)
 ----
 
 =============================================================================
 \* Modification History
-\* Created Sun Apr 18 22:54:57 WEST 2021 by afonsonf
+\* Created Tue Apr 20 21:07:23 WEST 2021 by afonsonf
