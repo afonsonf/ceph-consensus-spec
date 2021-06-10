@@ -22,7 +22,7 @@
     <stringAttribute key="modelBehaviorNext" value="Next"/>
     <stringAttribute key="modelBehaviorSpec" value=""/>
     <intAttribute key="modelBehaviorSpecType" value="2"/>
-    <stringAttribute key="modelBehaviorVars" value="uncommitted_v, phase, epoch, pending_v, monitor_store, messages, accepted_pn, isLeader, number_crashes, accepted, state, first_committed, step_name, pending_pn, peer_first_committed, quorum_sz, pending_proposal, values, quorum, message_history, last_committed, uncommitted_pn, acked_lease, peer_last_committed, uncommitted_value, num_last, new_value"/>
+    <stringAttribute key="modelBehaviorVars" value="uncommitted_v, phase, epoch, pending_v, monitor_store, messages, accepted_pn, isLeader, accepted, state, first_committed, step_name, pending_pn, peer_first_committed, quorum_sz, pending_proposal, values, quorum, message_history, last_committed, uncommitted_pn, acked_lease, peer_last_committed, uncommitted_value, num_last, new_value"/>
     <stringAttribute key="modelComments" value=""/>
     <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
     <listAttribute key="modelCorrectnessInvariants">

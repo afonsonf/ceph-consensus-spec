@@ -43,7 +43,7 @@ SetToSeq(S) ==
 (***************************************************************************)
 
 \* Set of Monitors.
-CONSTANTS (*@type: Set(MONITOR);*) Monitors
+CONSTANTS (*@type: Set(MONITOR);*)  Monitors
 
 \* Sequence of monitors.
 \* @type: Seq(MONITOR);
@@ -53,40 +53,43 @@ MonitorsSeq == TLCEval(SetToSeq(Monitors))
 \* @type: Int;
 MonitorsLen == TLCEval(Len(MonitorsSeq))
 
-\* Rank predicate, used to compute proposal numbers.
+\* Rank predicate, used as a monitor identifier.
 \* @type: MONITOR => Int;
 rank(mon) == CHOOSE i \in 1..MonitorsLen: MonitorsSeq[i]=mon
 
 \* Set of possible values.
-CONSTANTS (*@type: Set(VALUE);*) Value_set
+CONSTANTS (*@type: Set(VALUE);*)  Value_set
 
 \* Predicate used in the cfg file to define the symmetry set.
-\* Workaround for typechecker.
+\* Workaround for typechecker:
 \* @typeAlias: MONITOR = T;
 \* @typeAlias: VALUE = T;
 SYMM == Permutations(Monitors) \union Permutations(Value_set)
 
 \* Reserved value.
-CONSTANTS (*@type: VALUE;*) Nil
+CONSTANTS (*@type: VALUE;*)  Nil
 
 \* Paxos states.
-CONSTANTS (*@type: STATE_NAME;*) STATE_RECOVERING,(*@type: STATE_NAME;*) STATE_ACTIVE,
-          (*@type: STATE_NAME;*) STATE_UPDATING, (*@type: STATE_NAME;*) STATE_UPDATING_PREVIOUS,
-          (*@type: STATE_NAME;*) STATE_WRITING, (*@type: STATE_NAME;*) STATE_WRITING_PREVIOUS,
-          (*@type: STATE_NAME;*) STATE_REFRESH, (*@type: STATE_NAME;*) STATE_SHUTDOWN
+CONSTANTS (*@type: STATE_NAME;*)  STATE_RECOVERING,(*@type: STATE_NAME;*)  STATE_ACTIVE,
+          (*@type: STATE_NAME;*)  STATE_UPDATING,
+          (*@type: STATE_NAME;*)  STATE_UPDATING_PREVIOUS,
+          (*@type: STATE_NAME;*)  STATE_WRITING,
+          (*@type: STATE_NAME;*)  STATE_WRITING_PREVIOUS,
+          (*@type: STATE_NAME;*)  STATE_REFRESH, (*@type: STATE_NAME;*)  STATE_SHUTDOWN
 
 \* Paxos auxiliary phase states.
 \* They are used to force some sequence of steps.
-CONSTANTS (*@type: PHASE_NAME;*) PHASE_ELECTION,
-          (*@type: PHASE_NAME;*) PHASE_SEND_COLLECT, (*@type: PHASE_NAME;*) PHASE_COLLECT,
-          (*@type: PHASE_NAME;*) PHASE_LEASE, (*@type: PHASE_NAME;*) PHASE_LEASE_DONE,
-          (*@type: PHASE_NAME;*) PHASE_BEGIN, (*@type: PHASE_NAME;*) PHASE_COMMIT
+CONSTANTS (*@type: PHASE_NAME;*)  PHASE_ELECTION,
+          (*@type: PHASE_NAME;*)  PHASE_SEND_COLLECT,
+          (*@type: PHASE_NAME;*)  PHASE_COLLECT,
+          (*@type: PHASE_NAME;*)  PHASE_LEASE, (*@type: PHASE_NAME;*)  PHASE_LEASE_DONE,
+          (*@type: PHASE_NAME;*)  PHASE_BEGIN, (*@type: PHASE_NAME;*)  PHASE_COMMIT
 
 \* Paxos message types.
-CONSTANTS (*@type: MESSAGE_OP;*) OP_COLLECT, (*@type: MESSAGE_OP;*) OP_LAST,
-          (*@type: MESSAGE_OP;*) OP_BEGIN, (*@type: MESSAGE_OP;*) OP_ACCEPT,
-          (*@type: MESSAGE_OP;*) OP_COMMIT,
-          (*@type: MESSAGE_OP;*) OP_LEASE, (*@type: MESSAGE_OP;*) OP_LEASE_ACK
+CONSTANTS (*@type: MESSAGE_OP;*)  OP_COLLECT, (*@type: MESSAGE_OP;*)  OP_LAST,
+          (*@type: MESSAGE_OP;*)  OP_BEGIN, (*@type: MESSAGE_OP;*)  OP_ACCEPT,
+          (*@type: MESSAGE_OP;*)  OP_COMMIT,
+          (*@type: MESSAGE_OP;*)  OP_LEASE, (*@type: MESSAGE_OP;*)  OP_LEASE_ACK
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -94,20 +97,20 @@ CONSTANTS (*@type: MESSAGE_OP;*) OP_COLLECT, (*@type: MESSAGE_OP;*) OP_LAST,
 (* ^'                                                                      *)
 (***************************************************************************)
 
-\* Integer representing the current epoch. If is odd trigger an election.
-VARIABLE (*@type: Int;*) epoch
+\* Integer representing the current epoch. When epoch is odd trigger an election.
+VARIABLE (*@type: Int;*)  epoch
 
 \* Store messages waiting to be handled.
-VARIABLE (*@type: MONITOR -> (MONITOR -> Seq(MESSAGE));*) messages
+VARIABLE (*@type: MONITOR -> (MONITOR -> Seq(MESSAGE));*)  messages
 
 \* Stores history of messages. Can be useful to find specific states.
-VARIABLE (*@type: Set(MESSAGE);*) message_history
+VARIABLE (*@type: Set(MESSAGE);*)  message_history
 
 \* Stores if a monitor is up or down. All available monitors, in a given epoch, are part of the quorum.
-VARIABLE (*@type: MONITOR -> Bool;*) quorum
+VARIABLE (*@type: MONITOR -> Bool;*)  quorum
 
 \* Size of the current quorum.
-VARIABLE (*@type: Int;*) quorum_sz
+VARIABLE (*@type: Int;*)  quorum_sz
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -116,13 +119,13 @@ VARIABLE (*@type: Int;*) quorum_sz
 (***************************************************************************)
 
 \* A function that stores the current leader. isLeader[mon] is True iff mon is a leader, else False.
-VARIABLE (*@type: MONITOR -> Bool;*) isLeader
+VARIABLE (*@type: MONITOR -> Bool;*)  isLeader
 
 \* A function that stores the state of each monitor.
-VARIABLE (*@type: MONITOR -> STATE_NAME;*) state
+VARIABLE (*@type: MONITOR -> STATE_NAME;*)  state
 
 \* A function that stores the phase of each monitor.
-VARIABLE (*@type: MONITOR -> PHASE_NAME;*) phase
+VARIABLE (*@type: MONITOR -> PHASE_NAME;*)  phase
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -132,20 +135,20 @@ VARIABLE (*@type: MONITOR -> PHASE_NAME;*) phase
 
 \* A function that stores, for each monitor, a proposal number when the commit phase starts.
 \* This proposal number can be retrieved after a monitor crashes and restarts.
-VARIABLE (*@type: MONITOR -> PN;*) pending_pn
+VARIABLE (*@type: MONITOR -> PN;*)  pending_pn
 
 \* A function that stores, for each monitor, a value version when the commit phase starts.
 \* This value version can be retrieved after a monitor crashes and restarts.
-VARIABLE (*@type: MONITOR -> VALUE_VERSION;*) pending_v
+VARIABLE (*@type: MONITOR -> VALUE_VERSION;*)  pending_v
 
 \* A function that stores, for each monitor, the best uncommitted pn received in the collect phase.
-VARIABLE (*@type: MONITOR -> PN;*) uncommitted_pn
+VARIABLE (*@type: MONITOR -> PN;*)  uncommitted_pn
 
 \* A function that stores, for each monitor, the best uncommitted value version received in the collect phase.
-VARIABLE (*@type: MONITOR -> VALUE_VERSION;*) uncommitted_v
+VARIABLE (*@type: MONITOR -> VALUE_VERSION;*)  uncommitted_v
 
 \* A function that stores, for each monitor, the best uncommitted value received in the collect phase.
-VARIABLE (*@type: MONITOR -> VALUE;*) uncommitted_value
+VARIABLE (*@type: MONITOR -> VALUE;*)  uncommitted_value
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -154,20 +157,20 @@ VARIABLE (*@type: MONITOR -> VALUE;*) uncommitted_value
 (***************************************************************************)
 
 \* A function that stores, for each monitor, the store where the transactions are applied.
-\* In this model, a transaction represents changing the value in the store.
-VARIABLE (*@type: MONITOR -> VALUE;*) monitor_store
+\* In this specification, a transaction represents changing the value in the store.
+VARIABLE (*@type: MONITOR -> VALUE;*)  monitor_store
 
 \* A function that stores the transaction log of each monitor.
-VARIABLE (*@type: MONITOR -> (VALUE_VERSION -> VALUE);*) values
+VARIABLE (*@type: MONITOR -> (VALUE_VERSION -> VALUE);*)  values
 
 \* A function that stores the last proposal number accepted by each monitor.
-VARIABLE (*@type: MONITOR -> PN;*) accepted_pn
+VARIABLE (*@type: MONITOR -> PN;*)  accepted_pn
 
 \* A function that stores the first value version committed by each monitor.
-VARIABLE (*@type: MONITOR -> VALUE_VERSION;*) first_committed
+VARIABLE (*@type: MONITOR -> VALUE_VERSION;*)  first_committed
 
 \* A function that stores the last value version committed by each monitor.
-VARIABLE (*@type: MONITOR -> VALUE_VERSION;*) last_committed
+VARIABLE (*@type: MONITOR -> VALUE_VERSION;*)  last_committed
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -176,13 +179,11 @@ VARIABLE (*@type: MONITOR -> VALUE_VERSION;*) last_committed
 (***************************************************************************)
 
 \* A function that stores the number of peers that accepted a collect request.
-VARIABLE (*@type: MONITOR -> Int;*) num_last
+VARIABLE (*@type: MONITOR -> Int;*)  num_last
 
 \* Used by leader when receiving responses in collect phase.
-VARIABLE (*@type: MONITOR -> (MONITOR -> VALUE_VERSION);*) peer_first_committed
-
-\* Used by leader when receiving responses in collect phase.
-VARIABLE (*@type: MONITOR -> (MONITOR -> VALUE_VERSION);*) peer_last_committed
+VARIABLE (*@type: MONITOR -> (MONITOR -> VALUE_VERSION);*)  peer_first_committed
+VARIABLE (*@type: MONITOR -> (MONITOR -> VALUE_VERSION);*)  peer_last_committed
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -191,7 +192,7 @@ VARIABLE (*@type: MONITOR -> (MONITOR -> VALUE_VERSION);*) peer_last_committed
 (***************************************************************************)
 
 \* A function that stores, for each monitor, which of the peers have acked the lease request.
-VARIABLE (*@type: MONITOR -> (MONITOR -> Bool);*) acked_lease
+VARIABLE (*@type: MONITOR -> (MONITOR -> Bool);*)  acked_lease
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -200,13 +201,13 @@ VARIABLE (*@type: MONITOR -> (MONITOR -> Bool);*) acked_lease
 (***************************************************************************)
 
 \* A function that stores, for each monitor, the value proposed by a client.
-VARIABLE (*@type: MONITOR -> VALUE;*) pending_proposal
+VARIABLE (*@type: MONITOR -> VALUE;*)  pending_proposal
 
 \* A function that stores, for each monitor, the value to be committed in the begin phase.
-VARIABLE (*@type: MONITOR -> VALUE;*) new_value
+VARIABLE (*@type: MONITOR -> VALUE;*)  new_value
 
 \* A function that stores, for each monitor, which of the peers have acked the begin request.
-VARIABLE (*@type: MONITOR -> (MONITOR -> Bool);*) accepted
+VARIABLE (*@type: MONITOR -> (MONITOR -> Bool);*)  accepted
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -217,11 +218,7 @@ VARIABLE (*@type: MONITOR -> (MONITOR -> Bool);*) accepted
 \* Variables to help debug a behavior.
 \* step is the diameter of a behavior/path.
 \* step_name the current predicate being called.
-VARIABLE (*@type: Str;*) step_name
-
-\* Variables to limit the number of monitors crashes that can occur over a behavior.
-\* This variable is used to limit the search space.
-VARIABLE (*@type: Int;*) number_crashes
+VARIABLE (*@type: Str;*)  step_name
 
 (***************************************************************************)
 (* `^ \centering                                                           *)
@@ -290,7 +287,7 @@ Init ==
     /\ Init_collect_vars
     /\ Init_lease_vars
     /\ Init_commit_vars
-    /\ step_name = "init" /\ number_crashes = 0
+    /\ step_name = "init"
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -385,7 +382,7 @@ Discard(m) ==
 \* get_new_proposal_number(mon, oldpn) == ((oldpn \div 100) + 1) * 100 + rank(mon)
 
 \* Version B - Adapted to not break symmetry.
-\* Example: oldpn = 300, rank(mon) = 5, newpn = 400.
+\* Example: oldpn = 302, epoch = 4, newpn = 404.
 \* @type: (MONITOR, Int) => Int;
 get_new_proposal_number(mon, oldpn) == ((oldpn \div 100) + 1) * 100 + epoch
 
@@ -393,15 +390,13 @@ get_new_proposal_number(mon, oldpn) == ((oldpn \div 100) + 1) * 100 + epoch
 \* Variables changed: peer_first_committed.
 \* @type: MONITOR => Bool;
 clear_peer_first_committed(mon) ==
-    peer_first_committed' = [peer_first_committed EXCEPT ![mon] =
-                                [m \in Monitors |-> -1]]
+    peer_first_committed' = [peer_first_committed EXCEPT ![mon] = [m \in Monitors |-> -1]]
 
 \* Clear the variable peer_last_committed.
 \* Variables changed: peer_last_committed.
 \* @type: MONITOR => Bool;
 clear_peer_last_committed(mon) ==
-    peer_last_committed' = [peer_last_committed EXCEPT ![mon] =
-                                [m \in Monitors |-> -1]]
+    peer_last_committed' = [peer_last_committed EXCEPT ![mon] = [m \in Monitors |-> -1]]
 
 \* Store peer values and update first_committed, last_committed and monitor_store accordingly.
 \* Variables changed: values, first_committed, last_committed, monitor_store.
@@ -411,7 +406,7 @@ store_state(mon,msg) ==
     /\ LET logs == (DOMAIN msg.values) \intersect (last_committed[mon]+1..msg.last_committed)
        IN /\ values' = [values EXCEPT ![mon] =
                [i \in DOMAIN values[mon] \union logs |->
-                   IF i \in logs
+                   IF i \in logs \* priority to peer committed values over mon uncommitted
                    THEN msg.values[i]
                    ELSE values[mon][i] ]]
           \* Update last committed and first committed.
@@ -712,8 +707,8 @@ collect(mon, oldpn) ==
 \* Continue the start of the collect phase. Initialize the number of peers that accepted the proposal (num_last) and
 \* the variables with peers version numbers. Check if there is an uncommitted value.
 \* Send collect messages to the peers.
-\* Variables changed: peer_first_committed, peer_last_committed, uncommitted_pn, uncommitted_v, uncommitted_value, num_last,
-\* messages, message_history, phase.
+\* Variables changed: peer_first_committed, peer_last_committed, uncommitted_pn, uncommitted_v, uncommitted_value,
+\* num_last, messages, message_history, phase.
 \* @type: MONITOR => Bool;
 send_collect(mon) ==
     /\ state[mon] = STATE_RECOVERING
@@ -775,8 +770,8 @@ handle_collect(mon, msg) ==
 \* The peers first and last committed version are stored. If the leader is behind, bootstraps. Stores any value that
 \* the peer may have committed (store_state). If peer is behind send commit message with leader values.
 \* If peer accepted proposal number increase num last, if he sent a bigger proposal number start a new collect phase.
-\* Variables changed: messages, message_history, epoch, phase, uncommitted_pn, uncommitted_v, uncommitted_value, monitor_store, values,
-\* accepted_pn, first_committed, last_committed, num_last, peer_first_committed, peer_last_committed.
+\* Variables changed: messages, message_history, epoch, phase, uncommitted_pn, uncommitted_v, uncommitted_value,
+\* monitor_store, values, accepted_pn, first_committed, last_committed, num_last, peer_first_committed, peer_last_committed.
 \* @type: (MONITOR, MESSAGE) => Bool;
 handle_last(mon,msg) ==
     /\ isLeader[mon] = TRUE
@@ -790,8 +785,8 @@ handle_last(mon,msg) ==
        THEN
         /\ bootstrap
         /\ Discard(msg)
-        /\ UNCHANGED <<num_last, accepted_pn, values, phase, monitor_store>>
-        /\ UNCHANGED <<first_committed, last_committed, uncommitted_pn, uncommitted_v, uncommitted_value>>
+        /\ UNCHANGED <<first_committed, last_committed, num_last, accepted_pn, values, phase>>
+        /\ UNCHANGED <<monitor_store, uncommitted_pn, uncommitted_v, uncommitted_value>>
        ELSE
         /\ store_state(mon, msg)
         /\ IF \E peer \in Monitors:
@@ -805,6 +800,7 @@ handle_last(mon,msg) ==
             /\ Discard(msg)
             /\ UNCHANGED <<phase, accepted_pn, num_last>>
            ELSE
+            \* Send commit messages with my values to peers that are behind.
             /\ LET monitors_behind == {peer \in Monitors:
                     /\ peer # mon
                     /\ peer_last_committed'[mon][peer] # -1
@@ -818,12 +814,14 @@ handle_last(mon,msg) ==
                       pn             |-> accepted_pn[mon],
                       values         |-> values[mon]]: dest \in monitors_behind
                     }, msg)
-            /\ \/ /\ msg.pn > accepted_pn[mon]
+            /\ \/ \* Start new collect phase with a bigger proposal number.
+                  /\ msg.pn > accepted_pn[mon]
                   /\ collect(mon, msg.pn)
                   /\ check_and_correct_uncommitted(mon)
                   /\ UNCHANGED num_last
 
-               \/ /\ msg.pn = accepted_pn[mon]
+               \/ \* Peer accepted the request, count his vote.
+                  /\ msg.pn = accepted_pn[mon]
                   /\ num_last' = [num_last EXCEPT ![mon] = num_last[mon] + 1]
                   /\ IF /\ msg.last_committed+1 \in DOMAIN msg.values
                         /\ msg.last_committed >= last_committed'[mon]
@@ -919,7 +917,6 @@ crash_mon(mon) ==
     /\ quorum' = [quorum EXCEPT ![mon] = FALSE]
     /\ quorum_sz' = quorum_sz - 1
     /\ bootstrap
-    \*/\ number_crashes' = number_crashes+1
     /\ UNCHANGED <<messages, message_history>>
     /\ UNCHANGED <<state_vars, restart_vars, data_vars, collect_vars, lease_vars, commit_vars>>
 
@@ -981,11 +978,9 @@ Receive(msg) ==
 \* Limit some variables to reduce search space.
 \* @type: Bool;
 reduce_search_space ==
-    /\ epoch # 8
-    /\ \/ \A mon \in Monitors: last_committed[mon] < 2
-       \*\/ \A mon2 \in Monitors: new_value[mon2] = Nil
-    /\ \A mon \in Monitors: accepted_pn[mon] < 300
-    \*/\ number_crashes # 4
+    /\ epoch # 14
+    /\ \A mon \in Monitors: last_committed[mon] < 2
+    /\ \A mon \in Monitors: accepted_pn[mon] < 400
 
 \* State transitions.
 \* @type: Bool;
@@ -994,57 +989,44 @@ Next ==
     /\ IF epoch % 2 = 1 THEN
         /\ leader_election
         /\ step_name' = "election"
-        /\ UNCHANGED number_crashes
        ELSE
         \/ /\ \E mon \in Monitors: election_recover(mon)
            /\ step_name' = "election_recover"
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: send_collect(mon)
            /\ step_name' = "send_collect"
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: post_last(mon)
            /\ step_name' = "post_last"
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: post_lease_ack(mon)
            /\ step_name' = "post_lease_ack"
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: post_accept(mon)
            /\ step_name' = "post_accept"
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: finish_commit(mon)
            /\ step_name' = "finish_commit"
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: \E v \in Value_set: client_request(mon, v)
            /\ step_name' = "client_request"
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: propose_pending(mon)
            /\ step_name' = "propose_pending"
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon1, mon2 \in Monitors:
                 /\ mon1 # mon2
                 /\ Len(messages[mon1][mon2])>0
                 /\ Receive(messages[mon1][mon2][1])
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: crash_mon(mon)
            /\ step_name' = "crash_mon"
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: restore_mon(mon)
            /\ step_name' = "restore_mon"
-           /\ UNCHANGED number_crashes
 
         \/ /\ \E mon \in Monitors: Timeout(mon)
            /\ step_name' = "timeout_and_restart"
-           /\ UNCHANGED number_crashes
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -1054,13 +1036,23 @@ Next ==
 
 \* If two monitors are in state active then their monitor_store must have the same value.
 \* @type: Bool;
-same_monitor_store == \A mon1, mon2 \in Monitors:
-    state[mon1] = STATE_ACTIVE /\ state[mon2] = STATE_ACTIVE
-    => monitor_store[mon1] = monitor_store[mon2]
+same_monitor_store ==
+    \A mon1, mon2 \in Monitors:
+        state[mon1] = STATE_ACTIVE /\ state[mon2] = STATE_ACTIVE
+        => monitor_store[mon1] = monitor_store[mon2]
 
+\* In each version, every monitor chooses the same value.
+\* @type: Bool;
+same_monitor_values ==
+    \A version \in 1..Max({last_committed[mon]: mon \in Monitors}):
+        \E val \in Value_set:
+            \A mon \in Monitors:
+                last_committed[mon] < version \/ values[mon][version] = val
+    
 \* Invariant.
 \* @type: Bool;
 Inv == /\ same_monitor_store
+       /\ same_monitor_values
 
 (***************************************************************************)
 (* `^                                                                      *)
@@ -1085,7 +1077,8 @@ Examples:
 Find a behavior with a diameter of size 60.
 Inv_diam(60)
 
-Find a behavior where two different monitors assume the role of a leader.
+Find a behavior where two different monitors assume the role of a leader (in different epochs).
+Note: In the message manipulation predicates, the variable message_history needs to be updated.
 Inv_find_state(
     \E msg1, msg2 \in message_history:
         /\ msg1.type = OP_COLLECT /\ msg2.type = OP_COLLECT
@@ -1094,35 +1087,32 @@ Inv_find_state(
 
 Find a state where a monitor crashed during the collect phase and fails to send a OP_LAST message.
 Inv_find_state(
-    /\ step_name="crash mon"
+    /\ step_name="crash_mon"
 
     \* The system is in collect phase and no OP_LAST message has been received.
-    \* isLeader[mon] = TRUE assures that the leader was not the one that crashed.
+    \* isLeader[mon] = TRUE and quorum[mon] assures that the leader was not the one that crashed.
     /\ \E mon \in Monitors:
-        /\ isLeader[mon] = TRUE
+        /\ isLeader[mon] = TRUE /\ quorum[mon]
         /\ phase[mon] = PHASE_COLLECT
         /\ num_last[mon] = 1
 
     \* All the collect requests have been handled by the peers.
     /\ \A mon1, mon2 \in Monitors:
         \A i \in 1..Len(messages[mon1][mon2]): messages[mon1][mon2][i].type # OP_COLLECT
-
-    /\ epoch = 2
 )
 
 Find a state where the leader crashes during the commit phase, failing to complete the commit.
 Inv_find_state(
-    /\ step_name="crash mon"
+    /\ step_name="crash_mon"
     /\ \E mon1, mon2 \in Monitors:
         \E i \in 1..Len(messages[mon1][mon2]): messages[mon1][mon2][i].type = OP_ACCEPT
     /\ \A mon \in Monitors:
-        isLeader[mon] = FALSE
-    /\ epoch = 2
+        isLeader[mon] = FALSE \/ quorum[mon] = FALSE
 )
 Note: After finding a state, that complete state can be used as an initial state to analyze behaviors from there.
 *)
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 18 22:54:31 WEST 2021 by afonsonf
+\* Last modified Thu Jun 10 18:34:59 WEST 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf
