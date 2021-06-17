@@ -78,6 +78,6 @@
     <stringAttribute key="tlcResourcesProfile" value="local custom"/>
     <listAttribute key="traceExploreExpressions"/>
     <setAttribute key="traceExploreExtends"/>
-    <stringAttribute key="view" value=""/>
+    <stringAttribute key="view" value="view"/>
     <booleanAttribute key="visualizeStateGraph" value="false"/>
 </launchConfiguration>

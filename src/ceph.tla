@@ -240,6 +240,8 @@ commit_vars    == <<pending_proposal, new_value, accepted>>
 vars == <<global_vars, state_vars, restart_vars, data_vars, collect_vars,
           lease_vars, commit_vars>>
 
+view == <<messages, quorum, state_vars, restart_vars, data_vars, collect_vars, commit_vars>>
+
 Init_global_vars ==
     /\ epoch = 1
     /\ messages = [mon1 \in Monitors |-> [mon2 \in Monitors |-> <<>>] ]
@@ -1114,5 +1116,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Thu Jun 10 18:34:59 WEST 2021 by afonsonf
+\* Last modified Thu Jun 17 17:12:03 WEST 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf

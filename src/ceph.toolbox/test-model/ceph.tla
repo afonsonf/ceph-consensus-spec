@@ -237,8 +237,10 @@ collect_vars   == <<num_last, peer_first_committed, peer_last_committed>>
 lease_vars     == acked_lease
 commit_vars    == <<pending_proposal, new_value, accepted>>
 
-vars == <<global_vars, state_vars, restart_vars, data_vars, collect_vars,
+vars == <<global_vars, isLeader, state, restart_vars, data_vars, collect_vars,
           lease_vars, commit_vars>>
+
+view == <<messages, quorum, state_vars, restart_vars, data_vars, collect_vars, commit_vars>>
 
 Init_global_vars ==
     /\ epoch = 1
@@ -826,7 +828,7 @@ handle_last(mon,msg) ==
                   /\ IF /\ msg.last_committed+1 \in DOMAIN msg.values
                         /\ msg.last_committed >= last_committed'[mon]
                         /\ msg.last_committed+1 >= uncommitted_v[mon]
-                        /\ msg.uncommitted_pn >= uncommitted_pn[mon]
+                        \*/\ msg.uncommitted_pn >= uncommitted_pn[mon]
                      THEN /\ uncommitted_v' =
                                 [uncommitted_v EXCEPT ![mon] = msg.last_committed+1]
                           /\ uncommitted_pn' =
@@ -1114,5 +1116,5 @@ Note: After finding a state, that complete state can be used as an initial state
 
 =============================================================================
 \* Modification History
-\* Last modified Thu Jun 10 18:34:59 WEST 2021 by afonsonf
+\* Last modified Thu Jun 17 13:52:20 WEST 2021 by afonsonf
 \* Created Mon Jan 11 16:15:26 WET 2021 by afonsonf

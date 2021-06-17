@@ -12,20 +12,25 @@ v1, v2
 ----
 
 \* MV CONSTANT definitions Monitors
-const_162334693645957000 == 
+const_162393434718242000 == 
 {m1, m2, m3}
 ----
 
 \* MV CONSTANT definitions Value_set
-const_162334693646058000 == 
+const_162393434718243000 == 
 {v1, v2}
 ----
 
 \* SYMMETRY definition
-symm_162334693646059000 == 
-Permutations(const_162334693645957000) \union Permutations(const_162334693646058000)
+symm_162393434718244000 == 
+Permutations(const_162393434718242000) \union Permutations(const_162393434718243000)
+----
+
+\* VIEW definition @modelParameterView
+view_162393434718245000 == 
+view
 ----
 
 =============================================================================
 \* Modification History
-\* Created Thu Jun 10 18:42:16 WEST 2021 by afonsonf
+\* Created Thu Jun 17 13:52:27 WEST 2021 by afonsonf
