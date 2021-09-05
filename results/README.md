@@ -11,20 +11,14 @@ The conditions to stop the model are:
 
 ## Results
 
-Model with 3 monitors and a value set of size 1:
-* Diameter: 53
-* Approximated running time: 20s
-* Number of distinct states: 390 719
-* The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 7 and the 95th percentile is 5).
-
 Model with 3 monitors and a value set of size 2:
 * Diameter: 53
-* Approximated running time: 30s
-* Number of distinct states: 618 152
-* The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 8 and the 95th percentile is 5).
+* Approximated running time: 6s
+* Number of distinct states: 246 713
+* The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 7 and the 95th percentile is 4).
 
 Model with 4 monitors and a value set of size 2:
 * Diameter: 70
-* Approximated running time: 8min
-* Number of distinct states: 9 932 276
-* he average outdegree of the complete state graph is 1 (minimum is 0, the maximum 10 and the 95th percentile is 5).
+* Approximated running time: 3min
+* Number of distinct states: 4 842 173
+* The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 9 and the 95th percentile is 5).
