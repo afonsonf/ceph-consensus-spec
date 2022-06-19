@@ -5,3 +5,5 @@ src/ceph.toolbox/*.tex
 src/ceph.toolbox/*.aux
 src/ceph.toolbox/*.log
 src/ceph.toolbox/test-model/*-*-*
+_apalache-out/
+src/states/

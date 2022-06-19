@@ -842,7 +842,6 @@ handle_last(mon,msg) ==
                   /\ check_and_correct_uncommitted(mon)
                   /\ UNCHANGED <<phase, accepted_pn, num_last>>
             /\ UNCHANGED epoch
-       /\ UNCHANGED epoch
 
     /\ UNCHANGED <<quorum, quorum_sz, isLeader, state, pending_pn, pending_v>>
     /\ UNCHANGED <<lease_vars, commit_vars>>
